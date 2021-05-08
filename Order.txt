@@ -1,0 +1,13 @@
+1、添加本地tag          git tag -a 1.0.0 -m 'release 1.0.0'
+2、传到远程             git push origin --tags
+3、不需要联网验证        pod lib lint --verbose --allow-warnings
+4、上传到Cocoapods      pod trunk push KJEmitterView.podspec --allow-warnings
+
+1、删除本地tag                git tag -d 1.0.0
+2、删除远程tag                git push origin -d tag 1.0.0
+3、删除trunk库指定版本         pod trunk delete KJEmitterView 0.0.1
+4、删除pods所有版本            pod trunk deprecate KJEmitterView
+5、删除之后重新pod repo处理    pod repo update
+
+1、恢复到多少次提交前的状态     git reset --soft HEAD~i    // i代表要恢复到多少次提交前的状态，
+2、删除远端提交记录            git push origin master --force    // master代表当前分支

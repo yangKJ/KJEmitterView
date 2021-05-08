@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  KJEmitterView
+
+  Created by 杨科军 on 2019/12/3.
+  
+*/
+"textLabel" = "当前语言为中文";
+"textFieldPlaceholder" = "测试textField";
+"textButtonDefault" = "按钮正常状态";
+"textButtonSelect" = "按钮选中状态";
+"textButtonHighliaght" = "按钮高亮状态";
+"textButtonDisable" = "按钮不可操作状态";
+"切换语言" = "切换语言";

@@ -32,8 +32,6 @@ typedef NS_ENUM(NSUInteger, KJLabelTextAlignmentType) {
 /// 获取高度，指定行高
 - (CGFloat)kj_calculateHeightWithWidth:(CGFloat)width OneLineHeight:(CGFloat)height;
 /// 获取文字尺寸
-FOUNDATION_EXPORT CGSize kCalculateLabelSize(UILabel *label, NSLineBreakMode mode);
-FOUNDATION_EXPORT CGSize kCalculateTitleSize(NSString *title, UIFont *font, CGSize size, NSLineBreakMode mode);
 + (CGSize)kj_calculateLabelSizeWithTitle:(NSString*)title
                                     font:(UIFont*)font
                        constrainedToSize:(CGSize)size
@@ -54,7 +52,7 @@ FOUNDATION_EXPORT CGSize kCalculateTitleSize(NSString *title, UIFont *font, CGSi
 - (void)kj_removeCopyLongPressGestureRecognizer;
 
 #pragma mark - 下拉菜单
-/// 下拉菜单扩展
+/// TODO:下拉菜单扩展
 - (UITableView*)kj_dropdownMenuTexts:(NSArray<NSString*>*)texts
                            MaxHeight:(CGFloat)height
                           selectText:(void(^)(NSString *string))block;

@@ -46,4 +46,14 @@
 #else
 #endif
 
+//************************************* LeetCode *****************************************
+// 需要引入，请使用 pod 'KJEmitterView/LeetCode'
+#if __has_include(<KJEmitterView/KJLeetCode.h>)
+#import <KJEmitterView/KJLeetCode.h>
+#elif __has_include("KJLeetCode.h")
+#import "KJLeetCode.h"
+#else
+#endif
+
+
 #endif /* KJEmitterHeader_h */

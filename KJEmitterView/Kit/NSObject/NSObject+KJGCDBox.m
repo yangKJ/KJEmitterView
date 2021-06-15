@@ -213,7 +213,7 @@ void kGCD_apply(int iterations, void(^block)(size_t idx)) {
 /// 快速遍历数组
 void kGCD_apply_array(NSArray * temp, void(^block)(id obj, size_t index)) {
     void (^xxblock)(size_t) = ^(size_t index){
-        block(temp[index],index);
+        block(temp[index], index);
     };
     dispatch_apply(temp.count, kGCD_queue(), xxblock);
 }

@@ -12,7 +12,6 @@
 @end
 
 @implementation UIView (KJFrame)
-#pragma mark - 使用Masonry布局之后得到尺寸
 - (CGFloat)x{
     return self.frame.origin.x;
 }
@@ -112,10 +111,10 @@
 }
 @dynamic maxX,maxY;
 - (CGFloat)maxX{
-    return self.frame.origin.x + self.frame.size.width;
+    return CGRectGetMaxX(self.frame);
 }
 - (CGFloat)maxY{
-    return self.frame.origin.y + self.frame.size.height;
+    return CGRectGetMaxY(self.frame);
 }
 @dynamic masonryX,masonryY,masonryWidth,masonryHeight;
 - (CGFloat)masonryX{
@@ -229,6 +228,12 @@
         if (operation && operation(view) == NO) continue;
         view.hidden = hide;
     }
+}
+/// 更新尺寸，使用autolayout布局时需要刷新约束才能获取到真实的frame
+- (void)kj_updateFrame{
+    [self updateConstraints];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 @end

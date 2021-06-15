@@ -34,6 +34,7 @@
 		68E283B821B38DCC009B708F /* KJAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E283B621B38DCC009B708F /* KJAlertVC.m */; };
 		68E283B921B38DCC009B708F /* KJAlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E283B721B38DCC009B708F /* KJAlertVC.xib */; };
 		988C277B43737CB4C2B90F48 /* Pods_KJEmitterView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1912039BF08D8F172E52EC54 /* Pods_KJEmitterView.framework */; };
+		C964E58C264FB7C600F56853 /* LeetCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C964E58B264FB7C600F56853 /* LeetCodeViewController.m */; };
 		C99592A52644DA9800B8EDC9 /* KJLanguageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C995926B2644DA9800B8EDC9 /* KJLanguageVC.xib */; };
 		C99592A62644DA9800B8EDC9 /* LocalizableTest.strings in Resources */ = {isa = PBXBuildFile; fileRef = C995926D2644DA9800B8EDC9 /* LocalizableTest.strings */; };
 		C99592A72644DA9800B8EDC9 /* KJRuntimeTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99592712644DA9800B8EDC9 /* KJRuntimeTestVC.m */; };
@@ -86,8 +87,6 @@
 		C995937E2644DAEE00B8EDC9 /* NSString+KJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593052644DAED00B8EDC9 /* NSString+KJExtension.m */; };
 		C995937F2644DAEE00B8EDC9 /* NSArray+KJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593092644DAED00B8EDC9 /* NSArray+KJExtension.m */; };
 		C99593802644DAEE00B8EDC9 /* NSTimer+KJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C995930B2644DAED00B8EDC9 /* NSTimer+KJExtension.m */; };
-		C99593812644DAEE00B8EDC9 /* KJMathEquation.m in Sources */ = {isa = PBXBuildFile; fileRef = C995930F2644DAED00B8EDC9 /* KJMathEquation.m */; };
-		C99593822644DAEE00B8EDC9 /* KJGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593102644DAED00B8EDC9 /* KJGeometry.m */; };
 		C99593832644DAEE00B8EDC9 /* NSDate+KJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593132644DAED00B8EDC9 /* NSDate+KJExtension.m */; };
 		C99593842644DAEE00B8EDC9 /* NSBundle+KJLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593162644DAED00B8EDC9 /* NSBundle+KJLanguage.m */; };
 		C99593852644DAEE00B8EDC9 /* KJLoadLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C995931A2644DAED00B8EDC9 /* KJLoadLanguageViewController.m */; };
@@ -126,12 +125,13 @@
 		C99593A62644DAEE00B8EDC9 /* UITabBar+KJBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = C995936D2644DAEE00B8EDC9 /* UITabBar+KJBadge.m */; };
 		C99593A72644DAEE00B8EDC9 /* KJColorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593712644DAEE00B8EDC9 /* KJColorSlider.m */; };
 		C99593A82644DAEE00B8EDC9 /* UISlider+KJTapValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593722644DAEE00B8EDC9 /* UISlider+KJTapValue.m */; };
-		C99593A92644DAEE00B8EDC9 /* _KJQuickCreateBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593752644DAEE00B8EDC9 /* _KJQuickCreateBox.m */; };
+		C99593A92644DAEE00B8EDC9 /* CreateTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593752644DAEE00B8EDC9 /* CreateTableViewDataSource.m */; };
 		C99593AA2644DAEE00B8EDC9 /* UITextField+KJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593792644DAEE00B8EDC9 /* UITextField+KJExtension.m */; };
 		C99593B42644DE7300B8EDC9 /* UPDATELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = C99593B32644DE7300B8EDC9 /* UPDATELOG.md */; };
 		C99593BA2644E18C00B8EDC9 /* KJHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593B62644E18C00B8EDC9 /* KJHomeView.m */; };
 		C99593BB2644E18C00B8EDC9 /* KJHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593B72644E18C00B8EDC9 /* KJHomeModel.m */; };
 		C99593BF2644E93200B8EDC9 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99593BE2644E93200B8EDC9 /* BaseViewController.m */; };
+		C9BE258B265391A000818187 /* KJLeetCode.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BE258A265391A000818187 /* KJLeetCode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +180,9 @@
 		68E283B521B38DCC009B708F /* KJAlertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KJAlertVC.h; sourceTree = "<group>"; };
 		68E283B621B38DCC009B708F /* KJAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KJAlertVC.m; sourceTree = "<group>"; };
 		68E283B721B38DCC009B708F /* KJAlertVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KJAlertVC.xib; sourceTree = "<group>"; };
+		C964E584264FB5F700F56853 /* KJLeetCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KJLeetCode.h; sourceTree = "<group>"; };
+		C964E58A264FB7C600F56853 /* LeetCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeetCodeViewController.h; sourceTree = "<group>"; };
+		C964E58B264FB7C600F56853 /* LeetCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeetCodeViewController.m; sourceTree = "<group>"; };
 		C995926C2644DA9800B8EDC9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/KJLanguageVC.xib"; sourceTree = "<group>"; };
 		C995926E2644DA9800B8EDC9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LocalizableTest.strings"; sourceTree = "<group>"; };
 		C995926F2644DA9800B8EDC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/KJLanguageVC.xib; sourceTree = "<group>"; };
@@ -282,10 +285,6 @@
 		C99593092644DAED00B8EDC9 /* NSArray+KJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+KJExtension.m"; sourceTree = "<group>"; };
 		C995930B2644DAED00B8EDC9 /* NSTimer+KJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+KJExtension.m"; sourceTree = "<group>"; };
 		C995930C2644DAED00B8EDC9 /* NSTimer+KJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+KJExtension.h"; sourceTree = "<group>"; };
-		C995930E2644DAED00B8EDC9 /* KJGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJGeometry.h; sourceTree = "<group>"; };
-		C995930F2644DAED00B8EDC9 /* KJMathEquation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJMathEquation.m; sourceTree = "<group>"; };
-		C99593102644DAED00B8EDC9 /* KJGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJGeometry.m; sourceTree = "<group>"; };
-		C99593112644DAED00B8EDC9 /* KJMathEquation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJMathEquation.h; sourceTree = "<group>"; };
 		C99593132644DAED00B8EDC9 /* NSDate+KJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KJExtension.m"; sourceTree = "<group>"; };
 		C99593142644DAED00B8EDC9 /* NSDate+KJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KJExtension.h"; sourceTree = "<group>"; };
 		C99593162644DAED00B8EDC9 /* NSBundle+KJLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+KJLanguage.m"; sourceTree = "<group>"; };
@@ -362,8 +361,8 @@
 		C99593712644DAEE00B8EDC9 /* KJColorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJColorSlider.m; sourceTree = "<group>"; };
 		C99593722644DAEE00B8EDC9 /* UISlider+KJTapValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISlider+KJTapValue.m"; sourceTree = "<group>"; };
 		C99593732644DAEE00B8EDC9 /* KJColorSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJColorSlider.h; sourceTree = "<group>"; };
-		C99593752644DAEE00B8EDC9 /* _KJQuickCreateBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _KJQuickCreateBox.m; sourceTree = "<group>"; };
-		C99593762644DAEE00B8EDC9 /* _KJQuickCreateBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _KJQuickCreateBox.h; sourceTree = "<group>"; };
+		C99593752644DAEE00B8EDC9 /* CreateTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTableViewDataSource.m; sourceTree = "<group>"; };
+		C99593762644DAEE00B8EDC9 /* CreateTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTableViewDataSource.h; sourceTree = "<group>"; };
 		C99593782644DAEE00B8EDC9 /* UITextField+KJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+KJExtension.h"; sourceTree = "<group>"; };
 		C99593792644DAEE00B8EDC9 /* UITextField+KJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+KJExtension.m"; sourceTree = "<group>"; };
 		C99593B32644DE7300B8EDC9 /* UPDATELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = UPDATELOG.md; sourceTree = SOURCE_ROOT; };
@@ -374,6 +373,7 @@
 		C99593BD2644E93200B8EDC9 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		C99593BE2644E93200B8EDC9 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		C99593C32644EC9E00B8EDC9 /* _KitHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _KitHeader.h; sourceTree = "<group>"; };
+		C9BE258A265391A000818187 /* KJLeetCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJLeetCode.m; sourceTree = "<group>"; };
 		D240CA7CC74840B54BCEE1A1 /* Pods-KJEmitterView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KJEmitterView.release.xcconfig"; path = "Target Support Files/Pods-KJEmitterView/Pods-KJEmitterView.release.xcconfig"; sourceTree = "<group>"; };
 		D436BBDDEF0E34EE2A95163B /* Pods-KJEmitterView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KJEmitterView.debug.xcconfig"; path = "Target Support Files/Pods-KJEmitterView/Pods-KJEmitterView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -462,30 +462,32 @@
 			isa = PBXGroup;
 			children = (
 				68AB4F8521AF834E003A2A60 /* KJEmitterHeader.h */,
+				68B02FF021B2FBC400349510 /* Classes */,
+				687115C62262FC01009EC3E0 /* Control */,
 				C99592FA2644DAED00B8EDC9 /* Foundation */,
 				C995931C2644DAED00B8EDC9 /* Kit */,
 				C99593152644DAED00B8EDC9 /* Language */,
+				C964E583264FB4EA00F56853 /* LeetCode */,
 				C99592F62644DAED00B8EDC9 /* Opencv */,
-				687115C62262FC01009EC3E0 /* Control */,
-				68B02FF021B2FBC400349510 /* Classes */,
-				6869042B21B253FC00ED072F /* TextDemo */,
 				C99592C32644DACC00B8EDC9 /* OpencvDemo */,
+				6869042B21B253FC00ED072F /* TextDemo */,
+				C964E589264FB65600F56853 /* LeetCodeDemo */,
 				68776CEB21AC34A0000A1435 /* ViewController.h */,
 				68776CEC21AC34A0000A1435 /* ViewController.m */,
-				C99593BD2644E93200B8EDC9 /* BaseViewController.h */,
-				C99593BE2644E93200B8EDC9 /* BaseViewController.m */,
+				68776CE821AC34A0000A1435 /* AppDelegate.h */,
+				68776CE921AC34A0000A1435 /* AppDelegate.m */,
 				C99593B92644E18C00B8EDC9 /* KJHomeModel.h */,
 				C99593B72644E18C00B8EDC9 /* KJHomeModel.m */,
 				C99593B82644E18C00B8EDC9 /* KJHomeView.h */,
 				C99593B62644E18C00B8EDC9 /* KJHomeView.m */,
-				68776CEE21AC34A0000A1435 /* Main.storyboard */,
-				6869042D21B25B1000ED072F /* PrefixHeader.pch */,
-				68776CE821AC34A0000A1435 /* AppDelegate.h */,
-				68776CE921AC34A0000A1435 /* AppDelegate.m */,
 				68776CF121AC34A0000A1435 /* Assets.xcassets */,
-				68776CF321AC34A0000A1435 /* LaunchScreen.storyboard */,
-				68776CF621AC34A0000A1435 /* Info.plist */,
 				68776CF721AC34A0000A1435 /* main.m */,
+				68776CF621AC34A0000A1435 /* Info.plist */,
+				68776CF321AC34A0000A1435 /* LaunchScreen.storyboard */,
+				68776CEE21AC34A0000A1435 /* Main.storyboard */,
+				C99593BD2644E93200B8EDC9 /* BaseViewController.h */,
+				C99593BE2644E93200B8EDC9 /* BaseViewController.m */,
+				6869042D21B25B1000ED072F /* PrefixHeader.pch */,
 				68A5ECCE2305091700A3069D /* KJEmitterView.podspec */,
 				68A5ECCD2305091700A3069D /* README.md */,
 				C99593B32644DE7300B8EDC9 /* UPDATELOG.md */,
@@ -576,6 +578,24 @@
 				D240CA7CC74840B54BCEE1A1 /* Pods-KJEmitterView.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C964E583264FB4EA00F56853 /* LeetCode */ = {
+			isa = PBXGroup;
+			children = (
+				C964E584264FB5F700F56853 /* KJLeetCode.h */,
+				C9BE258A265391A000818187 /* KJLeetCode.m */,
+			);
+			path = LeetCode;
+			sourceTree = "<group>";
+		};
+		C964E589264FB65600F56853 /* LeetCodeDemo */ = {
+			isa = PBXGroup;
+			children = (
+				C964E58A264FB7C600F56853 /* LeetCodeViewController.h */,
+				C964E58B264FB7C600F56853 /* LeetCodeViewController.m */,
+			);
+			path = LeetCodeDemo;
 			sourceTree = "<group>";
 		};
 		C995926A2644DA9800B8EDC9 /* 其他相关 */ = {
@@ -716,7 +736,6 @@
 				C99592FE2644DAED00B8EDC9 /* NSData */,
 				C99593122644DAED00B8EDC9 /* NSDate */,
 				C99592FB2644DAED00B8EDC9 /* NSDictionary */,
-				C995930D2644DAED00B8EDC9 /* NSObject */,
 				C99593012644DAED00B8EDC9 /* NSString */,
 				C995930A2644DAED00B8EDC9 /* NSTimer */,
 			);
@@ -735,8 +754,8 @@
 		C99592FE2644DAED00B8EDC9 /* NSData */ = {
 			isa = PBXGroup;
 			children = (
-				C99592FF2644DAED00B8EDC9 /* NSData+KJExtension.m */,
 				C99593002644DAED00B8EDC9 /* NSData+KJExtension.h */,
+				C99592FF2644DAED00B8EDC9 /* NSData+KJExtension.m */,
 			);
 			path = NSData;
 			sourceTree = "<group>";
@@ -764,21 +783,10 @@
 		C995930A2644DAED00B8EDC9 /* NSTimer */ = {
 			isa = PBXGroup;
 			children = (
-				C995930B2644DAED00B8EDC9 /* NSTimer+KJExtension.m */,
 				C995930C2644DAED00B8EDC9 /* NSTimer+KJExtension.h */,
+				C995930B2644DAED00B8EDC9 /* NSTimer+KJExtension.m */,
 			);
 			path = NSTimer;
-			sourceTree = "<group>";
-		};
-		C995930D2644DAED00B8EDC9 /* NSObject */ = {
-			isa = PBXGroup;
-			children = (
-				C995930E2644DAED00B8EDC9 /* KJGeometry.h */,
-				C995930F2644DAED00B8EDC9 /* KJMathEquation.m */,
-				C99593102644DAED00B8EDC9 /* KJGeometry.m */,
-				C99593112644DAED00B8EDC9 /* KJMathEquation.h */,
-			);
-			path = NSObject;
 			sourceTree = "<group>";
 		};
 		C99593122644DAED00B8EDC9 /* NSDate */ = {
@@ -1016,8 +1024,8 @@
 		C995936C2644DAEE00B8EDC9 /* UITabBar */ = {
 			isa = PBXGroup;
 			children = (
-				C995936D2644DAEE00B8EDC9 /* UITabBar+KJBadge.m */,
 				C995936E2644DAEE00B8EDC9 /* UITabBar+KJBadge.h */,
+				C995936D2644DAEE00B8EDC9 /* UITabBar+KJBadge.m */,
 			);
 			path = UITabBar;
 			sourceTree = "<group>";
@@ -1036,8 +1044,8 @@
 		C99593742644DAEE00B8EDC9 /* Create */ = {
 			isa = PBXGroup;
 			children = (
-				C99593762644DAEE00B8EDC9 /* _KJQuickCreateBox.h */,
-				C99593752644DAEE00B8EDC9 /* _KJQuickCreateBox.m */,
+				C99593762644DAEE00B8EDC9 /* CreateTableViewDataSource.h */,
+				C99593752644DAEE00B8EDC9 /* CreateTableViewDataSource.m */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -1195,10 +1203,8 @@
 				C99592B12644DA9800B8EDC9 /* KJImageCompressVC.m in Sources */,
 				C99593802644DAEE00B8EDC9 /* NSTimer+KJExtension.m in Sources */,
 				C99593862644DAEE00B8EDC9 /* KJLanguageManager.m in Sources */,
-				C99593812644DAEE00B8EDC9 /* KJMathEquation.m in Sources */,
-				C99593822644DAEE00B8EDC9 /* KJGeometry.m in Sources */,
 				C99592EA2644DACC00B8EDC9 /* LuminanceViewController.m in Sources */,
-				C99593A92644DAEE00B8EDC9 /* _KJQuickCreateBox.m in Sources */,
+				C99593A92644DAEE00B8EDC9 /* CreateTableViewDataSource.m in Sources */,
 				C99593A82644DAEE00B8EDC9 /* UISlider+KJTapValue.m in Sources */,
 				68E283B821B38DCC009B708F /* KJAlertVC.m in Sources */,
 				C99592F42644DACC00B8EDC9 /* OpencvViewController.m in Sources */,
@@ -1257,6 +1263,7 @@
 				687115D22263156B009EC3E0 /* KJSelectController.m in Sources */,
 				C99592F12644DACC00B8EDC9 /* ChangeColorViewController.m in Sources */,
 				C99592BB2644DA9800B8EDC9 /* KJLabelVC.m in Sources */,
+				C964E58C264FB7C600F56853 /* LeetCodeViewController.m in Sources */,
 				C99592B62644DA9800B8EDC9 /* KJFilterImageVC.m in Sources */,
 				C99592A72644DA9800B8EDC9 /* KJRuntimeTestVC.m in Sources */,
 				C99592EC2644DACC00B8EDC9 /* WarpPerspectiveViewController.m in Sources */,
@@ -1269,6 +1276,7 @@
 				68776CF821AC34A0000A1435 /* main.m in Sources */,
 				C995937A2644DAEE00B8EDC9 /* UIImage+KJOpencv.mm in Sources */,
 				C995938B2644DAEE00B8EDC9 /* UIScrollView+KJEmptyDataSet.m in Sources */,
+				C9BE258B265391A000818187 /* KJLeetCode.m in Sources */,
 				C995937B2644DAEE00B8EDC9 /* NSDictionary+KJExtension.m in Sources */,
 				C99592AF2644DA9800B8EDC9 /* KJCodeImageVC.m in Sources */,
 				687115D622631878009EC3E0 /* KJErrorVC.m in Sources */,

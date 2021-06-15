@@ -18,7 +18,7 @@ typedef NS_OPTIONS(NSInteger, KJBorderOrientationType) {
     KJBorderOrientationTypeRight  = 1 << 4,/// 右边
 };
 @interface UIView (KJRectCorner)
-//********* Xib中显示属性 IBInspectable就可以可视化显示相关的属性  ***********
+//*********  Xib中显示属性 IBInspectable就可以可视化显示相关的属性  ***********
 /// 图片属性，备注这个会覆盖掉UIImageView上面设置的image
 @property(nonatomic,strong)IBInspectable UIImage *viewImage;
 /// 圆角边框
@@ -56,13 +56,13 @@ typedef NS_OPTIONS(NSInteger, KJBorderOrientationType) {
                 radius:(CGFloat)radius;
 
 #pragma mark - 渐变相关
-/* 返回渐变layer */
+/// 返回渐变layer
 - (CAGradientLayer*)kj_GradientLayerWithColors:(NSArray*)colors
                                          Frame:(CGRect)frm
                                      Locations:(NSArray*)locations
                                     StartPoint:(CGPoint)startPoint
                                       EndPoint:(CGPoint)endPoint;
-/* 生成渐变背景色 */
+/// 生成渐变背景色
 - (void)kj_GradientBgColorWithColors:(NSArray*)colors
                            Locations:(NSArray*)locations
                           StartPoint:(CGPoint)startPoint
@@ -86,12 +86,12 @@ typedef NS_OPTIONS(NSInteger, KJBorderOrientationType) {
                             radius:(CGFloat)radius
                              color:(UIColor*)color
                               rate:(CGFloat)rate;
-// 根据宽高画六边形
+/// 根据宽高画六边形
 - (void)kj_DrawSexangleWithWidth:(CGFloat)width
                        LineWidth:(CGFloat)lineWidth
                      StrokeColor:(UIColor *)color
                        FillColor:(UIColor*)fcolor;
-// 根据宽高画八边形
+/// 根据宽高画八边形
 - (void)kj_DrawOctagonWithWidth:(CGFloat)width
                          Height:(CGFloat)height
                       LineWidth:(CGFloat)lineWidth

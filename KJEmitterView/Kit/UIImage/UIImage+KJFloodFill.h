@@ -18,6 +18,8 @@ typedef struct KJPointNode{
 }KJPointNode;
 /* 栈操作工具 */
 @interface KJNodeQueue : NSObject<NSCopying>
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
++ (instancetype)new UNAVAILABLE_ATTRIBUTE;
 /// 初始化
 - (instancetype)initWithCapacity:(NSInteger)capacity
                       Increments:(NSInteger)increments
@@ -30,7 +32,7 @@ typedef struct KJPointNode{
 @end
 @interface UIImage (KJFloodFill)
 
-/* 基于扫描线的泛洪算法，获取填充同颜色区域后的图片 */
+/// 基于扫描线的泛洪算法，获取填充同颜色区域后的图片
 - (UIImage*)kj_FloodFillImageFromStartPoint:(CGPoint)startPoint
                                    NewColor:(UIColor*)newColor
                                   Tolerance:(CGFloat)tolerance

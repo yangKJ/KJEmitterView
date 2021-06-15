@@ -1,5 +1,5 @@
 # KJEmitterView
-- **这个库主要就是积累平时开发经常使用到的工具，日积月累方便以后开发**
+- **机器猫工具库，就像机器猫的口袋一样有无穷无尽意想不到的的各种道具供我们使用**
 
 ### **[API文档介绍](https://github.com/yangKJ/KJEmitterView/wiki/API文档)**
 ### **[功能介绍](https://github.com/yangKJ/KJEmitterView/wiki/功能介绍)** 
@@ -49,12 +49,41 @@
 </p>
 
 ### <a id="Cocoapods安装"></a>Cocoapods安装
+
+#### UIKit模块安装
 ```
 pod 'KJEmitterView'
+```
+#### Foundation模块安装
+```
 pod 'KJEmitterView/Foundation'
+```
+
+#### 多语音模块
+```
 pod 'KJEmitterView/Language' # 多语言
+```
+
+#### Opencv图片模块
+该模块需要引入OpenCV库
+
+```
+pod 'OpenCV', '~> 4.1.0'
 pod 'KJEmitterView/Opencv'   # 图片处理
+```
+
+#### LeetCode算法模块
+```
+pod 'KJEmitterView/LeetCode'  # 算法模块
+```
+
+#### 粒子效果模块
+```
 pod 'KJEmitterView/Classes'  # 粒子效果相关
+```
+
+#### 自定义控件模块
+```
 pod 'KJEmitterView/Control'  # 自定义控件
 ```
 

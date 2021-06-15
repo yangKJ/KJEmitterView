@@ -230,6 +230,9 @@ UIColor * kDoraemonBoxRandomColor(void){
     return [UIColor colorWithPatternImage:image];
 }
 // UIColor转#ffffff格式的16进制字符串
+- (NSString*)kj_hexString{
+    return [UIColor kj_hexStringFromColor:self];
+}
 + (NSString*)kj_hexStringFromColor:(UIColor*)color {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
     CGFloat r = components[0];

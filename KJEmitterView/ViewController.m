@@ -38,13 +38,14 @@
     self.navigationController.navigationBar.kChangeNavigationBarTitle(UIColor.whiteColor,[UIFont boldSystemFontOfSize:20]);
     self.navigationController.navigationBar.navgationImage = [UIImage imageNamed:@"timg-2"];
     
-    CGFloat width = self.view.frame.size.width;
+    CGFloat width  = self.view.frame.size.width;
     CGFloat height = self.view.frame.size.height;
     KJHomeModel *model = [KJHomeModel new];
-    KJHomeView *view = [[KJHomeView alloc]initWithFrame:CGRectMake(0, kSTATUSBAR_NAVIGATION_HEIGHT, width, height-kBOTTOM_SPACE_HEIGHT-kSTATUSBAR_NAVIGATION_HEIGHT)];
+    KJHomeView *view = [KJHomeView kj_createView:^(id<KJViewDelegate> _Nonnull view) {
+        view.kj_add(self.view);
+    } frame:CGRectMake(0, kSTATUSBAR_NAVIGATION_HEIGHT, width, height-kBOTTOM_SPACE_HEIGHT-kSTATUSBAR_NAVIGATION_HEIGHT)];
     view.sectionTemps = model.sectionTemps;
     view.temps = model.temps;
-    [self.view addSubview:view];
     
     _weakself;
     [view kj_receivedSemaphoreBlock:^id _Nullable(NSString * _Nonnull key, id _Nonnull message, id _Nullable parameter) {

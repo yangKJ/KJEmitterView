@@ -27,7 +27,9 @@
     NSMutableData *compressed = [NSMutableData dataWithLength:16384];  // 16K chunks for expansion
     
     do {
-        if (strm.total_out >= [compressed length]) [compressed increaseLengthBy:16384];
+        if (strm.total_out >= [compressed length]) {        
+            [compressed increaseLengthBy:16384];
+        }
         strm.next_out = [compressed mutableBytes] + strm.total_out;
         strm.avail_out = (int)([compressed length] - strm.total_out);
         deflate(&strm, Z_FINISH);
@@ -59,7 +61,9 @@
     if (inflateInit2(&strm, (15+32)) != Z_OK) return nil;
     
     while (!done) {
-        if (strm.total_out >= [decompressed length]) [decompressed increaseLengthBy:half_length];
+        if (strm.total_out >= [decompressed length]) {
+            [decompressed increaseLengthBy:half_length];
+        }
         strm.next_out = [decompressed mutableBytes] + strm.total_out;
         strm.avail_out = (int)([decompressed length] - strm.total_out);
         // Inflate another chunk.

@@ -56,6 +56,7 @@ FOUNDATION_EXPORT UIColor * kDoraemonBoxRandomColor(void);
                         borderColor:(UIColor*)borderColor;
 
 /// UIColor转16进制字符串
+- (NSString*)kj_hexString;
 + (NSString*)kj_hexStringFromColor:(UIColor*)color;
 FOUNDATION_EXPORT NSString * kDoraemonBoxHexStringFromColor(UIColor *color);
 /// 16进制字符串转UIColor

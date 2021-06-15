@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2061" y="-202"/>
+            <point key="canvasLocation" x="2061" y="-212"/>
         </scene>
         <!--Demo-->
         <scene sceneID="FZi-ll-kuq">
@@ -44,7 +44,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQW-I7-Cfs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159" y="-201"/>
+            <point key="canvasLocation" x="1158" y="-212"/>
         </scene>
         <!--Opencv测试-->
         <scene sceneID="QR5-oF-o9n">
@@ -68,6 +68,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Gtn-qy-qF3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="u4z-58-2H0">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -75,11 +76,28 @@
                     <connections>
                         <segue destination="TS6-cL-LnX" kind="relationship" relationship="viewControllers" id="hqD-Tt-LzW"/>
                         <segue destination="cZf-kg-pCw" kind="relationship" relationship="viewControllers" id="kYQ-IZ-el0"/>
+                        <segue destination="MKH-LB-g1y" kind="relationship" relationship="viewControllers" id="md9-ci-86m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yyq-Uc-kt7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="103.79464285714285"/>
+            <point key="canvasLocation" x="197" y="471"/>
+        </scene>
+        <!--LeetCode-->
+        <scene sceneID="bUS-LL-16Y">
+            <objects>
+                <viewController id="BrO-ZW-Oup" customClass="LeetCodeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cst-TU-OJf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="cjN-TC-MbR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="LeetCode" id="pmm-bD-WUc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="48C-Ew-zge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2061" y="1199"/>
         </scene>
         <!--Opencv-->
         <scene sceneID="k4d-n9-oMM">
@@ -98,7 +116,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o76-F8-1hB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1162" y="471"/>
+            <point key="canvasLocation" x="1158" y="471"/>
+        </scene>
+        <!--LeetCode-->
+        <scene sceneID="KrY-gl-r18">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MKH-LB-g1y" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="LeetCode" image="abc_ed" id="E3p-LN-fg4"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aC1-GH-yns">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BrO-ZW-Oup" kind="relationship" relationship="rootViewController" id="JIq-mE-4Ur"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s8e-47-i0u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1158" y="1199"/>
         </scene>
     </scenes>
     <resources>

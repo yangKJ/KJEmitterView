@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = "KJEmitterView"
-  s.version  = "6.0.1"
+  s.version  = "7.0.1"
   s.summary  = "77 Tools"
   s.homepage = "https://github.com/yangKJ/KJEmitterView"
   s.license  = "MIT"
@@ -12,41 +12,37 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://www.jianshu.com/u/c84c00476ab6'
   s.requires_arc = true
 
-  s.default_subspec = 'Kit'
-  s.ios.source_files = 'KJEmitterView/KJEmitterHeader.h'
+  s.default_subspec  = 'Kit'
+  s.ios.source_files = 'KJEmitterView/KJEmitterHeader.h' 
 
-  s.subspec 'Kit' do |xx|
-    xx.source_files = "KJEmitterView/Kit/**/*.{h,m}"
-    xx.public_header_files = 'KJEmitterView/Kit/*.h',"KJEmitterView/Kit/**/*.h"
-    xx.resources = "KJEmitterView/Kit/**/*.{bundle}"
-    xx.frameworks = 'Accelerate'
+  s.subspec 'Kit' do |ki|
+    ki.source_files = "KJEmitterView/Kit/*.h"
+    ki.resources = "KJEmitterView/Kit/**/*.{bundle}"
   end
-
+  
   s.subspec 'Foundation' do |fun|
-    fun.source_files = "KJEmitterView/Foundation/**/*.{h,m}"
-    fun.public_header_files = 'KJEmitterView/Foundation/*.h',"KJEmitterView/Foundation/**/*.h"
+    fun.source_files = "KJEmitterView/Foundation/**/*"
   end
   
   s.subspec 'Language' do |la|
-    la.source_files = "KJEmitterView/Language/**/*.{h,m}"
-    la.public_header_files = 'KJEmitterView/Language/*.h',"KJEmitterView/Language/**/*.h"
+    la.source_files = "KJEmitterView/Language/**/*"
   end
   
   s.subspec 'Opencv' do |op|
     op.source_files = "KJEmitterView/Opencv/**/*"
-    op.dependency 'KJEmitterView/Kit'
-    op.dependency 'OpenCV', '~> 4.1.0'
+  end
+  
+  s.subspec 'LeetCode' do |lc|
+    lc.source_files = "KJEmitterView/LeetCode/**/*"
   end
 
   s.subspec 'Control' do |a|
-    a.source_files = "KJEmitterView/Control/**/*.{h,m}"
-    a.public_header_files = "KJEmitterView/Control/**/*.h",'KJEmitterView/Control/*.h'
+    a.source_files = "KJEmitterView/Control/**/*"
     a.frameworks = 'QuartzCore'
   end
 
   s.subspec 'Classes' do |ss|
-    ss.source_files = "KJEmitterView/Classes/**/*.{h,m}"
-    ss.public_header_files = "KJEmitterView/Classes/**/*.h",'KJEmitterView/Classes/*.h'
+    ss.source_files = "KJEmitterView/Classes/**/*"
     ss.resources = "KJEmitterView/Classes/**/*.{bundle}"
   end
   

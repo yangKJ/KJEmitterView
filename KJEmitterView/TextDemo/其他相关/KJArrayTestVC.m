@@ -69,8 +69,8 @@
     {
         KJTestModel *model = [KJTestModel new];
         NSArray *temps = @[@"1",@"xx",@"3",@(5),model,@"3dasd"];
-        int index = [temps kj_searchObject:model];
-        weakself.textView.text = [weakself.textView.text stringByAppendingFormat:@"查询数据:%d\n",index];
+        NSInteger index = [temps kj_searchObject:model];
+        weakself.textView.text = [weakself.textView.text stringByAppendingFormat:@"查询数据:%ld\n",index];
     }
     // 插入到指定位置
     {

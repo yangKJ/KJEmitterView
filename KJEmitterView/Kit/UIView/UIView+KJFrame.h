@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIView*)kj_findSubviewRecursively:(BOOL(^)(UIView *subview, BOOL * stop))recurse;
 /// 移除所有子视图
 - (void)kj_removeAllSubviews;
+/// 更新尺寸，使用autolayout布局时需要刷新约束才能获取到真实的frame
+- (void)kj_updateFrame;
 
 @end
 

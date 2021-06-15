@@ -21,7 +21,4 @@
 
 #import "NSData+KJExtension.h"
 
-//#import "KJGeometry.h" // 几何方程式相关
-//#import "KJMathEquation.h" // 数学算法方程式
-
 #endif /* _FoundationHeader_h */

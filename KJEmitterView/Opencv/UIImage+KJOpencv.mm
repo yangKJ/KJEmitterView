@@ -30,7 +30,7 @@ using namespace std;
 //        return (Mat_<int>(2,2) << 0, 1, -1, 0);
 //    }
 //}
-////图像边缘提取，求梯度比较常用
+//图像边缘提取，求梯度比较常用
 //NS_INLINE cv::Mat kSobelKernel(bool x){
 //    if (x) {
 //        return (Mat_<int>(3,3) << -1, 0, 1, -2, 0, 2, -1, 0, 1);

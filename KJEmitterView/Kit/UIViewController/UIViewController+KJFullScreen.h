@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIViewController (KJFullScreen)<UINavigationControllerDelegate>
 /// 顶部控制器
 @property(nonatomic,strong,class,readonly)UIViewController *topViewController;
-FOUNDATION_EXPORT UIViewController * kTopViewController(void);
 /// 是否开启侧滑返回手势
 - (void)kj_openPopGesture:(BOOL)open viewController:(UIViewController*)vc;
 /// 跳转回指定控制器

@@ -5,6 +5,10 @@
 > 备注：快捷打开浏览器命令，command + shift + 鼠标左键
 
 ### 版本更新日志:
+#### [版本7.0.1](https://github.com/yangKJ/KJEmitterView/tree/7.0.1)
+- 新增 LeetCode 库
+- 重新整理，重新梳理代码
+
 #### [版本0.0.1](https://github.com/yangKJ/KJEmitterView/tree/0.0.1)
 - 重新规范代码，合并分类
 - 重新提交库，之前的库都已废弃

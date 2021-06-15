@@ -12,9 +12,6 @@
 @implementation UIViewController (KJFullScreen)
 /// 顶部控制器
 + (UIViewController*)topViewController{
-    return kTopViewController();
-}
-UIViewController * kTopViewController(void){
     UIViewController *result = nil;
     UIWindow *window = ({
         UIWindow *window;

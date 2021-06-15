@@ -8,33 +8,38 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-// bindings参数:替换变量字典，字典必须包含接收器中所有变量的键值对
-typedef BOOL (^kPredicateBlock)(id evaluatedObject, NSDictionary<NSString*,id> *bindings);
+
 @interface NSArray (KJExtension)
 /// 是否为空
 @property(nonatomic,assign,readonly)BOOL isEmpty;
+/// 倒序排列
+- (NSArray*)kj_reverseArray;
 /// 筛选数据
 - (id)kj_detectArray:(BOOL(^)(id object, int index))block;
 /// 多维数组筛选数据
 - (id)kj_detectManyDimensionArray:(BOOL(^)(id object, BOOL * stop))recurse;
+/// 归纳对比选择，最终返回经过对比之后的数据
+- (id)kj_reduceObject:(id)object comparison:(id(^)(id obj1, id obj2))comparison;
 /// 查找数据，返回-1表示未查询到
-- (int)kj_searchObject:(id)object;
+- (NSInteger)kj_searchObject:(id)object;
 /// 映射，取出某种数据
-- (NSArray*)kj_mapArray:(id(^)(id object))block;
+- (NSArray*)kj_mapArray:(id(^)(id object))map;
+/// 映射，是否倒序
+- (NSArray*)kj_mapArray:(id(^)(id object))map reverse:(BOOL)reverse;
 /// 包含数据
-- (BOOL)kj_containsObject:(BOOL(^)(id object, NSUInteger index))block;
+- (BOOL)kj_containsObject:(BOOL(^)(id object, NSUInteger index))contains;
+/// 指定位置之后是否包含数据
+- (BOOL)kj_containsFromIndex:(NSInteger * _Nonnull)index contains:(BOOL(^)(id object))contains;
 /// 替换数组指定元素，stop控制是否替换全部
 - (NSArray*)kj_replaceObject:(id)object operation:(BOOL(^)(id object, NSUInteger index, BOOL * stop))operation;
 /// 插入数据到目的位置
-- (NSArray*)kj_insertObject:(id)object aim:(BOOL(^)(id object, int index))block;
-/// 数组计算交集
-- (NSArray*)kj_arrayIntersectionWithOtherArray:(NSArray*)otherArray;
-/// 数组计算差集
-- (NSArray*)kj_arrayMinusWithOtherArray:(NSArray*)otherArray;
+- (NSArray*)kj_insertObject:(id)object aim:(BOOL(^)(id object, int index))aim;
+/// 判断两个数组包含元素是否一致
+- (BOOL)kj_isEqualOtherArray:(NSArray*)otherArray;
 /// 随机打乱数组
 - (NSArray*)kj_disorganizeArray;
 /// 删除数组当中的相同元素
-- (NSArray*)kj_delArrayEquelObj;
+- (NSArray*)kj_deleteArrayEquelObject;
 /// 生成一组不重复的随机数
 - (NSArray*)kj_noRepeatRandomArrayWithMinNum:(NSInteger)min maxNum:(NSInteger)max count:(NSInteger)count;
 /// 二分查找，当数据量很大适宜采用该方法
@@ -47,12 +52,18 @@ typedef BOOL (^kPredicateBlock)(id evaluatedObject, NSDictionary<NSString*,id> *
 - (NSArray*)kj_selectionSort;
 
 #pragma mark - 谓词工具
-/// 对比两个数组删除相同元素并合并
-- (NSArray*)kj_mergeArrayAndDelEqualObjWithOtherArray:(NSArray*)temp;
-/// 过滤数组
-- (NSArray*)kj_filtrationDatasWithPredicateBlock:(kPredicateBlock)block;
-/// 除去数组当中包含目标数组的数据
-- (NSArray*)kj_delEqualDatasWithTargetTemps:(NSArray*)temp;
+/// 数组计算交集
+- (NSArray*)kj_intersectionWithOtherArray:(NSArray*)otherArray;
+/// 数组计算差集
+- (NSArray*)kj_subtractionWithOtherArray:(NSArray*)otherArray;
+/// 删除数组相同部分然后追加不同部分
+- (NSArray*)kj_deleteEqualObjectAndMergeWithOtherArray:(NSArray*)otherArray;
+/// 过滤数组，排除不需要部分
+- (NSArray*)kj_filterArrayExclude:(BOOL(^)(id object))block;
+/// 过滤数组，获取需要部分
+- (NSArray*)kj_filterArrayNeed:(BOOL(^)(id object))block;
+/// 除去目标元素
+- (NSArray*)kj_deleteTargetArray:(NSArray*)temp;
 /// 按照某一属性的升序降序排列
 - (NSArray*)kj_sortDescriptorWithKey:(NSString*)key Ascending:(BOOL)ascending;
 /// 按照某些属性的升序降序排列
@@ -61,7 +72,6 @@ typedef BOOL (^kPredicateBlock)(id evaluatedObject, NSDictionary<NSString*,id> *
 - (NSArray*)kj_takeOutDatasWithKey:(NSString*)key Value:(NSString*)value;
 /// 字符串比较运算符
 - (NSArray*)kj_takeOutDatasWithOperator:(NSString*)ope Key:(NSString*)key Value:(NSString*)value;
-
 
 @end
 

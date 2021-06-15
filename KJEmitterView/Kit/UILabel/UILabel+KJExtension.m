@@ -19,7 +19,8 @@
     objc_setAssociatedObject(self, @selector(customTextAlignment), @(customTextAlignment), OBJC_ASSOCIATION_ASSIGN);
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self.class, @selector(drawTextInRect:)), class_getInstanceMethod(self.class, @selector(kj_drawTextInRect:)));
+        method_exchangeImplementations(class_getInstanceMethod(self.class, @selector(drawTextInRect:)),
+                                       class_getInstanceMethod(self.class, @selector(kj_drawTextInRect:)));
     });
     switch (customTextAlignment) {
         case KJLabelTextAlignmentTypeRight:
@@ -66,14 +67,20 @@
 /// 获取宽度
 - (CGFloat)kj_calculateWidth{
     self.lineBreakMode = NSLineBreakByCharWrapping;
-    CGSize size = [UILabel kj_calculateLabelSizeWithTitle:self.text font:self.font constrainedToSize:CGSizeMake(MAXFLOAT, self.frame.size.height) lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize size = [UILabel kj_calculateLabelSizeWithTitle:self.text
+                                                     font:self.font
+                                        constrainedToSize:CGSizeMake(MAXFLOAT, self.frame.size.height)
+                                            lineBreakMode:NSLineBreakByCharWrapping];
     return ceil(size.width);
 }
 /// 获取高度
 - (CGFloat)kj_calculateHeightWithWidth:(CGFloat)width{
     self.numberOfLines = 0;
     self.lineBreakMode = NSLineBreakByCharWrapping;
-    CGSize size = [UILabel kj_calculateLabelSizeWithTitle:self.text font:self.font constrainedToSize:CGSizeMake(width, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize size = [UILabel kj_calculateLabelSizeWithTitle:self.text
+                                                     font:self.font
+                                        constrainedToSize:CGSizeMake(width, MAXFLOAT)
+                                            lineBreakMode:NSLineBreakByCharWrapping];
     return ceil(size.height);
 }
 /// 获取高度，指定行高
@@ -86,14 +93,10 @@
     if (title.length == 0) return CGSizeZero;
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.lineBreakMode = lineBreakMode;
-    CGRect frame = [title boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraph} context:nil];
+    CGRect frame = [title boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraph}
+                                       context:nil];
     return frame.size;
-}
-CGSize kCalculateLabelSize(UILabel *label, NSLineBreakMode mode){
-    return kCalculateTitleSize(label.text, label.font, label.frame.size, mode);
-}
-CGSize kCalculateTitleSize(NSString *title, UIFont *font, CGSize size, NSLineBreakMode mode){
-    return [UILabel kj_calculateLabelSizeWithTitle:title font:font constrainedToSize:size lineBreakMode:mode];
 }
 - (void)kj_changeLineSpace:(float)space {
     NSString *labelText = self.text;
@@ -101,7 +104,8 @@ CGSize kCalculateTitleSize(NSString *title, UIFont *font, CGSize size, NSLineBre
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:space];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle
+                             range:NSMakeRange(0, [labelText length])];
     self.attributedText = attributedString;
     [self sizeToFit];
 }
@@ -155,7 +159,7 @@ CGSize kCalculateTitleSize(NSString *title, UIFont *font, CGSize size, NSLineBre
 }
 - (void)handleTap:(UIGestureRecognizer*)recognizer{
     [self becomeFirstResponder];
-    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(kj_copyText)];
+    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"复制", nil) action:@selector(kj_copyText)];
     [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObject:item]];
     [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];

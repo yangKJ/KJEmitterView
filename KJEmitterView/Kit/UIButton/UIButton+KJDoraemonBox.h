@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 隐藏指示器
 - (void)kj_hideIndicator;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 static NSString * const kHomeViewKey = @"kHomeView";
-@interface KJHomeView : UIView<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic,strong)NSArray *sectionTemps;
-@property(nonatomic,strong)NSArray *temps;
+@interface KJHomeView : UIView
+
+- (void)setTemps:(NSArray*)temps sectionTemps:(NSArray*)sectionTemps;
 
 @end
 

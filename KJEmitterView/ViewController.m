@@ -44,8 +44,7 @@
     KJHomeView *view = [KJHomeView kj_createView:^(id<KJViewDelegate> _Nonnull view) {
         view.kj_add(self.view);
     } frame:CGRectMake(0, kSTATUSBAR_NAVIGATION_HEIGHT, width, height-kBOTTOM_SPACE_HEIGHT-kSTATUSBAR_NAVIGATION_HEIGHT)];
-    view.sectionTemps = model.sectionTemps;
-    view.temps = model.temps;
+    [view setTemps:model.temps sectionTemps:model.sectionTemps];
     
     _weakself;
     [view kj_receivedSemaphoreBlock:^id _Nullable(NSString * _Nonnull key, id _Nonnull message, id _Nullable parameter) {

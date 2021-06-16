@@ -9,7 +9,7 @@
 #ifndef _KitHeader_h
 #define _KitHeader_h
 
-#import "CreateTableViewDataSource.h" // 快速创建UI
+#import "CTableViewDataSource.h" // 快速创建UI
 #import "_KJMacros.h" // 宏
 
 #import "UIButton+KJBlock.h" // 点击事件ButtonBlock

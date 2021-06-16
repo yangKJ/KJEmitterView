@@ -1,5 +1,5 @@
 //
-//  CreateTableViewDataSource.h
+//  CTableViewDataSource.h
 //  KJEmitterView
 //
 //  Created by yangkejun on 2019/4/25.
@@ -12,55 +12,44 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^KJCreateTableBlock)(id cell, NSIndexPath * indexPath, id item);
-@interface CreateTableViewDataSource : NSObject<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic, strong) NSMutableArray *datas;/// 数据源
-@property (nonatomic, assign) BOOL isAllowEdit;
-@property (nonatomic, strong) NSString *sectionKey;
-@property (nonatomic, strong) NSString *rowKey;
-@property (nonatomic, assign, readonly) CGFloat totalHeight;
-//设置内容，
-@property (nonatomic, copy, readwrite) KJCreateTableBlock cellForRowAtIndexPath;
-@property (nonatomic, copy, readwrite) void (^cellForRowAtCustom)(id cell, NSIndexPath * indexPath);
-@property (nonatomic, copy, readwrite) UITableViewCell * (^kTableViewCell)(NSIndexPath * indexPath);
-//高度
-@property (nonatomic, copy, readwrite) CGFloat (^heightForRowAtIndexPath)(NSIndexPath * indexPath, id item);
-@property (nonatomic, copy, readwrite) void (^didSelectRowAtCustom)(NSIndexPath * indexPath);
-@property (nonatomic, copy, readwrite) void (^didSelectRowAtIndexPath)(NSIndexPath * indexPath, id item);
-@property (nonatomic, copy, readwrite) void (^didDeselectRowAtIndexPath)(NSIndexPath * indexPath, id item);
-
-//Number
-@property (nonatomic, copy, readwrite) NSInteger (^numberOfSectionsInTableView)(NSMutableArray * datas);
-@property (nonatomic, copy, readwrite) NSInteger (^numberOfRowsInSection)(NSInteger section, id item);
+@interface CTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, assign, readonly) CGFloat totalHeight;//总高度
+@property (nonatomic, assign) BOOL canEdit;//是否可以编辑
+/// 设置不同类型的Cell
+@property (nonatomic, copy, readwrite) __kindof UITableViewCell * (^tableViewCellAtIndexPath)(NSString * identifier, NSIndexPath * indexPath);
+/// 设置不同类型Cell的标识符
+@property (nonatomic, copy, readwrite) NSString * (^identifierAtIndexPath)(NSIndexPath * indexPath);
+/// 设置不同Cell高度
+@property (nonatomic, copy, readwrite) CGFloat (^heightForRowAtIndexPath)(NSIndexPath * indexPath);
+/// 返回多少组Section
+@property (nonatomic, copy, readwrite) NSInteger (^tableViewNumberSections)(void);
+/// 返回每组Section有多少个Cell
+@property (nonatomic, copy, readwrite) NSInteger (^numberOfRowsInSection)(NSInteger section);
+/// 系统自带右侧标题索引
 @property (nonatomic, copy, readwrite) NSArray * (^sectionIndexTitlesForTableView)(void);
- 
+
 //Header
-@property (nonatomic, copy, readwrite) CGFloat (^heightForHeaderInSection)(NSInteger section, id item);
-@property (nonatomic, copy, readwrite) UIView *(^viewForHeaderInSection)(NSInteger section, id item);
-@property (nonatomic, copy, readwrite) NSString * (^titleForHeaderInSection)(NSInteger section, id item);
- 
+@property (nonatomic, copy, readwrite) CGFloat (^heightForHeaderInSection)(NSInteger section);
+@property (nonatomic, copy, readwrite) UIView *(^viewForHeaderInSection)(NSInteger section);
+@property (nonatomic, copy, readwrite) NSString * (^titleForHeaderInSection)(NSInteger section);
+
 //Footer
-@property (nonatomic, copy, readwrite) CGFloat (^heightForFooterInSection)(NSInteger section, id item);
-@property (nonatomic, copy, readwrite) UIView *(^viewForFooterInSection)(NSInteger section, id item);
-@property (nonatomic, copy, readwrite) NSString * (^titleForFooterInSection)(NSInteger section, id item);
+@property (nonatomic, copy, readwrite) CGFloat (^heightForFooterInSection)(NSInteger section);
+@property (nonatomic, copy, readwrite) UIView *(^viewForFooterInSection)(NSInteger section);
+@property (nonatomic, copy, readwrite) NSString * (^titleForFooterInSection)(NSInteger section);
  
+//点击处理
+@property (nonatomic, copy, readwrite) void (^didSelectRowAtIndexPath)(NSIndexPath * indexPath);
+@property (nonatomic, copy, readwrite) void (^didDeselectRowAtIndexPath)(NSIndexPath * indexPath);
+
 //编辑，删除
 @property (nonatomic, copy, readwrite) UITableViewCellEditingStyle (^editingStyleForRowAtIndexPath)(NSIndexPath * indexPath);
-@property (nonatomic, copy, readwrite) BOOL (^canEditRowAtIndexPath)(NSIndexPath * indexPath, id item);
-@property (nonatomic, copy, readwrite) void (^deleteRowAtIndexPath)(NSIndexPath * indexPath, id item);
+@property (nonatomic, copy, readwrite) BOOL (^canEditRowAtIndexPath)(NSIndexPath * indexPath);
+@property (nonatomic, copy, readwrite) void (^deleteRowAtIndexPath)(NSIndexPath * indexPath);
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new  NS_UNAVAILABLE;
-/// 初始化，目前只支持同种Cell处理
-- (instancetype)initWithDatas:(NSArray * _Nullable)datas
-                   identifier:(NSString *)identifier
-                    withBlock:(KJCreateTableBlock)block;
-/// 获取NSIndexPath位置数据
-- (id)kj_itemAtSection:(NSInteger)section sectionKey:(NSString *)sectionKey;
- 
-- (id)kj_itemAtIndexPath:(NSIndexPath *)indexPath
-              sectionKey:(NSString *)sectionKey
-                  rowKey:(NSString * _Nullable)rowKey;
+- (instancetype)initWithConfigureBlock:(void(^)(UITableViewCell * cell, NSIndexPath * indexPath))block;
 
 @end
 

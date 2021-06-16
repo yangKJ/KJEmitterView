@@ -49,7 +49,9 @@ static KJEmitterLayerDrawCompleteBlock _xxblock = nil;
     }
 }
 // 初始化
-+ (instancetype)createEmitterLayerWaitTime:(CGFloat)waitTime imageBlock:(UIImage*(^)(KJEmitterLayer *obj))block complete:(KJEmitterLayerDrawCompleteBlock)complete{
++ (instancetype)createEmitterLayerWaitTime:(CGFloat)waitTime
+                                imageBlock:(UIImage*(^)(KJEmitterLayer *obj))block
+                                  complete:(KJEmitterLayerDrawCompleteBlock)complete{
     KJEmitterLayer *layer = [[self alloc] init];
     [layer config];
     if (block) layer.image = block(layer);
@@ -81,8 +83,14 @@ static KJEmitterLayerDrawCompleteBlock _xxblock = nil;
             curTime  = _lastPixelWaitTime + pixel.delayDuration;
             count ++;
         }
-        CGFloat curX = [self easeInOutQuad:curTime begin:_pixelBeginPoint.x end:pixel.point.x + self.bounds.size.width/2-CGImageGetWidth(_image.CGImage)/2 duration:_lastPixelWaitTime + pixel.delayDuration];
-        CGFloat curY = [self easeInOutQuad:curTime begin:_pixelBeginPoint.y end:pixel.point.y + self.bounds.size.height/2 - CGImageGetHeight(_image.CGImage)/2 duration:_lastPixelWaitTime + pixel.delayDuration];
+        CGFloat curX = [self easeInOutQuad:curTime
+                                     begin:_pixelBeginPoint.x
+                                       end:pixel.point.x + self.bounds.size.width/2-CGImageGetWidth(_image.CGImage)/2
+                                  duration:_lastPixelWaitTime + pixel.delayDuration];
+        CGFloat curY = [self easeInOutQuad:curTime
+                                     begin:_pixelBeginPoint.y
+                                       end:pixel.point.y + self.bounds.size.height/2 - CGImageGetHeight(_image.CGImage)/2
+                                  duration:_lastPixelWaitTime + pixel.delayDuration];
         CGContextAddEllipseInRect(ctx, CGRectMake(curX , curY , 1, 1));
         const CGFloat *components = CGColorGetComponents(pixel.color.CGColor);
         CGContextSetRGBFillColor(ctx, components[0], components[1], components[2], components[3]);
@@ -165,7 +173,10 @@ static KJEmitterLayerDrawCompleteBlock _xxblock = nil;
  * endPosition 结束的位置
  * duration 持续时间
  */
-- (CGFloat)easeInOutQuad:(CGFloat)time begin:(CGFloat)beginPosition end:(CGFloat)endPosition duration:(CGFloat)duration {
+- (CGFloat)easeInOutQuad:(CGFloat)time
+                   begin:(CGFloat)beginPosition
+                     end:(CGFloat)endPosition
+                duration:(CGFloat)duration {
     CGFloat coverDistance = endPosition - beginPosition;
     time /= duration/2;
     if (time < 1) {

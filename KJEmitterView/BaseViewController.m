@@ -66,7 +66,7 @@
 - (void)kj_button{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/yangKJ/KJExtensionHandler"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/yangKJ/KJEmitterView"]];
 #pragma clang diagnostic pop
 }
 - (void)dealloc{

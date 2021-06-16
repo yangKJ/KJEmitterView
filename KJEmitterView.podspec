@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = "KJEmitterView"
-  s.version  = "7.0.1"
+  s.version  = "7.0.2"
   s.summary  = "77 Tools"
   s.homepage = "https://github.com/yangKJ/KJEmitterView"
   s.license  = "MIT"
@@ -15,9 +15,9 @@ Pod::Spec.new do |s|
   s.default_subspec  = 'Kit'
   s.ios.source_files = 'KJEmitterView/KJEmitterHeader.h' 
 
-  s.subspec 'Kit' do |ki|
-    ki.source_files = "KJEmitterView/Kit/*.h"
-    ki.resources = "KJEmitterView/Kit/**/*.{bundle}"
+  s.subspec 'Kit' do |xx|
+    xx.source_files = "KJEmitterView/Kit/**/*"
+    xx.resources = "KJEmitterView/Kit/**/*.{bundle}"
   end
   
   s.subspec 'Foundation' do |fun|
@@ -41,10 +41,10 @@ Pod::Spec.new do |s|
     a.frameworks = 'QuartzCore'
   end
 
-  s.subspec 'Classes' do |ss|
-    ss.source_files = "KJEmitterView/Classes/**/*"
-    ss.resources = "KJEmitterView/Classes/**/*.{bundle}"
-  end
+#  s.subspec 'Classes' do |ss|
+#    ss.source_files = "KJEmitterView/Classes/**/*"
+#    ss.resources = "KJEmitterView/Classes/**/*.{bundle}"
+#  end
   
 end
 

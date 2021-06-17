@@ -12,7 +12,7 @@ static char placeholderColorKey,placeHolderFontSizeKey;
 - (UIColor *)placeholderColor{
     return objc_getAssociatedObject(self, &placeholderColorKey);
 }
-- (void)setPlaceholderColor:(UIColor*)placeholderColor{
+- (void)setPlaceholderColor:(UIColor *)placeholderColor{
     objc_setAssociatedObject(self, &placeholderColorKey, placeholderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (self.placeholder) [self kj_setPlaceholder];
 }
@@ -37,7 +37,7 @@ static char placeholderColorKey,placeHolderFontSizeKey;
 }
 
 @dynamic bottomLineColor;
-- (void)setBottomLineColor:(UIColor*)bottomLineColor{
+- (void)setBottomLineColor:(UIColor *)bottomLineColor{
     [self layoutIfNeeded];
     CALayer *bottomLayer = [CALayer new];
     bottomLayer.frame = CGRectMake(0.0, CGRectGetHeight(self.bounds)-1, CGRectGetWidth(self.bounds), 1.0);
@@ -80,7 +80,7 @@ static char placeholderColorKey,placeHolderFontSizeKey;
 
 #pragma mark - public Method
 /// 设置左边视图，类似账号密码标题
-- (UIView*)kj_leftView:(void(^)(KJTextFieldLeftInfo *info))block{
+- (UIView *)kj_leftView:(void(^)(KJTextFieldLeftInfo *info))block{
     KJTextFieldLeftInfo *info = [KJTextFieldLeftInfo new];
     if (block) block(info);
     UIView *view = [[UIView alloc]init];
@@ -145,7 +145,7 @@ static char placeholderColorKey,placeHolderFontSizeKey;
 }
 /// 设置右边视图，类似小圆叉
 static char tapActionKey;
-- (UIButton*)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block ImageName:(NSString*)imageName Width:(CGFloat)width Padding:(CGFloat)padding{
+- (UIButton *)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block ImageName:(NSString *)imageName Width:(CGFloat)width Padding:(CGFloat)padding{
     UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
     button.frame = CGRectMake(0, 0, width, self.frame.size.height);
     [button setImage:[UIImage imageNamed:imageName] forState:(UIControlStateNormal)];
@@ -160,7 +160,7 @@ static char tapActionKey;
     self.rightViewMode = UITextFieldViewModeAlways;
     return button;
 }
-- (void)tapAction:(UIButton*)sender{
+- (void)tapAction:(UIButton *)sender{
     void(^block)(bool state) = objc_getAssociatedObject(self, &tapActionKey);
     sender.selected = !sender.selected;
     if (block) block(sender.selected);
@@ -168,7 +168,7 @@ static char tapActionKey;
 
 #pragma mark - private Method
 /// 获取文本尺寸
-- (CGSize)kj_calculateRectWithText:(NSString*)string Size:(CGSize)size font:(UIFont*)font alignment:(NSTextAlignment)alignment linebreakMode:(NSLineBreakMode)linebreakMode lineSpace:(CGFloat)lineSpace{
+- (CGSize)kj_calculateRectWithText:(NSString *)string Size:(CGSize)size font:(UIFont *)font alignment:(NSTextAlignment)alignment linebreakMode:(NSLineBreakMode)linebreakMode lineSpace:(CGFloat)lineSpace{
     if (string.length == 0) return CGSizeZero;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = linebreakMode;

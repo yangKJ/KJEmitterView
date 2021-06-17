@@ -20,18 +20,18 @@
     }
     return NO;
 }
-- (NSString*)safeString{
+- (NSString *)safeString{
     if (self.isEmpty) {
         return @"";
     }
     return self;
 }
 /// 转换为URL
-- (NSURL*)URL{ return [NSURL URLWithString:self];}
+- (NSURL *)URL{ return [NSURL URLWithString:self];}
 /// 获取图片
-- (UIImage*)image{ return [UIImage imageNamed:self];}
+- (UIImage *)image{ return [UIImage imageNamed:self];}
 /// 取出HTML
-- (NSString*)HTMLString{
+- (NSString *)HTMLString{
     if (self == nil) return nil;
     NSString *html = self;
     NSScanner * scanner = [NSScanner scannerWithString:html];
@@ -44,7 +44,7 @@
     return html;
 }
 /// 生成竖直文字
-- (NSString*)verticalText{
+- (NSString *)verticalText{
     NSMutableString *text = [[NSMutableString alloc] initWithString:self];
     NSInteger count = text.length;
     for (int i = 1; i < count; i ++) {
@@ -55,7 +55,7 @@
 
 #pragma mark - Json相关
 /// Josn字符串转字典
-- (NSDictionary*)jsonDict{
+- (NSDictionary *)jsonDict{
     if (self == nil) return nil;
     NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
@@ -91,7 +91,7 @@ NSDictionary * kJsonToDictionary(NSString *string){
 
 #pragma mark - 汉字相关处理
 /// 汉字转拼音
-- (NSString*)pinYin{
+- (NSString *)pinYin{
     NSMutableString *string = [self mutableCopy];
     CFStringTransform((CFMutableStringRef)string, NULL, kCFStringTransformMandarinLatin, NO);//先转换为带声调的拼音
     CFStringTransform((CFMutableStringRef)string, NULL, kCFStringTransformStripDiacritics, NO);//再转换为不带声调的拼音
@@ -127,7 +127,7 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
 
 #pragma mark - 谓词相关
 //MARK: - 过滤空格
-- (NSString*)kj_filterSpace{
+- (NSString *)kj_filterSpace{
     NSString *string = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return [string stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
@@ -154,7 +154,7 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
     return [pred evaluateWithObject:self];
 }
 /// 过滤特殊字符
-- (NSString*)kj_removeSpecialCharacter:(NSString*_Nullable)character{
+- (NSString *)kj_removeSpecialCharacter:(NSString*_Nullable)character{
     if (character == nil) {
         character = @"‘；：”“'。，、,.？、 ~￥#……&<>《》()[]{}【】^!@/￡¤|§¨「」『』￠￢￣~@#&*（）——+|《》$_€";
     }
@@ -251,14 +251,14 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
 
 #pragma mark - 文本相关
 /// 获取文本宽度
-- (CGFloat)kj_maxWidthWithFont:(UIFont*)font Height:(CGFloat)height Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
+- (CGFloat)kj_maxWidthWithFont:(UIFont *)font Height:(CGFloat)height Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
     return [self kj_sizeWithFont:font Size:CGSizeMake(CGFLOAT_MAX, height) Alignment:alignment LinebreakMode:linebreakMode LineSpace:lineSpace].width;
 }
 /// 获取文本高度
-- (CGFloat)kj_maxHeightWithFont:(UIFont*)font Width:(CGFloat)width Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
+- (CGFloat)kj_maxHeightWithFont:(UIFont *)font Width:(CGFloat)width Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
     return [self kj_sizeWithFont:font Size:CGSizeMake(width, CGFLOAT_MAX) Alignment:alignment LinebreakMode:linebreakMode LineSpace:lineSpace].height;
 }
-- (CGSize)kj_sizeWithFont:(UIFont*)font Size:(CGSize)size Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
+- (CGSize)kj_sizeWithFont:(UIFont *)font Size:(CGSize)size Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
     if (self.length == 0) return CGSizeZero;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = linebreakMode;
@@ -291,7 +291,7 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
 }
 
 /// 文字转图片
-- (UIImage*)kj_textBecomeImageWithSize:(CGSize)size BackgroundColor:(UIColor*)color TextAttributes:(NSDictionary*)attributes{
+- (UIImage *)kj_textBecomeImageWithSize:(CGSize)size BackgroundColor:(UIColor *)color TextAttributes:(NSDictionary *)attributes{
     CGRect bounds = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -317,7 +317,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return trimed.length <= 0;
 }
 /* 比较大小 */
-- (NSComparisonResult)kj_compare:(NSString*)string{
+- (NSComparisonResult)kj_compare:(NSString *)string{
     if (self.length <= 0) return NSOrderedAscending;
     if (kStringBlank(string)) string = @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:self];
@@ -325,7 +325,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [decimalA compare:decimalB];
 }
 /* 相加 */
-- (NSString*)kj_adding:(NSString*)string{
+- (NSString *)kj_adding:(NSString *)string{
     if (kStringBlank(string) || [string kj_compare:@"0"] == NSOrderedSame) string = @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *decimalB = [NSDecimalNumber decimalNumberWithString:string];
@@ -333,7 +333,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [result stringValue];
 }
 /* 相减 */
-- (NSString*)kj_subtract:(NSString*)string{
+- (NSString *)kj_subtract:(NSString *)string{
     if (kStringBlank(string)) string = @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *decimalB = [NSDecimalNumber decimalNumberWithString:string];
@@ -341,7 +341,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [result stringValue];
 }
 /* 相乘 */
-- (NSString*)kj_multiply:(NSString*)string{
+- (NSString *)kj_multiply:(NSString *)string{
     if (kStringBlank(string)) string = @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *decimalB = [NSDecimalNumber decimalNumberWithString:string];
@@ -349,7 +349,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [result stringValue];
 }
 /* 相除 */
-- (NSString*)kj_divide:(NSString*)string{
+- (NSString *)kj_divide:(NSString *)string{
     if (kStringBlank(string) || ![string floatValue]) return @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *decimalB = [NSDecimalNumber decimalNumberWithString:string];
@@ -357,7 +357,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [result stringValue];
 }
 /// 指数运算
-- (NSString*)kj_multiplyingByPowerOf10:(NSInteger)oxff{
+- (NSString *)kj_multiplyingByPowerOf10:(NSInteger)oxff{
     NSString *temp = self;
     if (kStringBlank(temp)) temp = @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:temp];
@@ -365,7 +365,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [result stringValue];
 }
 /// 次方运算
-- (NSString*)kj_raisingToPower:(NSInteger)oxff{
+- (NSString *)kj_raisingToPower:(NSInteger)oxff{
     NSString *temp = self;
     if (kStringBlank(temp)) temp = @"0";
     NSDecimalNumber *decimalA = [NSDecimalNumber decimalNumberWithString:temp];
@@ -378,7 +378,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     return [num doubleValue];
 }
 /// 保留整数部分，100.0130 -- > 100
-- (NSString*)kj_retainInteger{
+- (NSString *)kj_retainInteger{
     if (![self containsString:@"."]) {
         return self;
     } else {
@@ -387,7 +387,7 @@ NS_INLINE BOOL kStringBlank(NSString *string){
     }
 }
 /// 去掉尾巴是0或者.的位数，10.000 -- > 10 或者 10.100 -- > 10.1
-- (NSString*)kj_removeTailZero{
+- (NSString *)kj_removeTailZero{
     NSString * string = self;
     if (![string containsString:@"."]) {
         return string;
@@ -407,7 +407,7 @@ NSString * kStringFractionDigits(NSDecimalNumber * number, NSUInteger digits){
     [formatter setMinimumIntegerDigits:1];
     return [formatter stringFromNumber:number];
 }
-+ (NSString*)kj_fractionDigits:(double)value digits:(NSUInteger)digits{
++ (NSString *)kj_fractionDigits:(double)value digits:(NSUInteger)digits{
     NSNumber * number = [NSNumber numberWithDouble:value];
     NSDecimalNumber * decNum = [NSDecimalNumber decimalNumberWithDecimal:[number decimalValue]];
     return kStringFractionDigits(decNum, digits);
@@ -472,17 +472,17 @@ NSString * kStringReservedValidDigit(NSDecimalNumber * value, NSInteger digit){
     }
     return string;
 }
-+ (NSString*)kj_reservedValidDigit:(double)value digit:(int)digit{
++ (NSString *)kj_reservedValidDigit:(double)value digit:(int)digit{
     NSNumber * number = [NSNumber numberWithDouble:value];
     NSDecimalNumber * decNum = [NSDecimalNumber decimalNumberWithDecimal:[number decimalValue]];
     return kStringReservedValidDigit(decNum, digit);
 }
 /// Double精度丢失修复
-- (NSString*)kj_doublePrecisionRevise{
+- (NSString *)kj_doublePrecisionRevise{
     double conversionValue = [self doubleValue];
     return [NSString kj_doublePrecisionReviseWithDouble:conversionValue];
 }
-+ (NSString*)kj_doublePrecisionReviseWithDouble:(double)conversionValue{
++ (NSString *)kj_doublePrecisionReviseWithDouble:(double)conversionValue{
     NSString *doubleString = [NSString stringWithFormat:@"%lf", conversionValue];
     NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
     return [decNumber stringValue];

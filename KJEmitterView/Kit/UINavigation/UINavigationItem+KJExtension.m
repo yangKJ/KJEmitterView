@@ -24,7 +24,12 @@
     return self;
 }
 
-- (UIBarButtonItem*)kj_barButtonItemWithTitle:(NSString*)title TitleColor:(UIColor*)color Image:(UIImage*)image TintColor:(UIColor*)tintColor ButtonBlock:(KJButtonBlock)block BarButtonBlock:(void(^)(UIButton*))bblock{
+- (UIBarButtonItem *)kj_barButtonItemWithTitle:(NSString *)title
+                                    TitleColor:(UIColor *)color
+                                         Image:(UIImage *)image
+                                     TintColor:(UIColor *)tintColor
+                                   ButtonBlock:(KJButtonBlock)block
+                                BarButtonBlock:(void(^)(UIButton *))bblock{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     if (image) {
         if (tintColor) {
@@ -50,7 +55,12 @@
     return ^ UINavigationItem * (void(^xblock)(KJNavigationItemInfo*), KJButtonBlock block){
         KJNavigationItemInfo *info = [KJNavigationItemInfo new];
         if (xblock) xblock(info);
-        UIBarButtonItem * barButtonItem = [self kj_barButtonItemWithTitle:info.title TitleColor:info.color Image:[UIImage imageNamed:info.imageName] TintColor:info.tintColor ButtonBlock:block BarButtonBlock:info.barButton];
+        UIBarButtonItem * barButtonItem = [self kj_barButtonItemWithTitle:info.title
+                                                               TitleColor:info.color
+                                                                    Image:[UIImage imageNamed:info.imageName]
+                                                                TintColor:info.tintColor
+                                                              ButtonBlock:block
+                                                           BarButtonBlock:info.barButton];
         if (info.isLeft) {
             return self.kAddLeftBarButtonItem(barButtonItem);
         }else {

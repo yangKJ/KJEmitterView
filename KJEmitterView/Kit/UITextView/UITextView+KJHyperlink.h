@@ -24,7 +24,7 @@ typedef void (^KJTextViewURLHyperlinkBlock)(NSString *URLString);
  3、关闭了text的编辑功能
  4、默认URL地址颜色为蓝色
 */
-- (NSArray*)kj_clickTextViewURLCustom:(URLCustom)custom URLHyperlink:(KJTextViewURLHyperlinkBlock)block;
+- (NSArray *)kj_clickTextViewURLCustom:(URLCustom)custom URLHyperlink:(KJTextViewURLHyperlinkBlock)block;
 
 @end
 

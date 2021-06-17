@@ -106,7 +106,7 @@ NS_INLINE cv::Mat kLaplanceKernel(int k){
 
 #pragma mark -
 /* 图片平铺 */
-- (UIImage*)kj_opencvTiledRows:(int)row cols:(int)col{
+- (UIImage *)kj_opencvTiledRows:(int)row cols:(int)col{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -134,7 +134,7 @@ NS_INLINE cv::Mat kLaplanceKernel(int k){
     return kMatToUIImage(dst);
 }
 /* 根据透视四点透视图片 */
-- (UIImage*)kj_opencvWarpPerspectiveWithKnownPoints:(KJKnownPoints)points size:(CGSize)size{
+- (UIImage *)kj_opencvWarpPerspectiveWithKnownPoints:(KJKnownPoints)points size:(CGSize)size{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     float scale = [UIScreen mainScreen].scale;
@@ -151,7 +151,7 @@ NS_INLINE cv::Mat kLaplanceKernel(int k){
     return kMatToUIImage(dst);
 }
 /* 消除图片高光，beta[0-2],alpha[0-2] */
-- (UIImage*)kj_opencvIlluminationChangeBeta:(double)beta alpha:(double)alpha{
+- (UIImage *)kj_opencvIlluminationChangeBeta:(double)beta alpha:(double)alpha{
     cv::Mat src,gray,mask,dst;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -175,7 +175,7 @@ NS_INLINE cv::Mat kLaplanceKernel(int k){
     return kMatToUIImage(dst);
 }
 /* 图片混合，前提条件两张图片必须大小和类型均一致 */
-- (UIImage*)kj_opencvBlendImage:(UIImage*)image alpha:(double)alpha{
+- (UIImage *)kj_opencvBlendImage:(UIImage *)image alpha:(double)alpha{
     if (!CGSizeEqualToSize(self.size, image.size)) {
         kBitmapChangeImageSize(&image, self.size);
     }
@@ -215,7 +215,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
     CGContextRelease(context);
 }
 /* 调整图片亮度和对比度，contrast[0-100],luminance[0-2] */
-- (UIImage*)kj_opencvChangeContrast:(int)contrast luminance:(double)luminance{
+- (UIImage *)kj_opencvChangeContrast:(int)contrast luminance:(double)luminance{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -235,7 +235,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
     return kMatToUIImage(dst);
 }
 /* 修改图片通道值颜色，r,g,b[0-255] */
-- (UIImage*)kj_opencvChangeR:(int)r g:(int)g b:(int)b{
+- (UIImage *)kj_opencvChangeR:(int)r g:(int)g b:(int)b{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -269,7 +269,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
 }
 #pragma mark - 滤波模糊板块
 /* 模糊处理 */
-- (UIImage*)kj_opencvBlurX:(int)x y:(int)y{
+- (UIImage *)kj_opencvBlurX:(int)x y:(int)y{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     //均值滤波处理
@@ -277,7 +277,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
     return kMatToUIImage(dst);
 }
 /* 高斯模糊，xy需要正数且为奇数 */
-- (UIImage*)kj_opencvGaussianBlurX:(int)x y:(int)y{
+- (UIImage *)kj_opencvGaussianBlurX:(int)x y:(int)y{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     //高斯滤波处理，Size高斯内核大小必须为正奇数
@@ -285,7 +285,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
     return kMatToUIImage(dst);
 }
 /* 中值模糊，可以去掉白色小颗粒，ksize必须为正数且奇数 */
-- (UIImage*)kj_opencvMedianBlurksize:(int)ksize{
+- (UIImage *)kj_opencvMedianBlurksize:(int)ksize{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     //中值滤波主要处理椒盐小颗粒
@@ -293,7 +293,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
     return kMatToUIImage(dst);
 }
 /* 高斯双边模糊，可以做磨皮美白效果 */
-- (UIImage*)kj_opencvBilateralFilterBlurRadio:(int)radio sigma:(int)sigma{
+- (UIImage *)kj_opencvBilateralFilterBlurRadio:(int)radio sigma:(int)sigma{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -306,7 +306,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
     return kMatToUIImage(dst);
 }
 /* 自定义线性模糊 */
-- (UIImage*)kj_opencvCustomBlurksize:(int)ksize{
+- (UIImage *)kj_opencvCustomBlurksize:(int)ksize{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     if (!(ksize%2)) ksize++;//保证为奇数
@@ -316,7 +316,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
 }
 
 #pragma mark - 图像形态学相关
-- (UIImage*)kj_opencvMorphology:(KJOpencvMorphologyStyle)type element:(int)element{
+- (UIImage *)kj_opencvMorphology:(KJOpencvMorphologyStyle)type element:(int)element{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     if (src.channels() != 1) {
@@ -333,8 +333,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
         case KJOpencvMorphologyStyleGRADIENT:op = MORPH_GRADIENT;break;//形态学梯度，膨胀减去腐蚀
         case KJOpencvMorphologyStyleTOPHAT:op = MORPH_TOPHAT;break;//顶帽，源图像与开操作之间的差值
         case KJOpencvMorphologyStyleBLACKHAT:op = MORPH_BLACKHAT;break;//黑帽，闭操作与源图像之间的差值
-        default:
-            break;
+        default:break;
     }
     //形态学操作
     morphologyEx(src, dst, op, kernel);
@@ -343,7 +342,7 @@ NS_INLINE void kBitmapChangeImageSize(UIImage **image, CGSize size){
 
 #pragma mark - 综合效果处理
 /* 修复图片，可以去水印 */
-- (UIImage*)kj_opencvInpaintImage:(int)radius{
+- (UIImage *)kj_opencvInpaintImage:(int)radius{
     cv::Mat src,dst,gray;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -368,7 +367,7 @@ struct zxy {
     double x, y, z;
 }ks[2500][2500];
 /* 图片修复，效果增强处理 */
-- (UIImage*)kj_opencvRepairImage{
+- (UIImage *)kj_opencvRepairImage{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     src = kFourChannelsBecomeThree(src);
@@ -418,7 +417,7 @@ struct zxy {
     return kMatToUIImage(dst);
 }
 /* 图像裁剪算法，裁剪出最大内部矩形区域 */
-- (UIImage*)kj_opencvCutMaxRegionImage{
+- (UIImage *)kj_opencvCutMaxRegionImage{
     cv::Mat src,dst,gray,binary;
     UIImageToMat(self,src,true);
     //扩大边缘，然后转成灰度图
@@ -462,7 +461,7 @@ struct zxy {
 }
 
 /* 图片拼接技术，多张类似图合成一张 */
-- (UIImage*)kj_opencvCompoundMoreImage:(UIImage*)image,...{
+- (UIImage *)kj_opencvCompoundMoreImage:(UIImage *)image,...{
     NSMutableArray<UIImage*>* temps = [NSMutableArray arrayWithObjects:self,image,nil];
     va_list args;UIImage *tempImage;
     va_start(args, image);
@@ -486,7 +485,7 @@ struct zxy {
     return self;
 }
 /* 特征提取，基于Sobel算子 */
-- (UIImage*)kj_opencvFeatureExtractionFromSobel{
+- (UIImage *)kj_opencvFeatureExtractionFromSobel{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     dst = kSobelFeatureExtraction(src);
@@ -511,7 +510,7 @@ NS_INLINE cv::Mat kSobelFeatureExtraction(cv::Mat &src){
     return xygray;
 }
 /* 文本类型图片矫正，基于霍夫线判断矫正 */
-- (UIImage*)kj_opencvHoughLinesCorrectTextImageFillColor:(UIColor*)color{
+- (UIImage *)kj_opencvHoughLinesCorrectTextImageFillColor:(UIColor *)color{
     cv::Mat src,dst;
     UIImageToMat(self,src,true);
     
@@ -556,7 +555,8 @@ NS_INLINE double kHoughLinesCalcDegree(const Mat src){
     //由于图像不同，阈值不好设定，因为阈值设定过高导致无法检测直线，阈值过低直线太多，速度很慢
     while (!lines.size()) {
         if (index > 3) break;
-        HoughLines(cannyImage, lines, 1, CV_PI/180, 300-index*50, 0, 0);//第5个参数就是阈值，阈值越大，检测精度越高
+        //第5个参数就是阈值，阈值越大，检测精度越高
+        HoughLines(cannyImage, lines, 1, CV_PI/180, 300-index*50, 0, 0);
         index++;
     }
     if (!lines.size()) return 0;

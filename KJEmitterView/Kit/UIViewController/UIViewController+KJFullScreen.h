@@ -15,13 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 顶部控制器
 @property(nonatomic,strong,class,readonly)UIViewController *topViewController;
 /// 是否开启侧滑返回手势
-- (void)kj_openPopGesture:(BOOL)open viewController:(UIViewController*)vc;
+- (void)kj_openPopGesture:(BOOL)open viewController:(UIViewController *)vc;
 /// 跳转回指定控制器
 - (BOOL)kj_popTargetViewController:(Class)clazz block:(void(^)(UIViewController *vc))block;
 /// 切换根视图控制器
 - (void)kj_changeRootViewController:(void(^)(BOOL success))complete;
 /// 系统自带分享
-- (UIActivityViewController*)kj_shareActivityWithItems:(NSArray*)items complete:(void(^)(BOOL success))complete;
+- (UIActivityViewController *)kj_shareActivityWithItems:(NSArray *)items complete:(void(^)(BOOL success))complete;
 
 @end
 

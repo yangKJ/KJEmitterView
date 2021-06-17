@@ -21,7 +21,7 @@
     return comps.year == 0 && comps.month == 0 && comps.day == 1;
 }
 /* 判断两个日期是否在同一周 */
-- (BOOL)kj_weekSameDate:(NSDate*)date{
+- (BOOL)kj_weekSameDate:(NSDate *)date{
     if (fabs([self timeIntervalSinceDate:date]) >= 7 * 24 * 3600){
         return NO;
     }
@@ -32,7 +32,7 @@
     return countSelf == countDate;
 }
 /// 是否同一天
-- (BOOL)kj_daySameDate:(NSDate*)date{
+- (BOOL)kj_daySameDate:(NSDate *)date{
     if (fabs([self timeIntervalSinceDate:date]) >= 24 * 3600){
         return NO;
     }
@@ -57,7 +57,7 @@
     return x;
 }
 /// 将日期转化为本地时间
-- (NSDate*)kj_localeDate{
+- (NSDate *)kj_localeDate{
     NSTimeZone *zone = [NSTimeZone systemTimeZone];
     NSInteger interval = [zone secondsFromGMTForDate:self];
     NSDate *localeDate = [self dateByAddingTimeInterval:interval];
@@ -70,14 +70,14 @@
     return range.length;
 }
 /// 返回当前日期的所在月份的第一天日期
-- (NSDate*)kj_monthFristDay{
+- (NSDate *)kj_monthFristDay{
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:self];
     [components setDay:1];
     return [calendar dateFromComponents:components];
 }
 /// 获取当月最后一天
-- (NSDate*)kj_monthLastDay{
+- (NSDate *)kj_monthLastDay{
     NSDate *date = [self kj_monthFristDay];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -88,7 +88,7 @@
     return [calendar dateByAddingComponents:components2 toDate:mdate options:0];
 }
 /// 返回当前周的周末日期
-- (NSDate*)kj_weekendDate{
+- (NSDate *)kj_weekendDate{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *weekdayComp = [calendar components:NSCalendarUnitWeekday fromDate:self];
     NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -96,7 +96,7 @@
     return [calendar dateByAddingComponents:components toDate:self options:0];
 }
 /// 获取今日前后几天的日期
-- (NSString*)kj_skewingDay:(NSInteger)day format:(NSString*)format{
+- (NSString *)kj_skewingDay:(NSInteger)day format:(NSString *)format{
     NSDate *date = self;
     if (day != 0) {
         NSTimeInterval oneDay = 24 * 60 * 60;
@@ -107,7 +107,7 @@
     return [dateFormatter stringFromDate:date];
 }
 /// 获取今天偏移几月的日期
-- (NSString*)kj_skewingMonth:(NSInteger)month format:(NSString*)format{
+- (NSString *)kj_skewingMonth:(NSInteger)month format:(NSString *)format{
     NSDate *date = self;
     if (month != 0) {
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -121,13 +121,13 @@
 }
 
 /// 时间字符串转位NSDate
-+ (NSDate*)kj_dateFromString:(NSString*)string{
++ (NSDate *)kj_dateFromString:(NSString *)string{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     return [formatter dateFromString:string];
 }
 /// 获取当前时间戳，是否为毫秒
-+ (NSTimeInterval)kj_currentTimeTimestampWithFormat:(NSString*)format msec:(BOOL)msec{
++ (NSTimeInterval)kj_currentTimeTimestampWithFormat:(NSString *)format msec:(BOOL)msec{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
@@ -135,7 +135,7 @@
     return [[NSDate date] timeIntervalSince1970] * (msec ? 1000 : 1);
 }
 /// 时间戳转时间，内部判断是毫秒还是秒
-+ (NSString*)kj_timeWithTimestamp:(NSTimeInterval)timestamp format:(NSString*)format{
++ (NSString *)kj_timeWithTimestamp:(NSTimeInterval)timestamp format:(NSString *)format{
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];

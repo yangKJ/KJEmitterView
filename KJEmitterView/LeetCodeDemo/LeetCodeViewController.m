@@ -109,7 +109,7 @@
 }
 
 #pragma mark - lazy
-- (NSArray*)temps{
+- (NSArray *)temps{
     if (!_temps) {
         NSMutableArray *temp1 = [NSMutableArray array];
         [temp1 addObject:@{@"Name":@"找出数组中第N个最大元素",@"Method":@"arrayTest1"}];

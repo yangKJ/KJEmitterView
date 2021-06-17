@@ -34,12 +34,12 @@ IB_DESIGNABLE
 @property(nonatomic,copy,readwrite)void(^kTextEditingChangedBolck)(NSString *text);
 
 /// 设置左边视图，类似账号密码标题
-- (UIView*)kj_leftView:(void(^)(KJTextFieldLeftInfo *info))block;
+- (UIView *)kj_leftView:(void(^)(KJTextFieldLeftInfo *info))block;
 /// 设置右边视图，类似小圆叉
-- (UIButton*)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block
-                        ImageName:(NSString*)imageName
-                            Width:(CGFloat)width
-                          Padding:(CGFloat)padding;
+- (UIButton *)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block
+                         ImageName:(NSString *)imageName
+                             Width:(CGFloat)width
+                           Padding:(CGFloat)padding;
 
 @end
 

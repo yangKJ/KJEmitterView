@@ -129,7 +129,7 @@
     }
     return _button;
 }
-- (UIButton*)emitterButton{
+- (UIButton *)emitterButton{
     if (!_emitterButton) {
         CGFloat Y = 5 * 40 + self.button.frame.origin.y + CGRectGetHeight(self.button.frame) + 45;
         UILabel *label = [UILabel new];
@@ -150,7 +150,7 @@
     }
     return _emitterButton;
 }
-- (UIButton*)countDownButton{
+- (UIButton *)countDownButton{
     if (!_countDownButton) {
         CGFloat Y = CGRectGetMaxY(self.emitterButton.frame) + 15;
         UILabel *label = [UILabel new];
@@ -179,7 +179,7 @@
     }
     return _countDownButton;
 }
-- (UIButton*)submitButton{
+- (UIButton *)submitButton{
     if (!_submitButton) {
         CGFloat Y = CGRectGetMaxY(self.countDownButton.frame) + 15;
         UILabel *label = [UILabel new];

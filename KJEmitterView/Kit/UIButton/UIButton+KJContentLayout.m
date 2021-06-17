@@ -119,7 +119,10 @@ static char topNameKey,bottomNameKey,leftNameKey,rightNameKey;
     NSNumber *b = objc_getAssociatedObject(self, &bottomNameKey);
     NSNumber *l = objc_getAssociatedObject(self, &leftNameKey);
     if (t && r && b && l){
-        return CGRectMake(self.bounds.origin.x - l.floatValue, self.bounds.origin.y - t.floatValue, self.bounds.size.width + l.floatValue + r.floatValue, self.bounds.size.height + t.floatValue + b.floatValue);
+        return CGRectMake(self.bounds.origin.x - l.floatValue,
+                          self.bounds.origin.y - t.floatValue,
+                          self.bounds.size.width + l.floatValue + r.floatValue,
+                          self.bounds.size.height + t.floatValue + b.floatValue);
     }else {
         return self.bounds;
     }
@@ -134,7 +137,10 @@ static char topNameKey,bottomNameKey,leftNameKey,rightNameKey;
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event{
     UIEdgeInsets insets = self.touchAreaInsets;
     CGRect bounds = self.bounds;
-    bounds = CGRectMake(bounds.origin.x - insets.left, bounds.origin.y - insets.top, bounds.size.width + insets.left + insets.right, bounds.size.height + insets.top + insets.bottom);
+    bounds = CGRectMake(bounds.origin.x - insets.left,
+                        bounds.origin.y - insets.top,
+                        bounds.size.width + insets.left + insets.right,
+                        bounds.size.height + insets.top + insets.bottom);
     return CGRectContainsPoint(bounds, point);
 }
 #pragma mark - associated

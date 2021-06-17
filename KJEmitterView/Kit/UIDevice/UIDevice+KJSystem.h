@@ -27,26 +27,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// 启动图备份文件路径
 @property(nonatomic,strong,class)NSString *launchImageBackupPath;
 /// 生成启动图
-+ (UIImage*)kj_launchImageWithPortrait:(BOOL)portrait
-                                  Dark:(BOOL)dark;
++ (UIImage *)kj_launchImageWithPortrait:(BOOL)portrait
+                                   Dark:(BOOL)dark;
 /// 生成启动图，根据LaunchScreen名称、是否竖屏、是否暗黑
-+ (UIImage*)kj_launchImageWithStoryboard:(NSString*)name
-                                Portrait:(BOOL)portrait
-                                    Dark:(BOOL)dark;
++ (UIImage *)kj_launchImageWithStoryboard:(NSString *)name
+                                 Portrait:(BOOL)portrait
+                                     Dark:(BOOL)dark;
 
 /// 判断相机是否可用
 @property(nonatomic,assign,class)BOOL cameraAvailable;
 
 /// 对比版本号
-+ (BOOL)kj_comparisonVersion:(NSString*)version;
++ (BOOL)kj_comparisonVersion:(NSString *)version;
 /// 获取AppStore版本号和详情信息
-+ (NSString*)kj_getAppStoreVersionWithAppid:(NSString*)appid
-                                    Details:(void(^)(NSDictionary *userInfo))block;
++ (NSString *)kj_getAppStoreVersionWithAppid:(NSString *)appid
+                                     Details:(void(^)(NSDictionary *userInfo))block;
 
 /// 跳转到指定URL
 + (void)kj_openURL:(id)URL;
 /// 调用AppStore
-+ (void)kj_skipToAppStoreWithAppid:(NSString*)appid;
++ (void)kj_skipToAppStoreWithAppid:(NSString *)appid;
 /// 调用自带浏览器safari
 + (void)kj_skipToSafari;
 /// 调用自带Mail

@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const kHomeViewKey = @"kHomeView";
 @interface KJHomeView : UIView
 
-- (void)setTemps:(NSArray*)temps sectionTemps:(NSArray*)sectionTemps;
+- (void)setTemps:(NSArray *)temps sectionTemps:(NSArray *)sectionTemps;
 
 @end
 

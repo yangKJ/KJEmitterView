@@ -11,7 +11,7 @@
 
 @implementation UIViewController (KJFullScreen)
 /// 顶部控制器
-+ (UIViewController*)topViewController{
++ (UIViewController *)topViewController{
     UIViewController *result = nil;
     UIWindow *window = ({
         UIWindow *window;
@@ -48,7 +48,7 @@
     return result;
 }
 /// 是否开启侧滑返回手势
-- (void)kj_openPopGesture:(BOOL)open viewController:(UIViewController*)vc{
+- (void)kj_openPopGesture:(BOOL)open viewController:(UIViewController *)vc{
     if ([vc.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         for (UIGestureRecognizer * popGesture in vc.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers) {
             popGesture.enabled = open;
@@ -70,7 +70,7 @@
     return YES;
 }
 /* 完美解决NavigationBar隐藏/显示 */
-- (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
+- (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (viewController == self){
         [navigationController setNavigationBarHidden:YES animated:YES];
     }else{
@@ -104,7 +104,7 @@
     }];
 }
 /// 系统自带分享
-- (UIActivityViewController*)kj_shareActivityWithItems:(NSArray*)items complete:(void(^)(BOOL success))complete{
+- (UIActivityViewController *)kj_shareActivityWithItems:(NSArray *)items complete:(void(^)(BOOL success))complete{
     if (items.count == 0) return nil;
     UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
     if (@available(iOS 11.0, *)) {

@@ -49,7 +49,7 @@
     [self kj_backout_dealloc];
 }
 /// 加入数组
-- (void)kj_backoutTextViewChangeText:(NSString*)text{
+- (void)kj_backoutTextViewChangeText:(NSString *)text{
     if (text) {
         if ([self.textTemps.lastObject isEqualToString:text]) return;
         [self.textTemps addObject:text];

@@ -55,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol KJViewDelegate,KJLabelDelegate;
 @protocol KJImageViewDelegate,KJButtonDelegate;
-@protocol KJTableViewCreateDelegate;
 // UIView
 @interface UIView (KJCreate)
 /// 快速创建处理
@@ -85,13 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)kj_createButton:(void(^)(id<KJButtonDelegate>button))handle;
 
 @end
-
-// UITableView
-@interface UITableView (KJCreate)
-+ (instancetype)kj_createTableView:(void(^)(id<KJTableViewCreateDelegate>tableView))handle;
-
-@end
-
 
 
 //****************************  协议委托  ****************************

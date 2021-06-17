@@ -26,15 +26,15 @@
     }
     [self kj_placeHolder_layoutSubviews];
 }
-- (void)kj_placeHolder_setText:(NSString*)text{
+- (void)kj_placeHolder_setText:(NSString *)text{
     [self kj_placeHolder_setText:text];
     if (self.placeHolder) [self updatePlaceHolder];
 }
 #pragma mark - associated
-- (NSString*)placeHolder{
+- (NSString *)placeHolder{
     return objc_getAssociatedObject(self, @selector(placeHolder));
 }
-- (void)setPlaceHolder:(NSString*)placeHolder{
+- (void)setPlaceHolder:(NSString *)placeHolder{
     objc_setAssociatedObject(self, @selector(placeHolder), placeHolder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

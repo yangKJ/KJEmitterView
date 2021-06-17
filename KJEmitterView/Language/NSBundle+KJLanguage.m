@@ -16,14 +16,14 @@
 //        object_setClass([NSBundle mainBundle], [KJLanguageManager class]);
 //    });
 //}
-+ (NSString*)customStringsName{
++ (NSString *)customStringsName{
     return objc_getAssociatedObject(self, @selector(customStringsName));
 }
-+ (void)setCustomStringsName:(NSString*)customStringsName{
++ (void)setCustomStringsName:(NSString *)customStringsName{
     objc_setAssociatedObject(self, @selector(customStringsName), customStringsName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     KJLanguageManager.customStringsName = customStringsName;
 }
-+ (NSString*)currentLanguage{
++ (NSString *)currentLanguage{
     return KJLanguageManager.currentLanguage;
 }
 /// 开启动态继承，必须在使用到多语言之前开启
@@ -34,7 +34,7 @@
     });
 }
 /// 设置语言
-+ (void)kj_setCurrentLanguage:(NSString*)language complete:(void(^)(void))complete{
++ (void)kj_setCurrentLanguage:(NSString *)language complete:(void(^)(void))complete{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (language) {
         [userDefaults setObject:language forKey:kAppLanguageKey];
@@ -54,7 +54,7 @@
             __vc.loadEnd = ^{
                 [vc.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj isKindOfClass:[UIButton class]]) {
-                        UIButton *button = (UIButton*)obj;
+                        UIButton *button = (UIButton *)obj;
                         button.LocalizedKey = button.LocalizedKey;
                         button.SelectedKey = button.SelectedKey;
                         button.DisabledKey = button.DisabledKey;
@@ -79,10 +79,10 @@
 
 
 @implementation UIButton (KJLanguage)
-- (NSString*)LocalizedKey{
+- (NSString *)LocalizedKey{
     return objc_getAssociatedObject(self, @selector(LocalizedKey));;
 }
-- (void)setLocalizedKey:(NSString*)LocalizedKey{
+- (void)setLocalizedKey:(NSString *)LocalizedKey{
     objc_setAssociatedObject(self, @selector(LocalizedKey), LocalizedKey, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (LocalizedKey == nil) return;
     if (KJLanguageManager.customStringsName) {
@@ -91,10 +91,10 @@
         [self setTitle:NSLocalizedString(LocalizedKey, nil) forState:UIControlStateNormal];
     }
 }
-- (NSString*)HighlightedKey{
+- (NSString *)HighlightedKey{
     return objc_getAssociatedObject(self, @selector(HighlightedKey));;
 }
-- (void)setHighlightedKey:(NSString*)HighlightedKey{
+- (void)setHighlightedKey:(NSString *)HighlightedKey{
     objc_setAssociatedObject(self, @selector(HighlightedKey), HighlightedKey, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (HighlightedKey == nil) return;
     if (KJLanguageManager.customStringsName) {
@@ -103,10 +103,10 @@
         [self setTitle:NSLocalizedString(HighlightedKey, nil) forState:UIControlStateHighlighted];
     }
 }
-- (NSString*)SelectedKey{
+- (NSString *)SelectedKey{
     return objc_getAssociatedObject(self, @selector(SelectedKey));;
 }
-- (void)setSelectedKey:(NSString*)SelectedKey{
+- (void)setSelectedKey:(NSString *)SelectedKey{
     objc_setAssociatedObject(self, @selector(SelectedKey), SelectedKey, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (SelectedKey == nil) return;
     if (KJLanguageManager.customStringsName) {
@@ -115,10 +115,10 @@
         [self setTitle:NSLocalizedString(SelectedKey, nil) forState:UIControlStateSelected];
     }
 }
-- (NSString*)DisabledKey{
+- (NSString *)DisabledKey{
     return objc_getAssociatedObject(self, @selector(DisabledKey));;
 }
-- (void)setDisabledKey:(NSString*)DisabledKey{
+- (void)setDisabledKey:(NSString *)DisabledKey{
     objc_setAssociatedObject(self, @selector(DisabledKey), DisabledKey, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (DisabledKey == nil) return;
     if (KJLanguageManager.customStringsName) {
@@ -132,10 +132,10 @@
 
 
 @implementation UILabel (KJLanguage)
-- (NSString*)LocalizedKey{
+- (NSString *)LocalizedKey{
     return objc_getAssociatedObject(self, @selector(LocalizedKey));;
 }
-- (void)setLocalizedKey:(NSString*)LocalizedKey{
+- (void)setLocalizedKey:(NSString *)LocalizedKey{
     objc_setAssociatedObject(self, @selector(LocalizedKey), LocalizedKey, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (LocalizedKey == nil) return;
     if (KJLanguageManager.customStringsName) {
@@ -148,10 +148,10 @@
 @end
 
 @implementation UITextField (KJLanguage)
-- (NSString*)LocalizedKey{
+- (NSString *)LocalizedKey{
     return objc_getAssociatedObject(self, @selector(LocalizedKey));;
 }
-- (void)setLocalizedKey:(NSString*)LocalizedKey{
+- (void)setLocalizedKey:(NSString *)LocalizedKey{
     objc_setAssociatedObject(self, @selector(LocalizedKey), LocalizedKey, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (LocalizedKey == nil) return;
     if (KJLanguageManager.customStringsName) {

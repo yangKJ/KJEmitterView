@@ -204,70 +204,25 @@
     };\
 }\
 
-@interface UIButton ()<KJButtonDelegate>
+@interface UIView ()<KJViewDelegate>
 @end
-@implementation UIButton (KJCreate)
+@implementation UIView (KJCreate)
 /// 快速创建处理
-+ (instancetype)kj_createButton:(void(^)(id<KJButtonDelegate>))handle{
-    UIButton * button = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    button.adjustsImageWhenDisabled = button.adjustsImageWhenHighlighted = NO;
-    if (handle) handle(button);
-    return button;
++ (instancetype)kj_createView:(void(^)(id<KJViewDelegate>))handle{
+    id view = [[self alloc] init];
+    if (handle) handle(view);
+    return view;
+}
++ (instancetype)kj_createView:(void(^)(id<KJViewDelegate>view))handle frame:(CGRect)frame{
+    id view = [[self alloc] initWithFrame:frame];
+    if (handle) handle(view);
+    return view;
 }
 #pragma mark - KJQuickCreateHandle
 Quick_Create_Common
-- (id<KJImageViewDelegate>(^)(UIImage *))kj_image{
-    return ^(UIImage * image) {
-        [self setImage:image forState:UIControlStateNormal];
-        return self;
-    };
-}
-- (id<KJImageViewDelegate>(^)(NSString *))kj_imageName{
-    return ^(NSString * name) {
-        UIImage *image = [UIImage imageNamed:name];
-        if (image) [self setImage:image forState:UIControlStateNormal];
-        return self;
-    };
-}
-- (id<KJLabelDelegate>(^)(NSString *))kj_text{
-    return ^(NSString * text) {
-        [self setTitle:text forState:(UIControlStateNormal)];
-        return self;
-    };
-}
-- (id<KJLabelDelegate>(^)(UIFont *))kj_font{
-    return ^(UIFont * font) {
-        self.titleLabel.font = font;
-        return self;
-    };
-}
-- (id<KJLabelDelegate>(^)(CGFloat))kj_fontSize{
-    return ^(CGFloat size) {
-        self.titleLabel.font = [UIFont systemFontOfSize:size];
-        return self;
-    };
-}
-- (id<KJLabelDelegate>(^)(UIColor *))kj_textColor{
-    return ^(UIColor * color) {
-        [self setTitleColor:color forState:(UIControlStateNormal)];
-        return self;
-    };
-}
-- (id<KJButtonDelegate>(^)(UIImage *,UIControlState))kj_stateImage{
-    return ^(UIImage * image,UIControlState state) {
-        [self setImage:image forState:state];
-        return self;
-    };
-}
-- (id<KJButtonDelegate>(^)(NSString*,UIColor*,UIControlState))kj_stateTitle{
-    return ^(NSString*string, UIColor *color, UIControlState state) {
-        [self setTitle:string forState:state];
-        [self setTitleColor:color forState:state];
-        return self;
-    };
-}
 
 @end
+
 
 /* **************************** 快捷创建文本 ****************************/
 @interface UILabel ()<KJLabelDelegate>
@@ -340,21 +295,68 @@ Quick_Create_Common
 }
 @end
 
-@interface UIView ()<KJViewDelegate>
+
+@interface UIButton ()<KJButtonDelegate>
 @end
-@implementation UIView (KJCreate)
+@implementation UIButton (KJCreate)
 /// 快速创建处理
-+ (instancetype)kj_createView:(void(^)(id<KJViewDelegate>))handle{
-    id view = [[self alloc] init];
-    if (handle) handle(view);
-    return view;
-}
-+ (instancetype)kj_createView:(void(^)(id<KJViewDelegate>view))handle frame:(CGRect)frame{
-    id view = [[self alloc] initWithFrame:frame];
-    if (handle) handle(view);
-    return view;
++ (instancetype)kj_createButton:(void(^)(id<KJButtonDelegate>))handle{
+    UIButton * button = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    button.adjustsImageWhenDisabled = button.adjustsImageWhenHighlighted = NO;
+    if (handle) handle(button);
+    return button;
 }
 #pragma mark - KJQuickCreateHandle
 Quick_Create_Common
+- (id<KJImageViewDelegate>(^)(UIImage *))kj_image{
+    return ^(UIImage * image) {
+        [self setImage:image forState:UIControlStateNormal];
+        return self;
+    };
+}
+- (id<KJImageViewDelegate>(^)(NSString *))kj_imageName{
+    return ^(NSString * name) {
+        UIImage *image = [UIImage imageNamed:name];
+        if (image) [self setImage:image forState:UIControlStateNormal];
+        return self;
+    };
+}
+- (id<KJLabelDelegate>(^)(NSString *))kj_text{
+    return ^(NSString * text) {
+        [self setTitle:text forState:(UIControlStateNormal)];
+        return self;
+    };
+}
+- (id<KJLabelDelegate>(^)(UIFont *))kj_font{
+    return ^(UIFont * font) {
+        self.titleLabel.font = font;
+        return self;
+    };
+}
+- (id<KJLabelDelegate>(^)(CGFloat))kj_fontSize{
+    return ^(CGFloat size) {
+        self.titleLabel.font = [UIFont systemFontOfSize:size];
+        return self;
+    };
+}
+- (id<KJLabelDelegate>(^)(UIColor *))kj_textColor{
+    return ^(UIColor * color) {
+        [self setTitleColor:color forState:(UIControlStateNormal)];
+        return self;
+    };
+}
+- (id<KJButtonDelegate>(^)(UIImage *,UIControlState))kj_stateImage{
+    return ^(UIImage * image,UIControlState state) {
+        [self setImage:image forState:state];
+        return self;
+    };
+}
+- (id<KJButtonDelegate>(^)(NSString *,UIColor *,UIControlState))kj_stateTitle{
+    return ^(NSString * string, UIColor * color, UIControlState state) {
+        [self setTitle:string forState:state];
+        [self setTitleColor:color forState:state];
+        return self;
+    };
+}
 
 @end

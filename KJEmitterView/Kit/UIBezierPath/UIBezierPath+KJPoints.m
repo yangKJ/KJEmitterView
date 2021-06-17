@@ -12,7 +12,7 @@
 #import <CoreText/CTRun.h>
 #import <CoreText/CTStringAttributes.h>
 @implementation UIBezierPath (KJPoints)
-- (NSArray*)points{
+- (NSArray *)points{
     NSMutableArray *temps = [NSMutableArray array];
     CGPathApply(self.CGPath, (__bridge void *)temps, kGetBezierPathPoints);
     return temps.mutableCopy;
@@ -33,7 +33,7 @@ static void kGetBezierPathPoints(void *info, const CGPathElement *element){
 }
 
 /// 获取文字贝塞尔路径
-+ (UIBezierPath*)kj_bezierPathWithText:(NSString*)text Font:(UIFont*)font{
++ (UIBezierPath *)kj_bezierPathWithText:(NSString *)text Font:(UIFont *)font{
     CTFontRef ctFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     if (!ctFont) return nil;
     NSDictionary *attrs = @{ (__bridge id)kCTFontAttributeName:(__bridge id)ctFont };

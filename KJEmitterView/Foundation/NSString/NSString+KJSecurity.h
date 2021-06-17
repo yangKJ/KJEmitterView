@@ -19,20 +19,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - RSA 非对称加密算法
 /// 公钥加密
-- (NSString * (^)(NSString*))kj_rsaEncryptPublicKey;
+- (NSString * (^)(NSString *))kj_rsaEncryptPublicKey;
 /// 私钥解密
-- (NSString * (^)(NSString*))kj_rsaDecryptPrivateKey;
+- (NSString * (^)(NSString *))kj_rsaDecryptPrivateKey;
 
 /// 私钥加密 - 签名
-- (NSString * (^)(NSString*))kj_rsaEncryptPrivateKey;
+- (NSString * (^)(NSString *))kj_rsaEncryptPrivateKey;
 /// 公钥解密 - 验签
-- (NSString * (^)(NSString*))kj_rsaDecryptPublicKey;
+- (NSString * (^)(NSString *))kj_rsaDecryptPublicKey;
 
 #pragma mark - AES 对称加密算法
 /// 加密
-- (NSString * (^)(NSString*))kj_aesEncryptKey;
+- (NSString * (^)(NSString *))kj_aesEncryptKey;
 /// 解密
-- (NSString * (^)(NSString*))kj_aesDecryptKey;
+- (NSString * (^)(NSString *))kj_aesDecryptKey;
 
 #pragma mark - base64
 /// Base64编码
@@ -48,10 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark ---------------- NSData ----------------
 #pragma mark - RSA板块
-+ (NSData *)kj_rsadecryptData:(NSData*)data privateKey:(NSString*)key;
-+ (NSData *)kj_rsadecryptData:(NSData*)data publicKey:(NSString*)key;
-+ (NSData *)kj_rsaencryptData:(NSData*)data publicKey:(NSString*)key;
-+ (NSData *)kj_rsaencryptData:(NSData*)data privateKey:(NSString*)key;
++ (NSData *)kj_rsadecryptData:(NSData*)data privateKey:(NSString *)key;
++ (NSData *)kj_rsadecryptData:(NSData*)data publicKey:(NSString *)key;
++ (NSData *)kj_rsaencryptData:(NSData*)data publicKey:(NSString *)key;
++ (NSData *)kj_rsaencryptData:(NSData*)data privateKey:(NSString *)key;
 
 #pragma mark - AES板块
 + (NSData*)kj_aes128Data:(NSData *)data

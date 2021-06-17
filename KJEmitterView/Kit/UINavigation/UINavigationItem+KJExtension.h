@@ -19,12 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 链式生成
 - (instancetype)kj_makeNavigationItem:(void(^)(UINavigationItem *make))block;
 /// 快捷生成Item
-- (UIBarButtonItem*)kj_barButtonItemWithTitle:(NSString*)title
-                                   TitleColor:(UIColor*)color
-                                        Image:(UIImage*)image
-                                    TintColor:(UIColor*)tintColor
-                                  ButtonBlock:(KJButtonBlock)block
-                               BarButtonBlock:(void(^)(UIButton*))bblock;
+- (UIBarButtonItem *)kj_barButtonItemWithTitle:(NSString *)title
+                                    TitleColor:(UIColor *)color
+                                         Image:(UIImage *)image
+                                     TintColor:(UIColor *)tintColor
+                                   ButtonBlock:(KJButtonBlock)block
+                                BarButtonBlock:(void(^)(UIButton *))bblock;
 
 #pragma mark - ExtendParameterBlock 扩展参数
 @property(nonatomic,strong,readonly) UINavigationItem *(^kAddBarButtonItemInfo)(void(^)(KJNavigationItemInfo *info), KJButtonBlock);

@@ -16,55 +16,55 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (KJAccelerate)
 /// 图片旋转
-- (UIImage*)kj_rotateInRadians:(CGFloat)radians;
+- (UIImage *)kj_rotateInRadians:(CGFloat)radians;
 
 #pragma mark - 模糊处理
-- (UIImage*)kj_blurImageSoft;
-- (UIImage*)kj_blurImageLight;
-- (UIImage*)kj_blurImageExtraLight;
-- (UIImage*)kj_blurImageDark;
+- (UIImage *)kj_blurImageSoft;
+- (UIImage *)kj_blurImageLight;
+- (UIImage *)kj_blurImageExtraLight;
+- (UIImage *)kj_blurImageDark;
 /// 指定颜色线性模糊
-- (UIImage*)kj_blurImageWithTintColor:(UIColor*)color;
+- (UIImage *)kj_blurImageWithTintColor:(UIColor *)color;
 /// 线性模糊（保留透明区域）范围 0 ~ 1
-- (UIImage*)kj_linearBlurryImageBlur:(CGFloat)blur;
+- (UIImage *)kj_linearBlurryImageBlur:(CGFloat)blur;
 /// 模糊处理（可设置模糊半径，模糊颜色，模糊蒙板）
-- (UIImage*)kj_blurImageWithRadius:(CGFloat)radius
-                             Color:(UIColor*)color
-                         MaskImage:(UIImage* _Nullable)maskImage;
+- (UIImage *)kj_blurImageWithRadius:(CGFloat)radius
+                              Color:(UIColor *)color
+                          MaskImage:(UIImage* _Nullable)maskImage;
 
 #pragma mark - 形态学图像渲染
 /// 均衡运算
-- (UIImage*)kj_equalizationImage;
+- (UIImage *)kj_equalizationImage;
 /// 侵蚀
-- (UIImage*)kj_erodeImage;
+- (UIImage *)kj_erodeImage;
 /// 形态膨胀/扩张
-- (UIImage*)kj_dilateImage;
+- (UIImage *)kj_dilateImage;
 /// 多倍侵蚀
-- (UIImage*)kj_erodeImageWithIterations:(int)iterations;
+- (UIImage *)kj_erodeImageWithIterations:(int)iterations;
 /// 形态多倍膨胀/扩张
-- (UIImage*)kj_dilateImageWithIterations:(int)iterations;
+- (UIImage *)kj_dilateImageWithIterations:(int)iterations;
 /// 梯度
-- (UIImage*)kj_gradientImageWithIterations:(int)iterations;
+- (UIImage *)kj_gradientImageWithIterations:(int)iterations;
 /// 顶帽运算
-- (UIImage*)kj_tophatImageWithIterations:(int)iterations;
+- (UIImage *)kj_tophatImageWithIterations:(int)iterations;
 /// 黑帽运算
-- (UIImage*)kj_blackhatImageWithIterations:(int)iterations;
+- (UIImage *)kj_blackhatImageWithIterations:(int)iterations;
 
 #pragma mark - 卷积处理
 /// 卷积处理
-- (UIImage*)kj_convolutionImageWithKernel:(int16_t*)kernel;
+- (UIImage *)kj_convolutionImageWithKernel:(int16_t*)kernel;
 /// 锐化
-- (UIImage*)kj_sharpenImage;
+- (UIImage *)kj_sharpenImage;
 /// 锐化
-- (UIImage*)kj_sharpenImageWithIterations:(int)iterations;
+- (UIImage *)kj_sharpenImageWithIterations:(int)iterations;
 /// 浮雕
-- (UIImage*)kj_embossImage;
+- (UIImage *)kj_embossImage;
 /// 高斯
-- (UIImage*)kj_gaussianImage;
+- (UIImage *)kj_gaussianImage;
 /// 边缘检测
-- (UIImage*)kj_marginImage;
+- (UIImage *)kj_marginImage;
 /// 边缘检测
-- (UIImage*)kj_edgeDetection;
+- (UIImage *)kj_edgeDetection;
 
 @end
 

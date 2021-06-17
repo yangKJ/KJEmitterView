@@ -9,7 +9,7 @@
 #import <Security/Security.h>
 @implementation NSString (KJSecurity)
 /// 生成key
-+ (NSString*)kj_createKey{
++ (NSString *)kj_createKey{
     NSUInteger size = 16;
     char data[size];
     for (int x=0;x<size;x++) {
@@ -23,32 +23,32 @@
     return [[NSString alloc] initWithBytes:data length:size encoding:NSUTF8StringEncoding];
 }
 /// 生成token
-+ (NSString*)kj_createToken{
++ (NSString *)kj_createToken{
     return [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
 }
 #pragma mark - rsa
 static NSString * base64_encode_data(NSData *data){
     return [[NSString alloc] initWithData:[data base64EncodedDataWithOptions:0] encoding:NSUTF8StringEncoding];
 }
-- (NSString*(^)(NSString*))kj_rsaEncryptPublicKey{
+- (NSString*(^)(NSString *))kj_rsaEncryptPublicKey{
     return ^(NSString*key) {
         NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] publicKey:key];
         return base64_encode_data(data);
     };
 }
-- (NSString*(^)(NSString*))kj_rsaDecryptPublicKey{
+- (NSString*(^)(NSString *))kj_rsaDecryptPublicKey{
     return ^(NSString*key) {
         NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
         return [[NSString alloc] initWithData:[NSString kj_rsadecryptData:data publicKey:key] encoding:NSUTF8StringEncoding];
     };
 }
-- (NSString*(^)(NSString*))kj_rsaEncryptPrivateKey{
+- (NSString*(^)(NSString *))kj_rsaEncryptPrivateKey{
     return ^(NSString*key) {
         NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] privateKey:key];
         return base64_encode_data(data);
     };
 }
-- (NSString*(^)(NSString*))kj_rsaDecryptPrivateKey{
+- (NSString*(^)(NSString *))kj_rsaDecryptPrivateKey{
     return ^(NSString*key) {
         NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
         return [[NSString alloc] initWithData:[NSString kj_rsadecryptData:data privateKey:key] encoding:NSUTF8StringEncoding];
@@ -57,7 +57,7 @@ static NSString * base64_encode_data(NSData *data){
 
 #pragma mark - aes
 /// 加密
-- (NSString*(^)(NSString*))kj_aesEncryptKey{
+- (NSString*(^)(NSString *))kj_aesEncryptKey{
     return ^(NSString*key) {
         NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
         NSData *aesData = [NSString kj_aes128Data:data operation:kCCEncrypt key:key];
@@ -65,23 +65,23 @@ static NSString * base64_encode_data(NSData *data){
     };
 }
 /// 解密
-- (NSString*(^)(NSString*))kj_aesDecryptKey{
+- (NSString*(^)(NSString *))kj_aesDecryptKey{
     return ^(NSString*key) {
         NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
         return [[NSString alloc] initWithData:[NSString kj_aes128Data:data operation:kCCDecrypt key:key] encoding:NSUTF8StringEncoding];
     };
 }
 #pragma mark - base64
-- (NSString*)kj_base64EncodedString{
+- (NSString *)kj_base64EncodedString{
     NSData *date = [self dataUsingEncoding:NSUTF8StringEncoding];
     return [NSString kj_base64EncodedStringWithData:date];
 }
-- (NSString*)kj_base64DecodingString{
+- (NSString *)kj_base64DecodingString{
     NSData *data = [[NSData alloc]initWithBase64EncodedString:self options:0];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 /// URL安全的Base64编码
-- (NSString*)kj_base64URLSafeEncodedString{
+- (NSString *)kj_base64URLSafeEncodedString{
     //编码
     NSString *encodeUrlString = [self kj_base64EncodedString];
     // '-' -> '+'
@@ -95,7 +95,7 @@ static NSString * base64_encode_data(NSData *data){
     return base64String.mutableCopy;
 }
 /// URL安全的Base64解码
-- (NSString*)kj_base64URLSafeDecodingString{
+- (NSString *)kj_base64URLSafeDecodingString{
     NSData * data = [[NSData alloc]initWithBase64EncodedString:self options:0];
     NSString * base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     // '+' -> '-'
@@ -117,25 +117,25 @@ static NSString * base64_encode_data(NSData *data){
 static NSData * base64_decode(NSString *string){
     return [[NSData alloc] initWithBase64EncodedString:string options:NSDataBase64DecodingIgnoreUnknownCharacters];
 }
-+ (NSData*)kj_rsadecryptData:(NSData*)data privateKey:(NSString*)key{
++ (NSData*)kj_rsadecryptData:(NSData*)data privateKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPrivateKey:key];
     if(!keyRef) return nil;
     return [self decryptData:data withKeyRef:keyRef];
 }
-+ (NSData*)kj_rsadecryptData:(NSData*)data publicKey:(NSString*)key{
++ (NSData*)kj_rsadecryptData:(NSData*)data publicKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPublicKey:key];
     if(!keyRef) return nil;
     return [self decryptData:data withKeyRef:keyRef];
 }
-+ (NSData*)kj_rsaencryptData:(NSData*)data publicKey:(NSString*)key{
++ (NSData*)kj_rsaencryptData:(NSData*)data publicKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPublicKey:key];
     if(!keyRef) return nil;
     return [self encryptData:data withKeyRef:keyRef isSign:NO];
 }
-+ (NSData*)kj_rsaencryptData:(NSData*)data privateKey:(NSString*)key{
++ (NSData*)kj_rsaencryptData:(NSData*)data privateKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPrivateKey:key];
     if(!keyRef) return nil;
@@ -193,7 +193,7 @@ static NSData * base64_decode(NSString *string){
     }
     return [d_key subdataWithRange:NSMakeRange(idx, c_len)];
 }
-+ (SecKeyRef)addPublicKey:(NSString*)key{
++ (SecKeyRef)addPublicKey:(NSString *)key{
     NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
     NSRange epos = [key rangeOfString:@"-----END PUBLIC KEY-----"];
     if(spos.location != NSNotFound && epos.location != NSNotFound){
@@ -240,7 +240,7 @@ static NSData * base64_decode(NSString *string){
     return keyRef;
 }
 
-+ (SecKeyRef)addPrivateKey:(NSString*)key{
++ (SecKeyRef)addPrivateKey:(NSString *)key{
     NSRange spos,epos;
     spos = [key rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
     if(spos.length > 0){
@@ -361,8 +361,8 @@ static NSData * base64_decode(NSString *string){
 }
 
 #pragma mark - AES板块
-+ (NSData*)kj_aes128Data:(NSData*)data operation:(CCOperation)operation key:(NSString*)key{
-    char keyPtr[kCCKeySizeAES128 + 1];  //kCCKeySizeAES128是加密位数 可以替换成256位的
++ (NSData*)kj_aes128Data:(NSData*)data operation:(CCOperation)operation key:(NSString *)key{
+    char keyPtr[kCCKeySizeAES128 + 1];//kCCKeySizeAES128是加密位数 可以替换成256位的
     bzero(keyPtr, sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
     size_t bufferSize = [data length] + kCCBlockSizeAES128;
@@ -388,7 +388,7 @@ static NSData * base64_decode(NSString *string){
 #pragma mark - Base64板块
 /// base64编码处理
 static const char base64EncodingTable[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-+ (NSString*)kj_base64EncodedStringWithData:(NSData*)data{
++ (NSString *)kj_base64EncodedStringWithData:(NSData*)data{
     NSUInteger length = data.length;
     if (length == 0) return @"";
     

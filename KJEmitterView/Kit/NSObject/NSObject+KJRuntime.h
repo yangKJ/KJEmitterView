@@ -13,15 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (KJRuntime)
 /// 获取该对象的所有属性
-@property(nonatomic,strong,readonly)NSArray<NSString*>*propertyTemps;
+@property(nonatomic,strong,readonly)NSArray<NSString*> *propertyTemps;
 /// 实例变量列表
-@property(nonatomic,strong,readonly)NSArray<NSString*>*ivarTemps;
+@property(nonatomic,strong,readonly)NSArray<NSString*> *ivarTemps;
 /// 方法列表
-@property(nonatomic,strong,readonly)NSArray<NSString*>*methodTemps;
+@property(nonatomic,strong,readonly)NSArray<NSString*> *methodTemps;
 /// 遵循的协议列表
-@property(nonatomic,strong,readonly)NSArray<NSString*>*protocolTemps;
+@property(nonatomic,strong,readonly)NSArray<NSString*> *protocolTemps;
 /// 获取对象的所有属性，是否包含父类...
-@property(nonatomic,copy,readonly)NSArray<NSString*>*(^kObjectPropertyTemps)(BOOL containSuper);
+@property(nonatomic,copy,readonly)NSArray<NSString*> *(^kObjectPropertyTemps)(BOOL containSuper);
 
 /// 归档封装
 - (void)kj_runtimeEncode:(NSCoder*)encoder;
@@ -45,7 +45,7 @@ FOUNDATION_EXPORT void kRuntimeClassMethodSwizzling(Class clazz, SEL original, S
 /// 动态继承，慎用（一旦修改后面使用的都是该子类）
 - (void)kj_dynamicInheritChildClass:(Class)clazz;
 /// 获取对象类名
-- (NSString*)kj_runtimeClassName;
+- (NSString *)kj_runtimeClassName;
 /// 判断对象是否有该属性
 - (void)kj_runtimeHaveProperty:(void(^)(NSString *property, BOOL * stop))traversal;
 

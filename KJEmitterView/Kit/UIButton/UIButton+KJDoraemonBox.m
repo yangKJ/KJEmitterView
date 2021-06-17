@@ -15,7 +15,7 @@
 
 @implementation UIButton (KJDoraemonBox)
 /// 设置粒子效果
-- (void)kj_buttonSetEmitterImage:(UIImage*)image OpenEmitter:(BOOL)open{
+- (void)kj_buttonSetEmitterImage:(UIImage *)image OpenEmitter:(BOOL)open{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         method_exchangeImplementations(class_getInstanceMethod(self.class, @selector(setSelected:)), class_getInstanceMethod(self.class, @selector(kj_setSelected:)));
@@ -30,10 +30,10 @@
     if (self.openEmitter) [self buttonAnimation];
 }
 #pragma mark - associated
-- (UIImage*)emitterImage{
+- (UIImage *)emitterImage{
     return objc_getAssociatedObject(self, @selector(emitterImage));
 }
-- (void)setEmitterImage:(UIImage*)emitterImage{
+- (void)setEmitterImage:(UIImage *)emitterImage{
     objc_setAssociatedObject(self, @selector(emitterImage), emitterImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (BOOL)openEmitter{
@@ -103,7 +103,7 @@
 }
 
 #pragma mark - 倒计时
-- (void)kj_startTime:(NSInteger)timeout CountDownFormat:(NSString*)format{
+- (void)kj_startTime:(NSInteger)timeout CountDownFormat:(NSString *)format{
     [self kj_cancelTimer];
     self.timeOut = timeout;
     self.xxtitle = self.titleLabel.text;
@@ -146,10 +146,10 @@
 - (void)setTimer:(NSTimer*)timer{
     objc_setAssociatedObject(self, @selector(timer), timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (NSString*)xxtitle{
+- (NSString *)xxtitle{
     return objc_getAssociatedObject(self, @selector(xxtitle));
 }
-- (void)setXxtitle:(NSString*)xxtitle{
+- (void)setXxtitle:(NSString *)xxtitle{
     objc_setAssociatedObject(self, @selector(xxtitle), xxtitle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (void)setKButtonCountDownStop:(void(^)(void))kButtonCountDownStop{
@@ -167,7 +167,7 @@
 
 #pragma mark - 指示器
 static NSString *kIndicatorLastTitle = nil;
-- (void)kj_beginSubmitting:(NSString*)title{
+- (void)kj_beginSubmitting:(NSString *)title{
     [self kj_endSubmitting];
     kSubmitting = true;
     kIndicatorLastTitle = self.titleLabel.text;

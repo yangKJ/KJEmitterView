@@ -55,7 +55,7 @@ static CGFloat obj_h = 0.0;
     [self GradientLayerDirection:@"right"];
 }
 
-- (void)GradientLayerDirection:(NSString*)direction{
+- (void)GradientLayerDirection:(NSString *)direction{
     CAGradientLayer *backgroundLayer = [[CAGradientLayer alloc] init];
     UIColor *darkColor = UIColor.whiteColor;
     UIColor *lightColor = [UIColor.redColor colorWithAlphaComponent:0.8];
@@ -81,7 +81,7 @@ static CGFloat obj_h = 0.0;
 }
 
 // 渐隐  isAlpha:是否为隐藏, Alpha:隐藏系数 Duration:移动持续时间, TransCount:重复次数(0:表示一直转)
-- (void)viewAnimationOpacity:(UIView*)myView Alpha:(CGFloat)kj_a Duration:(CGFloat)duration TransCount:(int)num isFlash:(BOOL)flash{
+- (void)viewAnimationOpacity:(UIView *)myView Alpha:(CGFloat)kj_a Duration:(CGFloat)duration TransCount:(int)num isFlash:(BOOL)flash{
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     animation.duration = duration;
     animation.delegate = self;
@@ -118,7 +118,7 @@ static CGFloat obj_h = 0.0;
         return self;
     };
 }
-- (KJErrorView *(^)(UIView*))KJAddView {
+- (KJErrorView *(^)(UIView *))KJAddView {
     return ^(UIView *superView){
         [superView addSubview:self];
         return self;

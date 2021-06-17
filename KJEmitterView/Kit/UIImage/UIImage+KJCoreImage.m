@@ -31,7 +31,7 @@
     return context;
 }
 /// Photoshop滤镜相关操作
-- (UIImage*)kj_coreImagePhotoshopWithType:(KJCoreImagePhotoshopType)type Value:(CGFloat)value{
+- (UIImage *)kj_coreImagePhotoshopWithType:(KJCoreImagePhotoshopType)type Value:(CGFloat)value{
     CIImage *cimg = [CIImage imageWithCGImage:self.CGImage];
     CIFilter *filter = [CIFilter filterWithName:KJImageFilterTypeStringMap[type] keysAndValues:kCIInputImageKey,cimg,nil];
     [filter setValue:@(value) forKey:KJCoreImagePhotoshopTypeStringMap[type]];
@@ -42,7 +42,7 @@
     return newImage;
 }
 /// 通用方法 - 传入过滤器名称和需要的参数
-- (UIImage*)kj_coreImageCustomWithName:(NSString*_Nonnull)name Dicts:(NSDictionary*_Nullable)dicts{
+- (UIImage *)kj_coreImageCustomWithName:(NSString*_Nonnull)name Dicts:(NSDictionary*_Nullable)dicts{
     CIImage *ciImage = [CIImage imageWithCGImage:self.CGImage];
     CIFilter *filter = [CIFilter filterWithName:name keysAndValues:kCIInputImageKey,ciImage,nil];
     for (NSString *key in dicts.allKeys) {
@@ -55,24 +55,24 @@
     return newImage;
 }
 /// 调整图像的色调映射，同时保留空间细节（高光和阴影）
-- (UIImage*)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)HighlightAmount ShadowAmount:(CGFloat)ShadowAmount{
+- (UIImage *)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)HighlightAmount ShadowAmount:(CGFloat)ShadowAmount{
     NSDictionary *dict = @{@"inputHighlightAmount":@(HighlightAmount),
                            @"inputShadowAmount":@(ShadowAmount)};
     return [self kj_coreImageCustomWithName:@"CIHighlightShadowAdjust" Dicts:dict];
 }
 /// 将灰度图像转换为被alpha遮罩的白色图像，源图像中的白色值将生成蒙版的内部；黑色值变得完全透明
-- (UIImage*)kj_coreImageBlackMaskToAlpha{
+- (UIImage *)kj_coreImageBlackMaskToAlpha{
     return [self kj_coreImageCustomWithName:@"CIMaskToAlpha" Dicts:nil];
 }
 /// 马赛克
-- (UIImage*)kj_coreImagePixellateWithCenter:(CGPoint)center Scale:(CGFloat)scale{
+- (UIImage *)kj_coreImagePixellateWithCenter:(CGPoint)center Scale:(CGFloat)scale{
     CIVector *vector1 = [CIVector vectorWithX:center.x Y:center.y];
     NSDictionary *dict = @{@"inputCenter":vector1,
                            @"inputScale":@(scale)};
     return [self kj_coreImageCustomWithName:@"CIPixellate" Dicts:dict];
 }
 /// 图片圆形变形
-- (UIImage*)kj_coreImageCircularWrapWithCenter:(CGPoint)center Radius:(CGFloat)radius Angle:(CGFloat)angle{
+- (UIImage *)kj_coreImageCircularWrapWithCenter:(CGPoint)center Radius:(CGFloat)radius Angle:(CGFloat)angle{
     CIVector *vector1 = [CIVector vectorWithX:center.x Y:center.y];
     NSDictionary *dict = @{@"inputCenter":vector1,
                            @"inputRadius":@(radius),
@@ -80,7 +80,10 @@
     return [self kj_coreImageCustomWithName:@"CICircularWrap" Dicts:dict];
 }
 /// 环形透镜畸变
-- (UIImage*)kj_coreImageTorusLensDistortionCenter:(CGPoint)center Radius:(CGFloat)radius Width:(CGFloat)width Refraction:(CGFloat)refraction{
+- (UIImage *)kj_coreImageTorusLensDistortionCenter:(CGPoint)center
+                                            Radius:(CGFloat)radius
+                                             Width:(CGFloat)width
+                                        Refraction:(CGFloat)refraction{
     CIVector *vector1 = [CIVector vectorWithX:center.x Y:center.y];
     NSDictionary *dict = @{@"inputCenter":vector1,
                            @"inputRadius":@(radius),
@@ -89,22 +92,36 @@
     return [self kj_coreImageCustomWithName:@"CITorusLensDistortion" Dicts:dict];
 }
 /// 空变形
-- (UIImage*)kj_coreImageHoleDistortionCenter:(CGPoint)center Radius:(CGFloat)radius{
+- (UIImage *)kj_coreImageHoleDistortionCenter:(CGPoint)center Radius:(CGFloat)radius{
     CIVector *vector1 = [CIVector vectorWithX:center.x Y:center.y];
     NSDictionary *dict = @{@"inputCenter":vector1,
                            @"inputRadius":@(radius)};
     return [self kj_coreImageCustomWithName:@"CIHoleDistortion" Dicts:dict];
 }
 /// 应用透视校正，将源图像中的任意四边形区域转换为矩形输出图像
-- (UIImage*)kj_coreImagePerspectiveCorrectionWithTopLeft:(CGPoint)TopLeft TopRight:(CGPoint)TopRight BottomRight:(CGPoint)BottomRight BottomLeft:(CGPoint)BottomLeft{
-    return [self kj_PerspectiveTransformAndPerspectiveCorrection:@"CIPerspectiveCorrection" TopLeft:TopLeft TopRight:TopRight BottomRight:BottomRight BottomLeft:BottomLeft];
+- (UIImage *)kj_coreImagePerspectiveCorrectionWithTopLeft:(CGPoint)TopLeft
+                                                 TopRight:(CGPoint)TopRight
+                                              BottomRight:(CGPoint)BottomRight
+                                               BottomLeft:(CGPoint)BottomLeft{
+    return [self kj_PerspectiveTransformAndPerspectiveCorrection:@"CIPerspectiveCorrection"
+                                                         TopLeft:TopLeft
+                                                        TopRight:TopRight
+                                                     BottomRight:BottomRight
+                                                      BottomLeft:BottomLeft];
 }
 /// 透视变换，透视滤镜倾斜图像
-- (UIImage*)kj_coreImagePerspectiveTransformWithTopLeft:(CGPoint)TopLeft TopRight:(CGPoint)TopRight BottomRight:(CGPoint)BottomRight BottomLeft:(CGPoint)BottomLeft{
-    return [self kj_PerspectiveTransformAndPerspectiveCorrection:@"CIPerspectiveTransform" TopLeft:TopLeft TopRight:TopRight BottomRight:BottomRight BottomLeft:BottomLeft];
+- (UIImage *)kj_coreImagePerspectiveTransformWithTopLeft:(CGPoint)TopLeft TopRight:(CGPoint)TopRight BottomRight:(CGPoint)BottomRight BottomLeft:(CGPoint)BottomLeft{
+    return [self kj_PerspectiveTransformAndPerspectiveCorrection:@"CIPerspectiveTransform"
+                                                         TopLeft:TopLeft
+                                                        TopRight:TopRight
+                                                     BottomRight:BottomRight
+                                                      BottomLeft:BottomLeft];
 }
 /// 软装专属透视 - 内部有相对应的坐标转换
-- (UIImage*)kj_softFitmentFluoroscopyWithTopLeft:(CGPoint)TopLeft TopRight:(CGPoint)TopRight BottomRight:(CGPoint)BottomRight BottomLeft:(CGPoint)BottomLeft{
+- (UIImage *)kj_softFitmentFluoroscopyWithTopLeft:(CGPoint)TopLeft
+                                         TopRight:(CGPoint)TopRight
+                                      BottomRight:(CGPoint)BottomRight
+                                       BottomLeft:(CGPoint)BottomLeft{
     NSArray *temp = @[NSStringFromCGPoint(TopLeft),
                       NSStringFromCGPoint(TopRight),
                       NSStringFromCGPoint(BottomRight),
@@ -122,10 +139,18 @@
     BottomLeft.y  = -(BottomLeft.y + H);
     BottomRight.y = -(BottomRight.y + H);
     TopRight.y    = -(TopRight.y + H);
-    return [self kj_PerspectiveTransformAndPerspectiveCorrection:@"CIPerspectiveTransform" TopLeft:TopLeft TopRight:TopRight BottomRight:BottomRight BottomLeft:BottomLeft];
+    return [self kj_PerspectiveTransformAndPerspectiveCorrection:@"CIPerspectiveTransform"
+                                                         TopLeft:TopLeft
+                                                        TopRight:TopRight
+                                                     BottomRight:BottomRight
+                                                      BottomLeft:BottomLeft];
 }
 /// 透视相关方法
-- (UIImage*)kj_PerspectiveTransformAndPerspectiveCorrection:(NSString*)name TopLeft:(CGPoint)TopLeft TopRight:(CGPoint)TopRight BottomRight:(CGPoint)BottomRight BottomLeft:(CGPoint)BottomLeft{
+- (UIImage *)kj_PerspectiveTransformAndPerspectiveCorrection:(NSString *)name
+                                                     TopLeft:(CGPoint)TopLeft
+                                                    TopRight:(CGPoint)TopRight
+                                                 BottomRight:(CGPoint)BottomRight
+                                                  BottomLeft:(CGPoint)BottomLeft{
     CIImage *ciImage = [CIImage imageWithCGImage:self.CGImage];
     CIFilter *filter = [CIFilter filterWithName:name keysAndValues:kCIInputImageKey, ciImage, nil];
     CIVector *vector1 = [CIVector vectorWithX:TopLeft.x Y:TopLeft.y];
@@ -141,7 +166,7 @@
     UIImage *newImage = [UIImage imageWithCIImage:outputImage];
     return newImage;
 }
-- (UIImage*)kj_coreImageChangeImageSize:(CGSize)size{
+- (UIImage *)kj_coreImageChangeImageSize:(CGSize)size{
     CIImage *ciImage = [CIImage imageWithCGImage:self.CGImage];
     CGFloat scale = fminf(size.height/self.size.height, size.width/self.size.width);
     NSDictionary *dict = @{kCIInputScaleKey:@(scale),kCIInputAspectRatioKey:@(1.),kCIInputImageKey:ciImage};
@@ -154,7 +179,7 @@
 }
 
 #pragma mark - 二维码/条形码生成器
-+ (CIImage*)kj_QRCodeImageWithContent:(NSString*)content{
++ (CIImage*)kj_QRCodeImageWithContent:(NSString *)content{
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [filter setDefaults];
     NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
@@ -162,19 +187,19 @@
     return [filter outputImage];
 }
 /// 生成二维码
-+ (UIImage*)kj_QRCodeImageWithContent:(NSString*)content codeImageSize:(CGFloat)size{
++ (UIImage *)kj_QRCodeImageWithContent:(NSString *)content codeImageSize:(CGFloat)size{
     CIImage *image = [self kj_QRCodeImageWithContent:content];
     return [self kj_changeCIImage:image codeImageSize:size];
 }
 /// 生成指定颜色二维码
-+ (UIImage*)kj_QRCodeImageWithContent:(NSString*)content codeImageSize:(CGFloat)size color:(UIColor*)color{
++ (UIImage *)kj_QRCodeImageWithContent:(NSString *)content codeImageSize:(CGFloat)size color:(UIColor *)color{
     UIImage *image = [self kj_QRCodeImageWithContent:content codeImageSize:size];
     return [image kj_changeImagePixelColor:color];
 }
 
 #pragma mark - 条形码
 /// 将字符串转成条形码
-+ (UIImage*)kj_barCodeImageWithContent:(NSString*)content{
++ (UIImage *)kj_barCodeImageWithContent:(NSString *)content{
     CIFilter *filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
     [filter setDefaults];
     NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
@@ -202,7 +227,7 @@
     return image;
 }
 /// 生成条形码滤镜
-+ (CIImage*)kj_barcodeCIImageWithContent:(NSString*)content{
++ (CIImage*)kj_barcodeCIImageWithContent:(NSString *)content{
     CIFilter *filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
     NSData *contentData = [content dataUsingEncoding:NSUTF8StringEncoding];
     [filter setValue:contentData forKey:@"inputMessage"];
@@ -210,23 +235,23 @@
     return filter.outputImage;
 }
 /// 生成条形码
-+ (UIImage*)kj_barcodeImageWithContent:(NSString*)content codeImageSize:(CGFloat)size{
++ (UIImage *)kj_barcodeImageWithContent:(NSString *)content codeImageSize:(CGFloat)size{
     CIImage *image = [self kj_barcodeCIImageWithContent:content];
     return [UIImage kj_changeCIImage:image codeImageSize:size];
 }
 /// 生成指定颜色条形码
-+ (UIImage*)kj_barcodeImageWithContent:(NSString*)content codeImageSize:(CGFloat)size color:(UIColor*)color{
++ (UIImage *)kj_barcodeImageWithContent:(NSString *)content codeImageSize:(CGFloat)size color:(UIColor *)color{
     UIImage *image = [self kj_barcodeImageWithContent:content codeImageSize:size];
     return [image kj_changeImagePixelColor:color];
 }
 
 #pragma mark - private
 /// 改变图片尺寸
-- (UIImage*)kj_bitmapChangeImageSize:(CGFloat)size{
+- (UIImage *)kj_bitmapChangeImageSize:(CGFloat)size{
     CIImage *image = [CIImage imageWithCGImage:self.CGImage];
     return [UIImage kj_changeCIImage:image codeImageSize:size];
 }
-+ (UIImage*)kj_changeCIImage:(CIImage*)image codeImageSize:(CGFloat)size{
++ (UIImage *)kj_changeCIImage:(CIImage*)image codeImageSize:(CGFloat)size{
     CGRect integralRect = CGRectIntegral(image.extent);
     CGFloat scale = MIN(size/CGRectGetWidth(integralRect), size/CGRectGetHeight(integralRect));
     size_t width = CGRectGetWidth(integralRect)*scale;
@@ -247,7 +272,7 @@
     return __image;
 }
 /// 改变图片内部像素颜色
-- (UIImage*)kj_changeImagePixelColor:(UIColor*)color{
+- (UIImage *)kj_changeImagePixelColor:(UIColor *)color{
     CGFloat red=0, green=0, blue=0, a;
     [color getRed:&red green:&green blue:&blue alpha:&a];
     int imageWidth = self.size.width;
@@ -255,7 +280,13 @@
     size_t bytesPerRow = imageWidth * 4;
     uint32_t *rgbImageBuf = (uint32_t *)malloc(bytesPerRow * imageHeight);
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(rgbImageBuf, imageWidth, imageHeight, 8, bytesPerRow, space, kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
+    CGContextRef context = CGBitmapContextCreate(rgbImageBuf,
+                                                 imageWidth,
+                                                 imageHeight,
+                                                 8,
+                                                 bytesPerRow,
+                                                 space,
+                                                 kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
     CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), self.CGImage);
     int pixelNum = imageWidth * imageHeight;
     uint32_t *pCurPtr = rgbImageBuf;
@@ -271,7 +302,17 @@
         }
     }
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, rgbImageBuf, bytesPerRow * imageHeight, kProviderReleaseData);
-    CGImageRef imageRef = CGImageCreate(imageWidth, imageHeight, 8, 32, bytesPerRow, space, kCGImageAlphaLast | kCGBitmapByteOrder32Little, dataProvider, NULL, true, kCGRenderingIntentDefault);
+    CGImageRef imageRef = CGImageCreate(imageWidth,
+                                        imageHeight,
+                                        8,
+                                        32,
+                                        bytesPerRow,
+                                        space,
+                                        kCGImageAlphaLast | kCGBitmapByteOrder32Little,
+                                        dataProvider,
+                                        NULL,
+                                        true,
+                                        kCGRenderingIntentDefault);
     CGDataProviderRelease(dataProvider);
     UIImage *resultImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);

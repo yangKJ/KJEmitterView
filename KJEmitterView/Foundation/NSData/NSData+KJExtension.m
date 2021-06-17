@@ -11,7 +11,7 @@
 @implementation NSData (KJExtension)
 
 /// Deflate算法压缩
-- (NSData*)kj_zipDeflate{
+- (NSData *)kj_zipDeflate{
     NSData *data = self;
     if ([data length] == 0) return data;
     
@@ -41,7 +41,7 @@
 }
 
 /// Inflater解压缩，与上面是一对
-- (NSData*)kj_zipInflater{
+- (NSData *)kj_zipInflater{
     NSData *data = self;
     if ([data length] == 0) return data;
     unsigned long full_length = (long)[data length];

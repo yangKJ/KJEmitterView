@@ -52,7 +52,7 @@
     
     self.setemps = @[@"综合运营",@"Opencv测试专区"];
 }
-- (NSArray*)temps{
+- (NSArray *)temps{
     if (!_temps) {
         NSMutableArray *temp1 = [NSMutableArray array];
         [temp1 addObject:@{@"VCName":@"HoughViewController",@"describeName":@"霍夫线检测矫正文本"}];

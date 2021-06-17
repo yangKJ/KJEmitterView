@@ -45,68 +45,68 @@ static NSString * const _Nonnull KJCoreImagePhotoshopTypeStringMap[] = {
 };
 @interface UIImage (KJCoreImage)
 /// Photoshop滤镜相关操作
-- (UIImage*)kj_coreImagePhotoshopWithType:(KJCoreImagePhotoshopType)type Value:(CGFloat)value;
+- (UIImage *)kj_coreImagePhotoshopWithType:(KJCoreImagePhotoshopType)type Value:(CGFloat)value;
 /// 通用方法 - 传入滤镜过滤器名称 和 需要的参数
-- (UIImage*)kj_coreImageCustomWithName:(NSString*_Nonnull)name Dicts:(NSDictionary*_Nullable)dicts;
+- (UIImage *)kj_coreImageCustomWithName:(NSString*_Nonnull)name Dicts:(NSDictionary*_Nullable)dicts;
 /// 调整图像的色调映射，同时保留空间细节（高光和阴影）
-- (UIImage*)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)HighlightAmount
-                                              ShadowAmount:(CGFloat)ShadowAmount;
+- (UIImage *)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)HighlightAmount
+                                               ShadowAmount:(CGFloat)ShadowAmount;
 /// 将图片里面的黑色变透明
-- (UIImage*)kj_coreImageBlackMaskToAlpha;
+- (UIImage *)kj_coreImageBlackMaskToAlpha;
 /// 马赛克
-- (UIImage*)kj_coreImagePixellateWithCenter:(CGPoint)center
-                                      Scale:(CGFloat)scale;
+- (UIImage *)kj_coreImagePixellateWithCenter:(CGPoint)center
+                                       Scale:(CGFloat)scale;
 /// 图片圆形变形
-- (UIImage*)kj_coreImageCircularWrapWithCenter:(CGPoint)center
-                                        Radius:(CGFloat)radius
-                                         Angle:(CGFloat)angle;
+- (UIImage *)kj_coreImageCircularWrapWithCenter:(CGPoint)center
+                                         Radius:(CGFloat)radius
+                                          Angle:(CGFloat)angle;
 /// 环形透镜畸变
-- (UIImage*)kj_coreImageTorusLensDistortionCenter:(CGPoint)center
-                                           Radius:(CGFloat)radius
-                                            Width:(CGFloat)width
-                                       Refraction:(CGFloat)refraction;
+- (UIImage *)kj_coreImageTorusLensDistortionCenter:(CGPoint)center
+                                            Radius:(CGFloat)radius
+                                             Width:(CGFloat)width
+                                        Refraction:(CGFloat)refraction;
 /// 空变形
-- (UIImage*)kj_coreImageHoleDistortionCenter:(CGPoint)center
-                                      Radius:(CGFloat)radius;
+- (UIImage *)kj_coreImageHoleDistortionCenter:(CGPoint)center
+                                       Radius:(CGFloat)radius;
 /// 应用透视校正，将源图像中的任意四边形区域转换为矩形输出图像
-- (UIImage*)kj_coreImagePerspectiveCorrectionWithTopLeft:(CGPoint)TopLeft
+- (UIImage *)kj_coreImagePerspectiveCorrectionWithTopLeft:(CGPoint)TopLeft
+                                                 TopRight:(CGPoint)TopRight
+                                              BottomRight:(CGPoint)BottomRight
+                                               BottomLeft:(CGPoint)BottomLeft;
+/// 透视变换，透视滤镜倾斜图像
+- (UIImage *)kj_coreImagePerspectiveTransformWithTopLeft:(CGPoint)TopLeft
                                                 TopRight:(CGPoint)TopRight
                                              BottomRight:(CGPoint)BottomRight
                                               BottomLeft:(CGPoint)BottomLeft;
-/// 透视变换，透视滤镜倾斜图像
-- (UIImage*)kj_coreImagePerspectiveTransformWithTopLeft:(CGPoint)TopLeft
-                                               TopRight:(CGPoint)TopRight
-                                            BottomRight:(CGPoint)BottomRight
-                                             BottomLeft:(CGPoint)BottomLeft;
 /// 图片压缩
-- (UIImage*)kj_coreImageChangeImageSize:(CGSize)size;
+- (UIImage *)kj_coreImageChangeImageSize:(CGSize)size;
 /// 软装专属透视 - 内部有相对应的坐标转换
-- (UIImage*)kj_softFitmentFluoroscopyWithTopLeft:(CGPoint)TopLeft
-                                        TopRight:(CGPoint)TopRight
-                                     BottomRight:(CGPoint)BottomRight
-                                      BottomLeft:(CGPoint)BottomLeft;
+- (UIImage *)kj_softFitmentFluoroscopyWithTopLeft:(CGPoint)TopLeft
+                                         TopRight:(CGPoint)TopRight
+                                      BottomRight:(CGPoint)BottomRight
+                                       BottomLeft:(CGPoint)BottomLeft;
 
 #pragma mark - 二维码/条形码生成器
 /// 将字符串转成条形码
-+ (UIImage*)kj_barCodeImageWithContent:(NSString*)content;
++ (UIImage *)kj_barCodeImageWithContent:(NSString *)content;
 /// 生成二维码
-+ (UIImage*)kj_QRCodeImageWithContent:(NSString*)content
-                        codeImageSize:(CGFloat)size;
-/// 生成指定颜色二维码
-+ (UIImage*)kj_QRCodeImageWithContent:(NSString*)content
-                        codeImageSize:(CGFloat)size
-                                color:(UIColor*)color;
-/// 生成条形码
-+ (UIImage*)kj_barcodeImageWithContent:(NSString*)content
++ (UIImage *)kj_QRCodeImageWithContent:(NSString *)content
                          codeImageSize:(CGFloat)size;
-/// 生成指定颜色条形码
-+ (UIImage*)kj_barcodeImageWithContent:(NSString*)content
+/// 生成指定颜色二维码
++ (UIImage *)kj_QRCodeImageWithContent:(NSString *)content
                          codeImageSize:(CGFloat)size
-                                 color:(UIColor*)color;
+                                 color:(UIColor *)color;
+/// 生成条形码
++ (UIImage *)kj_barcodeImageWithContent:(NSString *)content
+                          codeImageSize:(CGFloat)size;
+/// 生成指定颜色条形码
++ (UIImage *)kj_barcodeImageWithContent:(NSString *)content
+                          codeImageSize:(CGFloat)size
+                                  color:(UIColor *)color;
 /// 改变图片尺寸
-- (UIImage*)kj_bitmapChangeImageSize:(CGFloat)size;
+- (UIImage *)kj_bitmapChangeImageSize:(CGFloat)size;
 /// 改变图片内部像素颜色
-- (UIImage*)kj_changeImagePixelColor:(UIColor*)color;
+- (UIImage *)kj_changeImagePixelColor:(UIColor *)color;
 /// 异步生成二维码
 void kQRCodeImage(void(^codeImage)(UIImage * image), NSString *content, CGFloat size);
 /// 异步生成指定颜色二维码

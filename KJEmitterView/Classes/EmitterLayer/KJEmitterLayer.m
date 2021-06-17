@@ -122,7 +122,7 @@ static KJEmitterLayerDrawCompleteBlock _xxblock = nil;
     }
 }
 /// 将图片拆分为像素粒子
-- (NSArray*)kj_resolutionImageToPixelWithImage:(UIImage*)image{
+- (NSArray *)kj_resolutionImageToPixelWithImage:(UIImage *)image{
     CGImageRef imageRef = [image CGImage];
     NSUInteger width = CGImageGetWidth(imageRef);
     NSUInteger height = CGImageGetHeight(imageRef);
@@ -225,7 +225,7 @@ static KJEmitterLayerDrawCompleteBlock _xxblock = nil;
     return self;
 }
 
-- (UIColor*)color {
+- (UIColor *)color {
     return _pixelColor?:_color;
 }
 

@@ -12,7 +12,7 @@
 @implementation UIView (KJRectCorner)
 #pragma mark - Xib中显示的属性
 @dynamic viewImage;
-- (void)setViewImage:(UIImage*)viewImage{
+- (void)setViewImage:(UIImage *)viewImage{
     if (viewImage) {
         CALayer *topLayer = [[CALayer alloc]init];
         [topLayer setBounds:self.bounds];
@@ -23,7 +23,7 @@
 }
 
 @dynamic borderColor,borderWidth,cornerRadius;
-- (void)setBorderColor:(UIColor*)borderColor {
+- (void)setBorderColor:(UIColor *)borderColor {
     [self.layer setBorderColor:borderColor.CGColor];
 }
 - (void)setBorderWidth:(CGFloat)borderWidth {
@@ -39,7 +39,7 @@
 }
 
 @dynamic shadowColor,shadowRadius,shadowWidth,shadowOffset,shadowOpacity;
-- (void)setShadowColor:(UIColor*)shadowColor{
+- (void)setShadowColor:(UIColor *)shadowColor{
     [self.layer setShadowColor:shadowColor.CGColor];
 }
 - (void)setShadowRadius:(CGFloat)shadowRadius{
@@ -95,10 +95,10 @@
 }
 
 #pragma mark - 边框相关
-- (UIColor*)kj_borderColor{
+- (UIColor *)kj_borderColor{
     return objc_getAssociatedObject(self, @selector(kj_borderColor));
 }
-- (void)setKj_borderColor:(UIColor*)kj_borderColor{
+- (void)setKj_borderColor:(UIColor *)kj_borderColor{
     objc_setAssociatedObject(self, @selector(kj_borderColor), kj_borderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self kj_setBorderWithWidth:self.kj_borderWidth BorderColor:kj_borderColor BorderOrientation:self.kj_borderOrientation];
 }
@@ -117,7 +117,7 @@
     [self kj_setBorderWithWidth:self.kj_borderWidth BorderColor:self.kj_borderColor BorderOrientation:kj_borderOrientation];
 }
 /// 设置边框
-- (void)kj_setBorderWithWidth:(CGFloat)width BorderColor:(UIColor*)color BorderOrientation:(KJBorderOrientationType)orientation{
+- (void)kj_setBorderWithWidth:(CGFloat)width BorderColor:(UIColor *)color BorderOrientation:(KJBorderOrientationType)orientation{
     if (orientation == UIRectEdgeNone) return;
     if (width == 0) width = 1.;
     if (color == nil) color = UIColor.blackColor;
@@ -135,7 +135,7 @@
     }
 }
 static char kCALayerTagKey;
-- (void)kj_setTag:(NSInteger)tag BorderColor:(UIColor*)color Rect:(CGRect)rect{
+- (void)kj_setTag:(NSInteger)tag BorderColor:(UIColor *)color Rect:(CGRect)rect{
     __block BOOL boo = NO;
     [self.layer.sublayers enumerateObjectsUsingBlock:^(__kindof CALayer * obj, NSUInteger idx, BOOL * stop) {
         if ([objc_getAssociatedObject(obj, &kCALayerTagKey) intValue] == tag) {
@@ -196,7 +196,7 @@ static char kCALayerTagKey;
  @param lineWidth 线宽
  @param spaceAry  线条之间间隔数组
  */
-- (void)kj_DashedLineColor:(UIColor*)lineColor lineWidth:(CGFloat)lineWidth spaceAry:(NSArray<NSNumber*>*)spaceAry {
+- (void)kj_DashedLineColor:(UIColor *)lineColor lineWidth:(CGFloat)lineWidth spaceAry:(NSArray<NSNumber*>*)spaceAry {
     CAShapeLayer *borderLayer = [CAShapeLayer layer];
     borderLayer.bounds = CGRectMake(0, 0, self.frame.size.width , self.frame.size.height);
     borderLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
@@ -211,7 +211,7 @@ static char kCALayerTagKey;
     borderLayer.strokeColor = lineColor.CGColor;
     [self.layer addSublayer:borderLayer];
 }
-- (void)kj_shadowColor:(UIColor*)color offset:(CGSize)offset radius:(CGFloat)radius{
+- (void)kj_shadowColor:(UIColor *)color offset:(CGSize)offset radius:(CGFloat)radius{
     self.layer.shadowColor = color.CGColor;
     self.layer.shadowOffset = offset;
     self.layer.shadowRadius = radius;
@@ -222,7 +222,7 @@ static char kCALayerTagKey;
 
 #pragma mark - 指定图形
 // 画直线
-- (void)kj_DrawLineWithPoint:(CGPoint)fPoint toPoint:(CGPoint)tPoint lineColor:(UIColor*)color lineWidth:(CGFloat)width{
+- (void)kj_DrawLineWithPoint:(CGPoint)fPoint toPoint:(CGPoint)tPoint lineColor:(UIColor *)color lineWidth:(CGFloat)width{
     CAShapeLayer* shapeLayer = [CAShapeLayer layer];
     shapeLayer.strokeColor = [UIColor lightGrayColor].CGColor;
     if (color) shapeLayer.strokeColor = color.CGColor;

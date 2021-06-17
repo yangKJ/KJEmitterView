@@ -15,7 +15,7 @@
     return self;
 }
 #pragma mark - lazy
-- (NSArray*)temps{
+- (NSArray *)temps{
     if (!_temps) {
         NSMutableArray *temp0 = [NSMutableArray array];
         [temp0 addObject:@{@"VCName":@"KJRuntimeTestVC",@"describeName":@"Runtime测试"}];

@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 粒子，备注 name 属性不要更改
 @property(nonatomic,strong,readonly)CAEmitterCell *emitterCell;
 /// 设置粒子效果
-- (void)kj_buttonSetEmitterImage:(UIImage*_Nullable)image OpenEmitter:(BOOL)open;
+- (void)kj_buttonSetEmitterImage:(UIImage * _Nullable)image OpenEmitter:(BOOL)open;
 
 #pragma mark - 倒计时
 /// 倒计时结束的回调
 @property(nonatomic,copy,readwrite)void(^kButtonCountDownStop)(void);
 /// 设置倒计时的间隔和倒计时文案，默认为 @"%zd秒"
-- (void)kj_startTime:(NSInteger)timeout CountDownFormat:(NSString*)format;
+- (void)kj_startTime:(NSInteger)timeout CountDownFormat:(NSString *)format;
 /// 取消倒计时
 - (void)kj_cancelTimer;
 
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 指示器颜色，默认白色
 @property(nonatomic,assign)UIActivityIndicatorViewStyle indicatorType;
 /// 开始提交，指示器跟随文字
-- (void)kj_beginSubmitting:(NSString*)title;
+- (void)kj_beginSubmitting:(NSString *)title;
 /// 结束提交
 - (void)kj_endSubmitting;
 /// 显示指示器

@@ -73,7 +73,7 @@
     }];
     [weakself kj_changeJointImage:image];
 }
-- (void)kj_changeJointImage:(UIImage*)image{
+- (void)kj_changeJointImage:(UIImage *)image{
     static NSInteger index = 3;
     index %= 5;
     _weakself;

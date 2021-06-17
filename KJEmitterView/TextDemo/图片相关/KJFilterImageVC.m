@@ -24,7 +24,7 @@
     __block int iterations = 1;
     [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (500 <= obj.tag && obj.tag <= 509) {
-            UIButton *button = (UIButton*)obj;
+            UIButton *button = (UIButton *)obj;
             [button kj_addAction:^(UIButton * _Nonnull kButton) {
                 switch (kButton.tag) {
                     case 500:

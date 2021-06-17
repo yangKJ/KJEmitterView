@@ -25,14 +25,14 @@
 - (void)setXxblock:(KJTextViewURLHyperlinkBlock)xxblock{
     objc_setAssociatedObject(self, @selector(xxblock), xxblock, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (NSArray*)URLTemps{
+- (NSArray *)URLTemps{
     return objc_getAssociatedObject(self, @selector(URLTemps));
 }
-- (void)setURLTemps:(NSArray*)URLTemps{
+- (void)setURLTemps:(NSArray *)URLTemps{
     objc_setAssociatedObject(self, @selector(URLTemps), URLTemps, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 /// 识别超链接
-- (NSArray*)kj_clickTextViewURLCustom:(URLCustom)custom URLHyperlink:(KJTextViewURLHyperlinkBlock)block{
+- (NSArray *)kj_clickTextViewURLCustom:(URLCustom)custom URLHyperlink:(KJTextViewURLHyperlinkBlock)block{
     self.xxblock  = block;
     self.delegate = self;
     self.editable = NO;
@@ -78,7 +78,7 @@ static inline NSArray * getURLWithText(NSString *string) {
 }
 
 #pragma mark - UITextViewDelegate
-- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if (self.xxblock) {
         NSInteger i = [URL.absoluteString integerValue];
         self.xxblock(self.URLTemps[i]);

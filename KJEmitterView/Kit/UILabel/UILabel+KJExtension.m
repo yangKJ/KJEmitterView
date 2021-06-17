@@ -89,12 +89,12 @@
     return newHeight * height / self.font.lineHeight;
 }
 /// 获取文字尺寸
-+ (CGSize)kj_calculateLabelSizeWithTitle:(NSString*)title font:(UIFont*)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode{
++ (CGSize)kj_calculateLabelSizeWithTitle:(NSString *)title font:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode{
     if (title.length == 0) return CGSizeZero;
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.lineBreakMode = lineBreakMode;
     CGRect frame = [title boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraph}
+                                    attributes:@{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraph}
                                        context:nil];
     return frame.size;
 }

@@ -86,7 +86,7 @@
     self.limitLabel.attributedText = attrString;
 }
 #pragma mark - kvo
-- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id>*)change context:(void*)context{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id>*)change context:(void*)context{
     if ([keyPath isEqualToString:@"layer.borderWidth"] || [keyPath isEqualToString:@"text"]){
         [self updateLimitCount];
     }

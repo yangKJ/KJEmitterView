@@ -190,7 +190,7 @@ void kRuntimeClassMethodSwizzling(Class clazz, SEL original, SEL swizzled){
     object_setClass(self, clazz);
 }
 /// 获取对象类名
-- (NSString*)kj_runtimeClassName{
+- (NSString *)kj_runtimeClassName{
     return [NSString stringWithUTF8String:object_getClassName(self)];
 }
 /// 判断对象是否有该属性

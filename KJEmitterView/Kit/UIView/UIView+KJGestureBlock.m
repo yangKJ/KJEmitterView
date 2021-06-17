@@ -71,10 +71,10 @@ static NSString * const _Nonnull KJGestureTypeStringMap[] = {
 }
 
 #pragma mark - associated
-- (NSString*)selectorString{
+- (NSString *)selectorString{
     return objc_getAssociatedObject(self, @selector(selectorString));
 }
-- (void)setSelectorString:(NSString*)selectorString{
+- (void)setSelectorString:(NSString *)selectorString{
     objc_setAssociatedObject(self, @selector(selectorString), selectorString, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 - (KJGestureRecognizerBlock)gesrureblock{

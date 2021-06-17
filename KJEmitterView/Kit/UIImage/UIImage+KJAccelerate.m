@@ -36,19 +36,19 @@
 }
 
 #pragma mark - 模糊处理
-- (UIImage*)kj_blurImageSoft{
+- (UIImage *)kj_blurImageSoft{
     return [self kj_blurImageWithTintColor:[UIColor colorWithWhite:0.84 alpha:0.36]];
 }
-- (UIImage*)kj_blurImageLight{
+- (UIImage *)kj_blurImageLight{
     return [self kj_blurImageWithTintColor:[UIColor colorWithWhite:1.0 alpha:0.3]];
 }
-- (UIImage*)kj_blurImageExtraLight{
+- (UIImage *)kj_blurImageExtraLight{
     return [self kj_blurImageWithTintColor:[UIColor colorWithWhite:0.97 alpha:0.82]];
 }
-- (UIImage*)kj_blurImageDark{
+- (UIImage *)kj_blurImageDark{
     return [self kj_blurImageWithTintColor:[UIColor colorWithWhite:0.11 alpha:0.73]];
 }
-- (UIImage*)kj_blurImageWithTintColor:(UIColor*)color{
+- (UIImage *)kj_blurImageWithTintColor:(UIColor *)color{
     const CGFloat alpha = 0.6;
     UIColor *effectColor = color;
     size_t componentCount = CGColorGetNumberOfComponents(color.CGColor);
@@ -66,7 +66,7 @@
     return [self kj_blurImageWithRadius:20 Color:effectColor MaskImage:nil];
 }
 /// 模糊处理保留透明区域，范围0 ~ 1
-- (UIImage*)kj_linearBlurryImageBlur:(CGFloat)blur{
+- (UIImage *)kj_linearBlurryImageBlur:(CGFloat)blur{
     blur = MAX(MIN(blur,1),0);
     int boxSize = (int)(blur * 100);
     boxSize = boxSize - (boxSize % 2) + 1;
@@ -93,7 +93,7 @@
     outBuffer.width = CGImageGetWidth(img);
     outBuffer.height = CGImageGetHeight(img);
     outBuffer.rowBytes = CGImageGetBytesPerRow(img);
-
+    
     void *rgbConvertBuffer = malloc( CGImageGetBytesPerRow(img) * CGImageGetHeight(img) );
     vImage_Buffer outRGBBuffer;
     outRGBBuffer.width = CGImageGetWidth(img);
@@ -107,7 +107,7 @@
     /// 交换像素通道从BGRA到RGBA
     const uint8_t permuteMap[] = {2, 1, 0, 3};
     vImagePermuteChannels_ARGB8888(&outBuffer,&rgbOutBuffer,permuteMap,kvImageNoFlags);
-
+    
     /// kCGImageAlphaPremultipliedLast 保留透明区域
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef ctx = CGBitmapContextCreate(rgbOutBuffer.data,
@@ -126,11 +126,11 @@
     CFRelease(inBitmapData);
     CGColorSpaceRelease(colorSpace);
     CGImageRelease(imageRef);
-
+    
     return returnImage;
 }
 /// 模糊处理
-- (UIImage*)kj_blurImageWithRadius:(CGFloat)radius Color:(UIColor*)color MaskImage:(UIImage* _Nullable)maskImage{
+- (UIImage *)kj_blurImageWithRadius:(CGFloat)radius Color:(UIColor *)color MaskImage:(UIImage* _Nullable)maskImage{
     CGRect imageRect = {CGPointZero, self.size};
     UIImage *effectImage = self;
     BOOL hasBlur = radius > __FLT_EPSILON__;
@@ -140,13 +140,13 @@
         CGContextScaleCTM(effectInContext, 1.0, -1.0);
         CGContextTranslateCTM(effectInContext, 0, -self.size.height);
         CGContextDrawImage(effectInContext, imageRect, self.CGImage);
-
+        
         vImage_Buffer effectInBuffer;
         effectInBuffer.data     = CGBitmapContextGetData(effectInContext);
         effectInBuffer.width    = CGBitmapContextGetWidth(effectInContext);
         effectInBuffer.height   = CGBitmapContextGetHeight(effectInContext);
         effectInBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectInContext);
-    
+        
         UIGraphicsBeginImageContextWithOptions(self.size, NO, [[UIScreen mainScreen] scale]);
         CGContextRef effectOutContext = UIGraphicsGetCurrentContext();
         vImage_Buffer effectOutBuffer;
@@ -154,21 +154,21 @@
         effectOutBuffer.width    = CGBitmapContextGetWidth(effectOutContext);
         effectOutBuffer.height   = CGBitmapContextGetHeight(effectOutContext);
         effectOutBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectOutContext);
-
+        
         CGFloat inputRadius = radius * [[UIScreen mainScreen] scale];
         NSUInteger radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
         if (radius % 2 != 1) radius += 1;
         vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, NULL, 0, 0, (uint32_t)radius, (uint32_t)radius, 0, kvImageEdgeExtend);
         vImageBoxConvolve_ARGB8888(&effectOutBuffer, &effectInBuffer, NULL, 0, 0, (uint32_t)radius, (uint32_t)radius, 0, kvImageEdgeExtend);
         vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, NULL, 0, 0, (uint32_t)radius, (uint32_t)radius, 0, kvImageEdgeExtend);
-
+        
         const int32_t divisor = 256;
         CGFloat s = 1.;
         CGFloat floatingPointSaturationMatrix[] = {
             0.0722 + 0.9278 * s,  0.0722 - 0.0722 * s,  0.0722 - 0.0722 * s,  0,
             0.7152 - 0.7152 * s,  0.7152 + 0.2848 * s,  0.7152 - 0.7152 * s,  0,
             0.2126 - 0.2126 * s,  0.2126 - 0.2126 * s,  0.2126 + 0.7873 * s,  0,
-                              0,                    0,                    0,  1,
+            0,                    0,                    0,  1,
         };
         NSUInteger matrixSize = sizeof(floatingPointSaturationMatrix)/sizeof(floatingPointSaturationMatrix[0]);
         int16_t saturationMatrix[matrixSize];
@@ -206,7 +206,7 @@
     
 }
 /// 均衡运算
-- (UIImage*)kj_equalizationImage{
+- (UIImage *)kj_equalizationImage{
     const size_t width = self.size.width;
     const size_t height = self.size.height;
     const size_t bytesPerRow = width * 4;
@@ -328,7 +328,7 @@
     return dstImage;
 }
 // 混合函数，CoreGraphics处理
-- (UIImage*)kj_imageBlendedWithImage:(UIImage*)overlayImage blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha{
+- (UIImage *)kj_imageBlendedWithImage:(UIImage *)overlayImage blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha{
     UIGraphicsBeginImageContext(self.size);
     [self drawInRect:CGRectMake(0,0,self.size.width,self.size.height)];
     [overlayImage drawAtPoint:CGPointZero blendMode:blendMode alpha:alpha];
@@ -338,7 +338,7 @@
 }
 #pragma mark - 卷积处理
 /// 卷积处理
-- (UIImage*)kj_convolutionImageWithKernel:(int16_t*)kernel{
+- (UIImage *)kj_convolutionImageWithKernel:(int16_t*)kernel{
     const size_t width = self.size.width;
     const size_t height = self.size.height;
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
@@ -371,15 +371,15 @@
     return resultImage;
 }
 /// 浮雕函数
-- (UIImage*)kj_embossImage{
+- (UIImage *)kj_embossImage{
     return [self kj_convolutionImageWithKernel:emboss_kernel];
 }
 /// 锐化
-- (UIImage*)kj_sharpenImage{
+- (UIImage *)kj_sharpenImage{
     return [self kj_convolutionImageWithKernel:sharpen_kernel];
 }
 /// 锐化
-- (UIImage*)kj_sharpenImageWithIterations:(int)iterations{
+- (UIImage *)kj_sharpenImageWithIterations:(int)iterations{
     int k = iterations;
     int16_t kernel[9] = {
         -k,-k,-k,
@@ -389,14 +389,14 @@
     return [self kj_convolutionImageWithKernel:kernel];
 }
 /// 高斯
-- (UIImage*)kj_gaussianImage{
+- (UIImage *)kj_gaussianImage{
     return [self kj_convolutionImageWithKernel:gaussian_kernel];
 }
 /// 边缘检测
-- (UIImage*)kj_marginImage{
+- (UIImage *)kj_marginImage{
     return [self kj_convolutionImageWithKernel:margin_kernel];
 }
-- (UIImage*)kj_edgeDetection{
+- (UIImage *)kj_edgeDetection{
     return [self kj_convolutionImageWithKernel:edgedetect_kernel];
 }
 #pragma mark - 函数矩阵
@@ -410,8 +410,8 @@ static int16_t gaussian_kernel[9] = {
 /// 边缘检测矩阵
 static int16_t margin_kernel[9] = {
     -1, -1, -1,
-     0,  0,  0,
-     1,  1,  1
+    0,  0,  0,
+    1,  1,  1
 };
 /// 边缘检测矩阵
 static int16_t edgedetect_kernel[9] = {
@@ -428,8 +428,8 @@ static int16_t sharpen_kernel[9] = {
 /// 浮雕矩阵
 static int16_t emboss_kernel[9] = {
     -2, 0, 0,
-     0, 1, 0,
-     0, 0, 2
+    0, 1, 0,
+    0, 0, 2
 };
 /// 侵蚀矩阵
 static unsigned char morphological_kernel[9] = {

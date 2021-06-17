@@ -51,7 +51,7 @@
     [self.layer addAnimation:group forKey:@"animations"];
     return group;
 }
-- (CABasicAnimation*)kj_createBasicAnimation:(NSString*)keyPath Parameter:(KJAnimationManager*)manager{
+- (CABasicAnimation*)kj_createBasicAnimation:(NSString *)keyPath Parameter:(KJAnimationManager*)manager{
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
     animation.duration = manager.duration;
     animation.autoreverses = manager.autoreverses;

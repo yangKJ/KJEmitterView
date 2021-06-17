@@ -29,14 +29,14 @@
 - (void)setVerticalOffset:(CGFloat)verticalOffset{
     objc_setAssociatedObject(self, @selector(verticalOffset), @(verticalOffset), OBJC_ASSOCIATION_ASSIGN);
 }
-- (NSString*)loadedImageName{
+- (NSString *)loadedImageName{
     NSString *name = objc_getAssociatedObject(self, @selector(loadedImageName));
     if ([name isEqualToString:@""] || name == nil) {
         name = @"KJKit.bundle/scroll_empty_data";
     }
     return name;
 }
-- (void)setLoadedImageName:(NSString*)loadedImageName{
+- (void)setLoadedImageName:(NSString *)loadedImageName{
     objc_setAssociatedObject(self, @selector(loadedImageName), loadedImageName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (NSAttributedString*)descriptionText{
@@ -96,19 +96,19 @@
     objc_setAssociatedObject(self, @selector(kLoadedOtherViewClick), kLoadedOtherViewClick, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 #pragma mark - DZNEmptyDataSetSource
-- (UIView*)customViewForEmptyDataSet:(UIScrollView*)scrollView{
+- (UIView *)customViewForEmptyDataSet:(UIScrollView*)scrollView{
     if (self.loading) {
         if (self.kLoadingContentView) return self.kLoadingContentView();
     }
     return nil;
 }
-- (UIColor*)backgroundColorForEmptyDataSet:(UIScrollView*)scrollView{
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView*)scrollView{
     if (self.loading) {
         if (self.kLoadingContentView) return self.kLoadingContentView().backgroundColor;
     }
     return nil;
 }
-- (UIImage*)imageForEmptyDataSet:(UIScrollView*)scrollView{
+- (UIImage *)imageForEmptyDataSet:(UIScrollView*)scrollView{
     if (self.loading) {
         return nil;
     }else{
@@ -135,12 +135,12 @@
 - (BOOL)emptyDataSetShouldAllowTouch:(UIScrollView*)scrollView{
     return !self.loading;
 }
-- (void)emptyDataSet:(UIScrollView*)scrollView didTapButton:(UIButton*)button{
+- (void)emptyDataSet:(UIScrollView*)scrollView didTapButton:(UIButton *)button{
     if (self.kLoadedButtonClick && self.kLoadedButtonClick(button)) {
         [self reloadEmptyDataSet];
     }
 }
-- (void)emptyDataSet:(UIScrollView*)scrollView didTapView:(UIView*)view{
+- (void)emptyDataSet:(UIScrollView*)scrollView didTapView:(UIView *)view{
     if (self.kLoadedOtherViewClick) {
         self.kLoadedOtherViewClick();
         [self reloadEmptyDataSet];

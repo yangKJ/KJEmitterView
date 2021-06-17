@@ -44,10 +44,13 @@
 }
 /// 随机颜色
 UIColor * kDoraemonBoxRandomColor(void){
-    return [UIColor colorWithRed:((float)arc4random_uniform(256)/255.0) green:((float)arc4random_uniform(256)/255.0) blue:((float)arc4random_uniform(256)/255.0) alpha:1.0];
+    return [UIColor colorWithRed:((float)arc4random_uniform(256)/255.0)
+                           green:((float)arc4random_uniform(256)/255.0)
+                            blue:((float)arc4random_uniform(256)/255.0)
+                           alpha:1.0];
 }
 /// 获取颜色对应的RGBA
-- (void)kj_rgba:(CGFloat*)r :(CGFloat*)g :(CGFloat*)b :(CGFloat*)a{
+- (void)kj_rgba:(CGFloat *)r :(CGFloat *)g :(CGFloat *)b :(CGFloat *)a{
     NSString *colorString = [NSString stringWithFormat:@"%@",self];
     NSArray *temps = [colorString componentsSeparatedByString:@" "];
     if (temps.count == 3 || temps.count == 4) {
@@ -60,7 +63,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     }
 }
 /// 获取颜色对应的色相饱和度和透明度
-- (void)kj_HSL:(CGFloat*)h :(CGFloat*)s :(CGFloat*)l{
+- (void)kj_HSL:(CGFloat *)h :(CGFloat *)s :(CGFloat *)l{
     CGFloat red,green,blue,alpha = 0.0f;
     BOOL success = [self getRed:&red green:&green blue:&blue alpha:&alpha];
     if (success == NO) {
@@ -89,7 +92,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     *l = light;
 }
 /// 获取颜色的均值
-+ (UIColor*)kj_averageColors:(NSArray<UIColor*>*)colors{
++ (UIColor *)kj_averageColors:(NSArray<UIColor*>*)colors{
     if (!colors || colors.count == 0)  return nil;
     CGFloat reds = 0.0f;
     CGFloat greens = 0.0f;
@@ -113,13 +116,13 @@ UIColor * kDoraemonBoxRandomColor(void){
     return [UIColor colorWithRed:reds/count green:greens/count blue:blues/count alpha:alphas/count];
 }
 /// 图片生成颜色
-+ (UIColor*(^)(UIImage*))kj_imageColor{
++ (UIColor*(^)(UIImage *))kj_imageColor{
     return ^(UIImage *image){
         return [UIColor colorWithPatternImage:image];
     };
 }
 /// 兼容Swift版本，可变参数渐变色
-- (UIColor*)kj_gradientSize:(CGSize)size color:(UIColor*)color,...{
+- (UIColor *)kj_gradientSize:(CGSize)size color:(UIColor *)color,...{
     NSMutableArray * colors = [NSMutableArray arrayWithObjects:(id)self.CGColor,(id)color.CGColor,nil];
     va_list args;UIColor * arg;
     va_start(args, color);
@@ -139,7 +142,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     return [UIColor colorWithPatternImage:image];
 }
 /// 可变参数方式渐变色
-- (UIColor*(^)(CGSize))kj_gradientColor:(UIColor*)color,...{
+- (UIColor*(^)(CGSize))kj_gradientColor:(UIColor *)color,...{
     NSMutableArray * colors = [NSMutableArray arrayWithObjects:(id)self.CGColor,(id)color.CGColor,nil];
     va_list args;UIColor * arg;
     va_start(args, color);
@@ -161,7 +164,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     };
 }
 /// 渐变颜色
-+ (UIColor*)kj_gradientColorWithColors:(NSArray*)colors GradientType:(KJGradietColorType)type Size:(CGSize)size{
++ (UIColor *)kj_gradientColorWithColors:(NSArray *)colors GradientType:(KJGradietColorType)type Size:(CGSize)size{
     NSMutableArray *temps = [NSMutableArray array];
     for(UIColor *c in colors){
         [temps addObject:(id)c.CGColor];
@@ -201,7 +204,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     return [UIColor colorWithPatternImage:image];
 }
 /// 渐变色
-- (UIColor*)kj_gradientVerticalToColor:(UIColor*)color Height:(NSInteger)height{
+- (UIColor *)kj_gradientVerticalToColor:(UIColor *)color Height:(NSInteger)height{
     CGSize size = CGSizeMake(1, height);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -215,7 +218,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     UIGraphicsEndImageContext();
     return [UIColor colorWithPatternImage:image];
 }
-- (UIColor*)kj_gradientAcrossToColor:(UIColor*)color Width:(NSInteger)width{
+- (UIColor *)kj_gradientAcrossToColor:(UIColor *)color Width:(NSInteger)width{
     CGSize size = CGSizeMake(width, 1);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -230,10 +233,10 @@ UIColor * kDoraemonBoxRandomColor(void){
     return [UIColor colorWithPatternImage:image];
 }
 // UIColor转#ffffff格式的16进制字符串
-- (NSString*)kj_hexString{
+- (NSString *)kj_hexString{
     return [UIColor kj_hexStringFromColor:self];
 }
-+ (NSString*)kj_hexStringFromColor:(UIColor*)color {
++ (NSString *)kj_hexStringFromColor:(UIColor *)color {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
     CGFloat r = components[0];
     CGFloat g = components[1];
@@ -247,7 +250,7 @@ NSString *kDoraemonBoxHexStringFromColor(UIColor *color){
 UIColor * kDoraemonBoxColorHexString(NSString *hexString){
     return [UIColor kj_colorWithHexString:hexString];
 }
-+ (UIColor*)kj_colorWithHexString:(NSString*)hexString {
++ (UIColor *)kj_colorWithHexString:(NSString *)hexString {
     NSString *colorString = [[hexString stringByReplacingOccurrencesOfString:@"#" withString:@""] uppercaseString];
     CGFloat alpha,red,blue,green;
     switch ([colorString length]) {
@@ -280,7 +283,7 @@ UIColor * kDoraemonBoxColorHexString(NSString *hexString){
     }
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
-+ (CGFloat)colorComponentFrom:(NSString*)string start:(NSUInteger)start length:(NSUInteger)length {
++ (CGFloat)colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length {
     NSString *substring = [string substringWithRange:NSMakeRange(start,length)];
     NSString *fullHex = length == 2 ? substring : [NSString stringWithFormat:@"%@%@",substring,substring];
     unsigned hexComponent;
@@ -289,7 +292,7 @@ UIColor * kDoraemonBoxColorHexString(NSString *hexString){
 }
 
 /// 生成渐变色图片
-+ (UIImage*)kj_colorImageWithColors:(NSArray<UIColor*>*)colors locations:(NSArray<NSNumber*>*)locations size:(CGSize)size borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor{
++ (UIImage *)kj_colorImageWithColors:(NSArray<UIColor*>*)colors locations:(NSArray<NSNumber*>*)locations size:(CGSize)size borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor{
     NSAssert(colors || locations, @"colors and locations must has value");
     NSAssert(colors.count == locations.count, @"Please make sure colors and locations count is equal");
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
@@ -300,13 +303,20 @@ UIColor * kDoraemonBoxColorHexString(NSString *hexString){
         [borderColor setFill];
         [path fill];
     }
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(size.width * 0.01 + borderWidth, borderWidth, size.width * 0.98 - borderWidth * 2, size.height - borderWidth * 2) cornerRadius:size.height * 0.5];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(size.width * 0.01 + borderWidth,
+                                                                            borderWidth,
+                                                                            size.width * 0.98 - borderWidth * 2,
+                                                                            size.height - borderWidth * 2)
+                                                    cornerRadius:size.height * 0.5];
     [self kj_drawLinearGradient:context path:path.CGPath colors:colors locations:locations];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
 }
-+ (void)kj_drawLinearGradient:(CGContextRef)context path:(CGPathRef)path colors:(NSArray<UIColor*>*)colors locations:(NSArray<NSNumber*>*)locations{
++ (void)kj_drawLinearGradient:(CGContextRef)context
+                         path:(CGPathRef)path
+                       colors:(NSArray<UIColor*>*)colors
+                    locations:(NSArray<NSNumber*>*)locations{
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     NSMutableArray *colorefs = [@[] mutableCopy];
     [colors enumerateObjectsUsingBlock:^(UIColor *obj, NSUInteger idx, BOOL *stop) {
@@ -329,14 +339,14 @@ UIColor * kDoraemonBoxColorHexString(NSString *hexString){
     CGColorSpaceRelease(colorSpace);
 }
 /// 获取ImageView上指定点的图片颜色
-+ (UIColor*)kj_colorAtImageView:(UIImageView*)imageView Point:(CGPoint)point{
++ (UIColor *)kj_colorAtImageView:(UIImageView*)imageView Point:(CGPoint)point{
     return [self kj_colorAtPixel:point Size:imageView.frame.size Image:imageView.image];
 }
 /// 获取图片上指定点的颜色
-+ (UIColor*)kj_colorAtImage:(UIImage*)image Point:(CGPoint)point{
++ (UIColor *)kj_colorAtImage:(UIImage *)image Point:(CGPoint)point{
     return [self kj_colorAtPixel:point Size:image.size Image:image];
 }
-+ (UIColor*)kj_colorAtPixel:(CGPoint)point Size:(CGSize)size Image:(UIImage*)image{
++ (UIColor *)kj_colorAtPixel:(CGPoint)point Size:(CGSize)size Image:(UIImage *)image{
     CGRect rect = CGRectMake(0,0,size.width,size.height);
     if (!CGRectContainsPoint(rect, point)) return nil;
     NSInteger pointX = trunc(point.x);

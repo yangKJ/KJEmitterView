@@ -13,7 +13,7 @@
 
 @implementation UIDevice (KJSystem)
 @dynamic appCurrentVersion,appName,appIcon,deviceID,supportHorizontalScreen;
-+ (NSString*)appCurrentVersion{
++ (NSString *)appCurrentVersion{
     static NSString * version;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -21,7 +21,7 @@
     });
     return version;
 }
-+ (NSString*)appName{
++ (NSString *)appName{
     static NSString * name;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -29,7 +29,7 @@
     });
     return name;
 }
-+ (NSString*)deviceID{
++ (NSString *)deviceID{
     static NSString * identifier;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -37,7 +37,7 @@
     });
     return identifier;
 }
-+ (UIImage*)appIcon{
++ (UIImage *)appIcon{
     static UIImage * image;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -49,14 +49,15 @@
 }
 + (BOOL)supportHorizontalScreen{
     NSArray *temp = [NSBundle.mainBundle.infoDictionary objectForKey:@"UISupportedInterfaceOrientations"];
-    if ([temp containsObject:@"UIInterfaceOrientationLandscapeLeft"] || [temp containsObject:@"UIInterfaceOrientationLandscapeRight"]) {
+    if ([temp containsObject:@"UIInterfaceOrientationLandscapeLeft"] ||
+        [temp containsObject:@"UIInterfaceOrientationLandscapeRight"]) {
         return YES;
     }else{
         return NO;
     }
 }
 @dynamic launchImage,launchImageCachePath,launchImageBackupPath;
-+ (UIImage*)launchImage{
++ (UIImage *)launchImage{
     UIImage *lauchImage = nil;
     NSString *viewOrientation = nil;
     CGSize viewSize = [UIScreen mainScreen].bounds.size;
@@ -75,7 +76,7 @@
     }
     return lauchImage;
 }
-+ (NSString*)launchImageCachePath{
++ (NSString *)launchImageCachePath{
     NSString *bundleID = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
     NSString *path = nil;
     if (@available(iOS 13.0, *)) {
@@ -90,7 +91,7 @@
     }
     return nil;
 }
-+ (NSString*)launchImageBackupPath{
++ (NSString *)launchImageBackupPath{
     NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *path = [cachesDirectory stringByAppendingPathComponent:@"ll_launchImage_backup"];
     if (![NSFileManager.defaultManager fileExistsAtPath:path]) {
@@ -99,11 +100,11 @@
     return path;
 }
 /// 生成启动图
-+ (UIImage*)kj_launchImageWithPortrait:(BOOL)portrait Dark:(BOOL)dark{
++ (UIImage *)kj_launchImageWithPortrait:(BOOL)portrait Dark:(BOOL)dark{
     return [self kj_launchImageWithStoryboard:@"LaunchScreen" Portrait:portrait Dark:dark];
 }
 /// 生成启动图，根据LaunchScreen名称、是否竖屏、是否暗黑
-+ (UIImage*)kj_launchImageWithStoryboard:(NSString*)name Portrait:(BOOL)portrait Dark:(BOOL)dark{
++ (UIImage *)kj_launchImageWithStoryboard:(NSString *)name Portrait:(BOOL)portrait Dark:(BOOL)dark{
     if (@available(iOS 13.0, *)) {
         UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
         window.overrideUserInterfaceStyle = dark?UIUserInterfaceStyleDark:UIUserInterfaceStyleLight;
@@ -131,7 +132,7 @@
     NSArray *temps = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     BOOL canTakeVideo = NO;
     for (NSString *mediaType in temps) {
-        if ([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
+        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
             canTakeVideo = YES;
             break;
         }
@@ -139,14 +140,14 @@
     return canTakeVideo;
 }
 /// 对比版本号
-+ (BOOL)kj_comparisonVersion:(NSString*)version{
++ (BOOL)kj_comparisonVersion:(NSString *)version{
     if ([version compare:UIDevice.appCurrentVersion] == NSOrderedDescending) {
         return YES;
     }
     return NO;
 }
 /// 获取AppStore版本号和详情信息
-+ (NSString*)kj_getAppStoreVersionWithAppid:(NSString*)appid Details:(void(^)(NSDictionary*))block{
++ (NSString *)kj_getAppStoreVersionWithAppid:(NSString *)appid Details:(void(^)(NSDictionary *))block{
     __block NSString *appVersion = UIDevice.appCurrentVersion;
     if (appid == nil) return appVersion;
     NSString *urlString = [[NSString alloc] initWithFormat:@"http://itunes.apple.com/lookup?id=%@",appid];
@@ -183,7 +184,7 @@
     }
 }
 /// 调用AppStore
-+ (void)kj_skipToAppStoreWithAppid:(NSString*)appid{
++ (void)kj_skipToAppStoreWithAppid:(NSString *)appid{
     NSString *urlString = [@"http://itunes.apple.com/" stringByAppendingFormat:@"%@?id=%@",self.appName,appid];
     [self kj_openURL:urlString];
 }

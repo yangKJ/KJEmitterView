@@ -19,15 +19,15 @@
 @implementation UIImage (KJDoraemonBox)
 #pragma mark - 截图处理
 /// 屏幕截图
-+ (UIImage*)kj_captureScreen:(UIView*)view{
++ (UIImage *)kj_captureScreen:(UIView *)view{
     return [UIImage kj_captureScreen:view Rect:view.frame];
 }
 /// 指定位置屏幕截图
-+ (UIImage*)kj_captureScreen:(UIView*)view Rect:(CGRect)rect{
++ (UIImage *)kj_captureScreen:(UIView *)view Rect:(CGRect)rect{
     return [self kj_captureScreen:view Rect:rect Quality:UIScreen.mainScreen.scale];
 }
 /// 自定义质量的截图，quality质量倍数
-+ (UIImage*)kj_captureScreen:(UIView*)view Rect:(CGRect)rect Quality:(NSInteger)quality{
++ (UIImage *)kj_captureScreen:(UIView *)view Rect:(CGRect)rect Quality:(NSInteger)quality{
     return ({
         CGSize size = view.bounds.size;
         size.width  = floorf(size.width  * quality) / quality;
@@ -44,7 +44,7 @@
     });
 }
 /// 截取当前屏幕
-+ (UIImage*)kj_captureScreenWindow{
++ (UIImage *)kj_captureScreenWindow{
     CGSize imageSize = [UIScreen mainScreen].bounds.size;
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -52,7 +52,8 @@
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, window.center.x, window.center.y);
         CGContextConcatCTM(context, window.transform);
-        CGContextTranslateCTM(context, -window.bounds.size.width * window.layer.anchorPoint.x, -window.bounds.size.height * window.layer.anchorPoint.y);
+        CGContextTranslateCTM(context, -window.bounds.size.width * window.layer.anchorPoint.x,
+                              -window.bounds.size.height * window.layer.anchorPoint.y);
         if ([window respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]){
             [window drawViewHierarchyInRect:window.bounds afterScreenUpdates:YES];
         }else{
@@ -65,7 +66,7 @@
     return image;
 }
 /// 截取当前屏幕
-+ (UIImage*)kj_captureScreenWindowForInterfaceOrientation{
++ (UIImage *)kj_captureScreenWindowForInterfaceOrientation{
     CGSize imageSize = CGSizeZero;
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsPortrait(orientation)){
@@ -79,7 +80,8 @@
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, window.center.x, window.center.y);
         CGContextConcatCTM(context, window.transform);
-        CGContextTranslateCTM(context, -window.bounds.size.width * window.layer.anchorPoint.x, -window.bounds.size.height * window.layer.anchorPoint.y);
+        CGContextTranslateCTM(context, -window.bounds.size.width * window.layer.anchorPoint.x,
+                              -window.bounds.size.height * window.layer.anchorPoint.y);
         if (orientation == UIInterfaceOrientationLandscapeLeft){
             CGContextRotateCTM(context, M_PI_2);
             CGContextTranslateCTM(context, 0, -imageSize.width);
@@ -103,7 +105,7 @@
     return image;
 }
 /// 截取滚动的长图
-+ (UIImage*)kj_captureScreenWithScrollView:(UIScrollView*)scroll contentOffset:(CGPoint)offset{
++ (UIImage *)kj_captureScreenWithScrollView:(UIScrollView*)scroll contentOffset:(CGPoint)offset{
     UIGraphicsBeginImageContext(scroll.bounds.size);
     CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0.0f, -offset.y);
     [scroll.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -114,7 +116,7 @@
 
 #pragma mark - 裁剪处理
 /// 不规则图形切图
-+ (UIImage*)kj_anomalyCaptureImageWithView:(UIView*)view BezierPath:(UIBezierPath*)path{
++ (UIImage *)kj_anomalyCaptureImageWithView:(UIView *)view BezierPath:(UIBezierPath *)path{
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = path.CGPath;
     maskLayer.fillColor = [UIColor blackColor].CGColor;
@@ -131,7 +133,7 @@
     return image;
 }
 /// 多边形切图
-+ (UIImage*)kj_polygonCaptureImageWithImageView:(UIImageView*)imageView PointArray:(NSArray*)points{
++ (UIImage *)kj_polygonCaptureImageWithImageView:(UIImageView*)imageView PointArray:(NSArray *)points{
     CGRect rect = CGRectZero;
     rect.size = imageView.image.size;
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
@@ -162,7 +164,7 @@
     CGPoint result = CGPointMake((point1.x*rect2.width)/rect1.width, (point1.y*rect2.height)/rect1.height);
     return result;
 }
-+ (CGRect)kj_newScaleRect:(CGRect)cropRect Image:(UIImage*)image{
++ (CGRect)kj_newScaleRect:(CGRect)cropRect Image:(UIImage *)image{
     CGFloat scale = image.scale;
     if (scale != 1) {
         cropRect.origin.x *= scale;
@@ -173,10 +175,10 @@
     return cropRect;
 }
 /// 根据特定的区域对图片进行裁剪
-- (UIImage*)kj_cutImageWithCropRect:(CGRect)cropRect{
+- (UIImage *)kj_cutImageWithCropRect:(CGRect)cropRect{
     return [UIImage kj_cutImageWithImage:self Frame:cropRect];
 }
-+ (UIImage*)kj_cutImageWithImage:(UIImage*)image Frame:(CGRect)cropRect{
++ (UIImage *)kj_cutImageWithImage:(UIImage *)image Frame:(CGRect)cropRect{
     return ({
         CGImageRef tmp = CGImageCreateWithImageInRect([image CGImage], cropRect);
         UIImage *newImage = [UIImage imageWithCGImage:tmp scale:image.scale orientation:image.imageOrientation];
@@ -185,10 +187,10 @@
     });
 }
 /// quartz 2d 实现裁剪
-- (UIImage*)kj_quartzCutImageWithCropRect:(CGRect)cropRect{
+- (UIImage *)kj_quartzCutImageWithCropRect:(CGRect)cropRect{
     return [UIImage kj_quartzCutImageWithImage:self Frame:cropRect];
 }
-+ (UIImage*)kj_quartzCutImageWithImage:(UIImage*)image Frame:(CGRect)cropRect{
++ (UIImage *)kj_quartzCutImageWithImage:(UIImage *)image Frame:(CGRect)cropRect{
     cropRect = [self kj_newScaleRect:cropRect Image:image];
     UIGraphicsBeginImageContext(cropRect.size);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -200,10 +202,10 @@
     return image;
 }
 /// 图片路径裁剪，裁剪路径 "以外" 部分
-- (UIImage*)kj_captureOuterImageBezierPath:(UIBezierPath*)path Rect:(CGRect)rect{
+- (UIImage *)kj_captureOuterImageBezierPath:(UIBezierPath *)path Rect:(CGRect)rect{
     return [UIImage kj_captureOuterImage:self BezierPath:path Rect:rect];
 }
-+ (UIImage*)kj_captureOuterImage:(UIImage*)image BezierPath:(UIBezierPath*)path Rect:(CGRect)rect{
++ (UIImage *)kj_captureOuterImage:(UIImage *)image BezierPath:(UIBezierPath *)path Rect:(CGRect)rect{
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGMutablePathRef outer = CGPathCreateMutable();
@@ -219,10 +221,10 @@
     return newimage;
 }
 /// 图片路径裁剪，裁剪路径 "以内" 部分
-- (UIImage*)kj_captureInnerImageBezierPath:(UIBezierPath*)path Rect:(CGRect)rect{
+- (UIImage *)kj_captureInnerImageBezierPath:(UIBezierPath *)path Rect:(CGRect)rect{
     return [UIImage kj_captureInnerImage:self BezierPath:path Rect:rect];
 }
-+ (UIImage*)kj_captureInnerImage:(UIImage*)image BezierPath:(UIBezierPath*)path Rect:(CGRect)rect{
++ (UIImage *)kj_captureInnerImage:(UIImage *)image BezierPath:(UIBezierPath *)path Rect:(CGRect)rect{
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetBlendMode(context, kCGBlendModeClear);/// kCGBlendModeClear 裁剪部分透明
@@ -236,7 +238,7 @@
 
 #pragma mark - 图片尺寸处理
 /// 等比改变图片尺寸
-- (UIImage*)kj_cropImageWithAnySize:(CGSize)size{
+- (UIImage *)kj_cropImageWithAnySize:(CGSize)size{
     float scale = self.size.width/self.size.height;
     CGRect rect = CGRectZero;
     if (scale > size.width/size.height){
@@ -255,7 +257,7 @@
     return croppedImage;
 }
 /// 等比缩小图片尺寸
-- (UIImage*)kj_zoomImageWithMaxSize:(CGSize)size{
+- (UIImage *)kj_zoomImageWithMaxSize:(CGSize)size{
     float imgHeight = self.size.height;
     float imgWidth  = self.size.width;
     float maxHeight = size.width;
@@ -284,7 +286,7 @@
     UIGraphicsEndImageContext();
     return img;
 }
-- (UIImage*)kj_scaleWithFixedWidth:(CGFloat)width {
+- (UIImage *)kj_scaleWithFixedWidth:(CGFloat)width {
     float newHeight = self.size.height * (width / self.size.width);
     CGSize size = CGSizeMake(width, newHeight);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
@@ -297,7 +299,7 @@
     UIGraphicsEndImageContext();
     return imageOut;
 }
-- (UIImage*)kj_scaleWithFixedHeight:(CGFloat)height {
+- (UIImage *)kj_scaleWithFixedHeight:(CGFloat)height {
     float newWidth = self.size.width * (height / self.size.height);
     CGSize size = CGSizeMake(newWidth, height);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
@@ -318,7 +320,7 @@
     UIGraphicsEndImageContext();
     return scaledImage;
 }
-- (UIImage*)kj_maskImage:(UIImage*)image MaskImage:(UIImage*)maskImage {
+- (UIImage *)kj_maskImage:(UIImage *)image MaskImage:(UIImage *)maskImage {
     CGImageRef maskRef = maskImage.CGImage;
     CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
                                         CGImageGetHeight(maskRef),
@@ -329,7 +331,7 @@
     CGImageRef sourceImage = [image CGImage];
     CGImageRef imageWithAlpha = sourceImage;
     if (CGImageGetAlphaInfo(sourceImage) == kCGImageAlphaNone) {
-//        imageWithAlpha = CopyImageAndAddAlphaChannel(sourceImage);
+        //        imageWithAlpha = CopyImageAndAddAlphaChannel(sourceImage);
     }
     CGImageRef masked = CGImageCreateWithMask(imageWithAlpha, mask);
     CGImageRelease(mask);
@@ -339,7 +341,7 @@
     return retImage;
 }
 /// 不拉升填充图片
-- (UIImage*)kj_fitImageWithSize:(CGSize)size{
+- (UIImage *)kj_fitImageWithSize:(CGSize)size{
     CGFloat x,y,w,h;
     if ((self.size.width/self.size.height)<(size.width/size.height)) {
         y = 0.;
@@ -363,9 +365,10 @@
     return imageOut;
 }
 /// 裁剪图片处理，以图片中心位置开始裁剪
-- (UIImage*)kj_clipCenterImageWithSize:(CGSize)size{
+- (UIImage *)kj_clipCenterImageWithSize:(CGSize)size{
     UIImage * aImage = self;
-    CGFloat scale = MIN(aImage.size.width / [[UIScreen mainScreen] bounds].size.width, aImage.size.height / [[UIScreen mainScreen] bounds].size.height);
+    CGFloat scale = MIN(aImage.size.width / [[UIScreen mainScreen] bounds].size.width,
+                        aImage.size.height / [[UIScreen mainScreen] bounds].size.height);
     CGFloat x = 0.0;
     CGFloat y = 0.0;
     CGFloat w = size.width * scale;
@@ -387,10 +390,10 @@
 
 #pragma mark - 图片压缩
 /// 压缩图片到指定大小
-- (UIImage*)kj_compressTargetByte:(NSUInteger)maxLength{
+- (UIImage *)kj_compressTargetByte:(NSUInteger)maxLength{
     return [UIImage kj_compressImage:self TargetByte:maxLength];
 }
-+ (UIImage*)kj_compressImage:(UIImage*)image TargetByte:(NSUInteger)maxLength{
++ (UIImage *)kj_compressImage:(UIImage *)image TargetByte:(NSUInteger)maxLength{
     CGFloat compression = 1.;
     NSData *data = UIImageJPEGRepresentation(image, compression);
     if (data.length < maxLength) return image;
@@ -422,7 +425,7 @@
     return resultImage;
 }
 #pragma mark - UIKit方式
-- (UIImage*)kj_UIKitChangeImageSize:(CGSize)size{
+- (UIImage *)kj_UIKitChangeImageSize:(CGSize)size{
     UIGraphicsBeginImageContext(size);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -431,7 +434,7 @@
 }
 
 #pragma mark - Quartz 2D
-- (UIImage*)kj_QuartzChangeImageSize:(CGSize)size{
+- (UIImage *)kj_QuartzChangeImageSize:(CGSize)size{
     UIGraphicsBeginImageContext(size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(context, 0.0, size.height);
@@ -444,7 +447,7 @@
 }
 
 #pragma mark - ImageIO
-- (UIImage*)kj_ImageIOChangeImageSize:(CGSize)size{
+- (UIImage *)kj_ImageIOChangeImageSize:(CGSize)size{
     NSData *date = UIImagePNGRepresentation(self);
     int max = (int)MAX(size.width, size.height);
     CFDictionaryRef dictionaryRef = (__bridge CFDictionaryRef) @{(id)kCGImageSourceCreateThumbnailFromImageIfAbsent : @(YES),
@@ -461,14 +464,14 @@
 - (BOOL)isGif{
     return (self.images != nil);
 }
-+ (UIImage*)kj_gifLocalityImageWithName:(NSString*)name{
++ (UIImage *)kj_gifLocalityImageWithName:(NSString *)name{
     NSData *localData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"gif"]];
     return [self kj_gifImageWithData:localData];
 }
-+ (UIImage*)kj_gifImageWithData:(NSData*)data {
++ (UIImage *)kj_gifImageWithData:(NSData*)data {
     return animatedImageWithAnimatedGIFReleasingImageSource(CGImageSourceCreateWithData(GIFTOCF data, NULL));
 }
-+ (UIImage*)kj_gifImageWithURL:(NSURL*)URL {
++ (UIImage *)kj_gifImageWithURL:(NSURL *)URL {
     return animatedImageWithAnimatedGIFReleasingImageSource(CGImageSourceCreateWithURL(GIFTOCF URL, NULL));
 }
 static int delayCentisecondsForImageAtIndex(CGImageSourceRef const source, size_t const i) {
@@ -556,7 +559,7 @@ static UIImage * animatedImageWithAnimatedGIFReleasingImageSource(CGImageSourceR
     }
 }
 /// 动态图和网图播放
-+ (UIImage*)kj_playImageWithData:(NSData*)data{
++ (UIImage *)kj_playImageWithData:(NSData*)data{
     if (data == nil) return nil;
     CGImageSourceRef imageSource = CGImageSourceCreateWithData(CFBridgingRetain(data), nil);
     size_t imageCount = CGImageSourceGetCount(imageSource);
@@ -624,7 +627,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 }
 
 #pragma mark - 获取网络图片尺寸
-+ (CGSize)kj_imageGetSizeWithURL:(NSURL*)URL{
++ (CGSize)kj_imageGetSizeWithURL:(NSURL *)URL{
     if (!URL) return CGSizeZero;
     CGImageSourceRef imageSourceRef = CGImageSourceCreateWithURL((CFURLRef)URL, NULL);
     CGFloat width = 0, height = 0;
@@ -659,10 +662,8 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
                     temp = width;
                     width = height;
                     height = temp;
-                }
-                    break;
-                default:
-                    break;
+                } break;
+                default:break;
             }
             CFRelease(imageProperties);
         }
@@ -672,7 +673,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 }
 
 /// 异步获取网络图片大小
-+ (CGSize)kj_imageAsyncGetSizeWithURL:(NSURL*)URL{
++ (CGSize)kj_imageAsyncGetSizeWithURL:(NSURL *)URL{
     if (!URL) return CGSizeZero;
     __block CGSize imageSize = CGSizeZero;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -680,7 +681,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     dispatch_group_async(dispatch_group_create(), queue, ^{
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
         [request setValue:@"bytes=0-209" forHTTPHeaderField:@"Range"];
-        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
             if ([response.MIMEType isEqualToString:@"image/jpeg"]) {
                 imageSize = [self jpgImageSizeWithHeaderData:[data subdataWithRange:NSMakeRange(0,210)]];
             }else if ([response.MIMEType isEqualToString:@"image/png"]) {
@@ -766,7 +767,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 
 #pragma mark - 图片拼接相关处理
 /// 随意张拼接图片
-- (UIImage*)kj_moreJointVerticalImage:(UIImage*)jointImage,...{
+- (UIImage *)kj_moreJointVerticalImage:(UIImage *)jointImage,...{
     NSMutableArray<UIImage*>* temps = [NSMutableArray arrayWithObjects:self,jointImage,nil];
     CGSize size = self.size;
     CGFloat w = size.width;
@@ -791,7 +792,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return resultImage;
 }
 /// 水平方向拼接随意张图片
-- (UIImage*)kj_moreJointLevelImage:(UIImage*)jointImage,...{
+- (UIImage *)kj_moreJointLevelImage:(UIImage *)jointImage,...{
     NSMutableArray<UIImage*>* temps = [NSMutableArray arrayWithObjects:self,jointImage,nil];
     CGSize size = self.size;
     CGFloat h = size.height;
@@ -816,7 +817,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return resultImage;
 }
 /// 图片多次合成处理
-- (UIImage*)kj_imageCompoundWithLoopNums:(NSInteger)loopNums Orientation:(UIImageOrientation)orientation{
+- (UIImage *)kj_imageCompoundWithLoopNums:(NSInteger)loopNums Orientation:(UIImageOrientation)orientation{
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
     CGFloat X = 0,Y = 0;
     switch (orientation) {
@@ -853,7 +854,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 }
 #pragma mark - CoreGraphics
 /// 水平方向拼接随意张图片，固定主图的高度
-- (UIImage*)kj_moreCoreGraphicsJointLevelImage:(UIImage*)jointImage,...{
+- (UIImage *)kj_moreCoreGraphicsJointLevelImage:(UIImage *)jointImage,...{
     NSMutableArray<UIImage*>* temps = [NSMutableArray arrayWithObjects:self,jointImage,nil];
     CGSize size = self.size;
     CGFloat h = size.height;
@@ -896,7 +897,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return newImage;
 }
 /// 图片拼接艺术
-- (UIImage*)kj_jointImageWithJointType:(KJJointImageType)type Size:(CGSize)size Maxw:(CGFloat)maxw{
+- (UIImage *)kj_jointImageWithJointType:(KJJointImageType)type Size:(CGSize)size Maxw:(CGFloat)maxw{
     CGFloat scale = [UIScreen mainScreen].scale;
     const size_t width = size.width * scale, height = size.height * scale;
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
@@ -919,7 +920,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
         tempImage = [self kj_rotationImageWithOrientation:UIImageOrientationDownMirrored];
     }
     __block CGFloat x = 0,y = 0;
-    void (^kDrawImage)(UIImage*) = ^(UIImage *image) {
+    void (^kDrawImage)(UIImage *) = ^(UIImage *image) {
         //宽高+1，解决拼接中间的空隙
         CGContextDrawImage(context, CGRectMake(x, y, maxw*scale+1, maxh*scale+1), image.CGImage);
     };
@@ -961,7 +962,10 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return newImage;
 }
 /// 异步图片拼接处理
-- (void)kj_asyncJointImage:(void(^)(UIImage *image))block JointType:(KJJointImageType)type Size:(CGSize)size Maxw:(CGFloat)maxw{
+- (void)kj_asyncJointImage:(void(^)(UIImage *image))block
+                 JointType:(KJJointImageType)type
+                      Size:(CGSize)size
+                      Maxw:(CGFloat)maxw{
     UIImage *selfImage = self;
     CGFloat scale = [UIScreen mainScreen].scale;
     const size_t width = size.width * scale, height = size.height * scale;
@@ -990,7 +994,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
             tempImage = [weakself kj_rotationImageWithOrientation:UIImageOrientationDownMirrored];
         }
         __block CGFloat x = 0,y = 0;
-        void (^kDrawImage)(UIImage*) = ^(UIImage *image) {
+        void (^kDrawImage)(UIImage *) = ^(UIImage *image) {
             //宽高+1，解决拼接中间的空隙
             CGContextDrawImage(context, CGRectMake(x, y, maxw*scale+1, maxh*scale+1), image.CGImage);
         };
@@ -1038,7 +1042,11 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 
 #pragma mark - 水印蒙版处理
 /// 文字水印
-- (UIImage*)kj_waterText:(NSString*)text direction:(KJImageWaterType)direction textColor:(UIColor*)color font:(UIFont*)font margin:(CGPoint)margin{
+- (UIImage *)kj_waterText:(NSString *)text
+                direction:(KJImageWaterType)direction
+                textColor:(UIColor *)color
+                     font:(UIFont *)font
+                   margin:(CGPoint)margin{
     CGRect rect = (CGRect){CGPointZero,self.size};
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
     [self drawInRect:rect];
@@ -1050,7 +1058,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return newImage;
 }
 /// 图片水印
-- (UIImage*)kj_waterImage:(UIImage*)image direction:(KJImageWaterType)direction waterSize:(CGSize)size margin:(CGPoint)margin{
+- (UIImage *)kj_waterImage:(UIImage *)image direction:(KJImageWaterType)direction waterSize:(CGSize)size margin:(CGPoint)margin{
     CGRect rect = (CGRect){CGPointZero,self.size};
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
     [self drawInRect:rect];
@@ -1084,7 +1092,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 }
 
 // 画水印
-- (UIImage*)kj_waterMark:(UIImage*)mark InRect:(CGRect)rect{
+- (UIImage *)kj_waterMark:(UIImage *)mark InRect:(CGRect)rect{
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
     CGRect imgRect = CGRectMake(0, 0, self.size.width, self.size.height);
     [self drawInRect:imgRect];
@@ -1094,7 +1102,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return newPic;
 }
 /// 蒙版图片处理
-- (UIImage*)kj_maskImage:(UIImage*)maskImage{
+- (UIImage *)kj_maskImage:(UIImage *)maskImage{
     UIImage *image = self;
     CGImageRef maskRef = maskImage.CGImage;
     CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
@@ -1106,7 +1114,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     CGImageRef sourceImage = [image CGImage];
     CGImageRef imageWithAlpha = sourceImage;
     if (CGImageGetAlphaInfo(sourceImage) == kCGImageAlphaNone) {
-//        imageWithAlpha = CopyImageAndAddAlphaChannel(sourceImage);
+        //        imageWithAlpha = CopyImageAndAddAlphaChannel(sourceImage);
     }
     CGImageRef masked = CGImageCreateWithMask(imageWithAlpha, mask);
     CGImageRelease(mask);
@@ -1118,7 +1126,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 
 #pragma mark - CoreGraphics板块
 /// 裁剪掉图片周围的透明部分
-- (UIImage*)kj_cutImageRoundAlphaZero{
+- (UIImage *)kj_cutImageRoundAlphaZero{
     UIImage *image = self;
     CGImageRef cgimage = [image CGImage];
     size_t width  = CGImageGetWidth(cgimage);
@@ -1189,7 +1197,10 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     }
     
     CGFloat scale = image.scale;
-    CGImageRef newImageRef = CGImageCreateWithImageInRect(cgimage, CGRectMake(left*scale, top*scale, (image.size.width-left-right)*scale, (image.size.height-top-bottom)*scale));
+    CGImageRef newImageRef = CGImageCreateWithImageInRect(cgimage, CGRectMake(left*scale,
+                                                                              top*scale,
+                                                                              (image.size.width-left-right)*scale,
+                                                                              (image.size.height-top-bottom)*scale));
     UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
     CGContextRelease(context);
     CGColorSpaceRelease(space);
@@ -1199,7 +1210,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 }
 
 /// 图片压缩
-- (UIImage*)kj_BitmapChangeImageSize:(CGSize)size{
+- (UIImage *)kj_BitmapChangeImageSize:(CGSize)size{
     const size_t width = size.width, height = size.height;
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL,
@@ -1231,7 +1242,7 @@ static char kSavePhotosKey;
     UIImageWriteToSavedPhotosAlbum(self, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
     objc_setAssociatedObject(self, &kSavePhotosKey, complete, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo{
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo{
     void(^block)(BOOL success) = objc_getAssociatedObject(self, &kSavePhotosKey);
     if (block) block(error == nil ? YES : NO);
 }
@@ -1244,7 +1255,7 @@ static char kSavePhotosKey;
 //    }
 //    return [UIImage kj_gradientImageColor:color](size,direction);
 //}
-+ (UIImage*(^)(CGSize,int))kj_gradientImageColor:(UIColor*)color,...{
++ (UIImage*(^)(CGSize,int))kj_gradientImageColor:(UIColor *)color,...{
     NSMutableArray * temps = [NSMutableArray arrayWithObjects:(id)color.CGColor,nil];
     va_list args;UIColor * arg;
     va_start(args, color);
@@ -1288,7 +1299,7 @@ static char kSavePhotosKey;
     };
 }
 /// 旋转图片和镜像处理
-- (UIImage*)kj_rotationImageWithOrientation:(UIImageOrientation)orientation{
+- (UIImage *)kj_rotationImageWithOrientation:(UIImageOrientation)orientation{
     CGRect rect = CGRectMake(0, 0, CGImageGetWidth(self.CGImage), CGImageGetHeight(self.CGImage));
     CGRect bounds = rect;
     CGRect (^kSwapWidthAndHeight)(CGRect) = ^CGRect(CGRect rect) {
@@ -1342,13 +1353,13 @@ static char kSavePhotosKey;
         case UIImageOrientationLeftMirrored:
         case UIImageOrientationRight:
         case UIImageOrientationRightMirrored:
-        CGContextScaleCTM(context, -1.0, 1.0);
-        CGContextTranslateCTM(context, -rect.size.height, 0.0);
-        break;
+            CGContextScaleCTM(context, -1.0, 1.0);
+            CGContextTranslateCTM(context, -rect.size.height, 0.0);
+            break;
         default:
-        CGContextScaleCTM(context, 1.0, -1.0);
-        CGContextTranslateCTM(context, 0.0, -rect.size.height);
-        break;
+            CGContextScaleCTM(context, 1.0, -1.0);
+            CGContextTranslateCTM(context, 0.0, -rect.size.height);
+            break;
     }
     CGContextConcatCTM(context, transform);
     CGContextDrawImage(UIGraphicsGetCurrentContext(), rect, self.CGImage);
@@ -1369,7 +1380,7 @@ static char kSavePhotosKey;
     return image;
 }
 /// 圆形图片
-- (UIImage*)kj_circleImage{
+- (UIImage *)kj_circleImage{
     CGFloat width = MIN(self.size.width, self.size.height);
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, width), NO, 0.0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -1381,7 +1392,7 @@ static char kSavePhotosKey;
     return image;
 }
 /// 边框圆形图片
-- (UIImage*)kj_squareCircleImageWithBorderWidth:(CGFloat)borderWidth borderColor:(UIColor*)borderColor{
+- (UIImage *)kj_squareCircleImageWithBorderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor{
     CGFloat width = self.size.width + 2 * borderWidth;
     CGFloat height = width;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
@@ -1412,7 +1423,7 @@ static char kSavePhotosKey;
     return alpha < 0.01f;
 }
 /// 获取图片平均颜色
-- (UIColor*)kj_getImageAverageColor{
+- (UIColor *)kj_getImageAverageColor{
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     unsigned char rgba[4];
     CGContextRef context = CGBitmapContextCreate(rgba,
@@ -1428,13 +1439,19 @@ static char kSavePhotosKey;
     if (rgba[3] > 0) {
         CGFloat alpha = ((CGFloat)rgba[3])/255.0;
         CGFloat mu = alpha/255.0;
-        return [UIColor colorWithRed:((CGFloat)rgba[0])*mu green:((CGFloat)rgba[1])*mu blue:((CGFloat)rgba[2])*mu alpha:alpha];
+        return [UIColor colorWithRed:((CGFloat)rgba[0])*mu
+                               green:((CGFloat)rgba[1])*mu
+                                blue:((CGFloat)rgba[2])*mu
+                               alpha:alpha];
     }else{
-        return [UIColor colorWithRed:((CGFloat)rgba[0])/255.0 green:((CGFloat)rgba[1])/255.0 blue:((CGFloat)rgba[2])/255.0 alpha:((CGFloat)rgba[3])/255.0];
+        return [UIColor colorWithRed:((CGFloat)rgba[0])/255.0
+                               green:((CGFloat)rgba[1])/255.0
+                                blue:((CGFloat)rgba[2])/255.0
+                               alpha:((CGFloat)rgba[3])/255.0];
     }
 }
 /// 获得灰度图
-- (UIImage*)kj_getGrayImage{
+- (UIImage *)kj_getGrayImage{
     CGFloat scale = [UIScreen mainScreen].scale;
     CGFloat w = self.size.width * scale;
     CGFloat h = self.size.height * scale;
@@ -1456,7 +1473,7 @@ static char kSavePhotosKey;
     return newImage;
 }
 /// 改变图片透明度
-- (UIImage*)kj_changeImageAlpha:(CGFloat)alpha{
+- (UIImage *)kj_changeImageAlpha:(CGFloat)alpha{
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGRect area = CGRectMake(0, 0, self.size.width, self.size.height);
@@ -1470,7 +1487,7 @@ static char kSavePhotosKey;
     return newImage;
 }
 /// 改变图片颜色
-- (UIImage*)kj_changeImageColor:(UIColor*)color{
+- (UIImage *)kj_changeImageColor:(UIColor *)color{
     UIGraphicsBeginImageContext(CGSizeMake(self.size.width*2, self.size.height*2));
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGRect area = CGRectMake(0, 0, self.size.width * 2, self.size.height * 2);
@@ -1488,11 +1505,11 @@ static char kSavePhotosKey;
     return destImage;
 }
 /// 修改图片颜色
-- (UIImage*)kj_imageLinellaeColor:(UIColor*)color{
+- (UIImage *)kj_imageLinellaeColor:(UIColor *)color{
     return [self kj_imageBlendMode:kCGBlendModeDestinationIn TineColor:color];
 }
 /// 图层混合
-- (UIImage*)kj_imageBlendMode:(CGBlendMode)blendMode TineColor:(UIColor*)tintColor{
+- (UIImage *)kj_imageBlendMode:(CGBlendMode)blendMode TineColor:(UIColor *)tintColor{
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
     [tintColor setFill];
     CGRect bounds = CGRectMake(0, 0, self.size.width, self.size.height);
@@ -1506,7 +1523,7 @@ static char kSavePhotosKey;
     return tintedImage;
 }
 /* 绘制图片 */
-- (UIImage*)kj_mallocDrawImage{
+- (UIImage *)kj_mallocDrawImage{
     CGImageRef cgimage = self.CGImage;
     size_t width  = CGImageGetWidth(cgimage);
     size_t height = CGImageGetHeight(cgimage);
@@ -1543,7 +1560,7 @@ static char kSavePhotosKey;
     return newImage;
 }
 /// 改变图片亮度
-- (UIImage*)kj_changeImageLuminance:(CGFloat)luminance{
+- (UIImage *)kj_changeImageLuminance:(CGFloat)luminance{
     CGImageRef cgimage = self.CGImage;
     size_t width  = CGImageGetWidth(cgimage);
     size_t height = CGImageGetHeight(cgimage);

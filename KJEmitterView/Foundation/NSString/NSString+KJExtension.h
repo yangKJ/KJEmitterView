@@ -87,15 +87,15 @@ extern NSArray<NSString*> * kDoraemonBoxAlphabetSort(NSArray<NSString*>* array);
 
 #pragma mark - 数学运算
 /// 比较大小
-- (NSComparisonResult)kj_compare:(NSString*)string;
+- (NSComparisonResult)kj_compare:(NSString *)string;
 /// 加法运算
-- (NSString *)kj_adding:(NSString*)string;
+- (NSString *)kj_adding:(NSString *)string;
 /// 减法运算
-- (NSString *)kj_subtract:(NSString*)string;
+- (NSString *)kj_subtract:(NSString *)string;
 /// 乘法运算量
-- (NSString *)kj_multiply:(NSString*)string;
+- (NSString *)kj_multiply:(NSString *)string;
 /// 除法运算
-- (NSString *)kj_divide:(NSString*)string;
+- (NSString *)kj_divide:(NSString *)string;
 /// 指数运算
 - (NSString *)kj_multiplyingByPowerOf10:(NSInteger)oxff;
 /// 次方运算

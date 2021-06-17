@@ -154,7 +154,7 @@
 }
 /// 当前的控制器
 @dynamic viewController;
-- (UIViewController*)viewController{
+- (UIViewController *)viewController{
     UIResponder *responder = self.nextResponder;
     do {
         if ([responder isKindOfClass:[UIViewController class]]) {

@@ -45,7 +45,7 @@
 }
 
 #pragma mark - 烟花粒子
-- (void)FireworksEmitter:(UIView*)view{
+- (void)FireworksEmitter:(UIView *)view{
     //创建发射器
     CAEmitterLayer *emitter = [CAEmitterLayer layer];
     //发射器中心点
@@ -144,7 +144,7 @@
 }
 
 #pragma mark - 气泡粒子
-- (void)BubbleEmitter:(UIView*)view{
+- (void)BubbleEmitter:(UIView *)view{
     CAEmitterLayer *emitter = [CAEmitterLayer layer];
     emitter.emitterPosition = CGPointMake(view.bounds.size.width/2, view.bounds.size.height);
     emitter.emitterSize = CGSizeMake(view.bounds.size.width, 0);
@@ -177,7 +177,7 @@
 }
 
 #pragma mark - 雪花粒子
-- (void)SnowflakeEmitter:(UIView*)view{
+- (void)SnowflakeEmitter:(UIView *)view{
     CAEmitterLayer *emitter = [CAEmitterLayer layer];
     emitter.emitterPosition = CGPointMake(view.bounds.size.width*.5, -20);//发射点
     emitter.emitterSize = CGSizeMake(view.bounds.size.width, 0);
@@ -217,7 +217,7 @@
 }
 
 #pragma mark - 星空粒子
-- (void)StarrySkyEmitter:(UIView*)view{
+- (void)StarrySkyEmitter:(UIView *)view{
 //    view.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.1];
     // 粒子容器
     CAEmitterLayer *emitterLayer = [CAEmitterLayer layer];
@@ -283,7 +283,7 @@
 }
 
 #pragma mark - 获取颜色图片色块
-- (UIImage*)imageWithColor:(UIColor*)color Size:(CGSize)size{
+- (UIImage *)imageWithColor:(UIColor *)color Size:(CGSize)size{
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContext(size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -313,7 +313,7 @@
         return self;
     };
 }
-- (KJEmitterView *(^)(UIView*))KJAddView {
+- (KJEmitterView *(^)(UIView *))KJAddView {
     return ^(UIView *superView){
         [superView addSubview:self];
         return self;

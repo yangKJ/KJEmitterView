@@ -11,7 +11,7 @@
 - (BOOL)isEmpty{
     return (self == nil || [self isKindOfClass:[NSNull class]] || self.allKeys == 0);
 }
-- (NSString*)jsonString{
+- (NSString *)jsonString{
     NSError *error;
 #ifdef DEBUG
     NSJSONWritingOptions options = NSJSONWritingPrettyPrinted;
@@ -26,15 +26,15 @@
     }
 }
 /// 是否包含某个key，内部哈西算法实现
-- (BOOL)kj_containsKey:(NSString*)key{
+- (BOOL)kj_containsKey:(NSString *)key{
     if (!key) return NO;
     return self[key] != nil;
 }
 /// 字典键名数组
-- (NSArray<NSString*>*)kj_keysSorted{
+- (NSArray<NSString*> *)kj_keysSorted{
     return [[self allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
-- (NSDictionary*)kj_keySortOptions:(NSSortOptions)options{
+- (NSDictionary *)kj_keySortOptions:(NSSortOptions)options{
     return self;
 }
 
@@ -120,7 +120,7 @@
     return 0.0f;
 }
 
-- (NSDate*)dateForKey:(NSString*)key{
+- (NSDate *)dateForKey:(NSString *)key{
     NSNumber * number = [self objectForKey:key];
     if (number != nil && [number isKindOfClass:[NSNumber class]])
         return [NSDate dateWithTimeIntervalSince1970:[number unsignedIntValue]];
@@ -129,16 +129,16 @@
     return nil;
 }
 
-- (NSArray*)arrayForKey:(NSString*)key{
+- (NSArray *)arrayForKey:(NSString *)key{
     id object = [self objectForKey:key];
     if (object != nil && [object isKindOfClass:[NSArray class]])
         return object;
     if (object != nil && [object isKindOfClass:[NSString class]]) {
         NSData *JSONData = [object dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error = nil;
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingAllowFragments error:&error];
-        if (error == nil || [jsonObject isKindOfClass:[NSArray class]]) {
-            return jsonObject;
+        id json = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingAllowFragments error:&error];
+        if (error == nil || [json isKindOfClass:[NSArray class]]) {
+            return json;
         }
     }
     return nil;

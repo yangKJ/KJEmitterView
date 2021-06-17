@@ -29,7 +29,7 @@
     return self;
 }
 
-- (void)setTemps:(NSArray*)temps sectionTemps:(NSArray*)sectionTemps{
+- (void)setTemps:(NSArray *)temps sectionTemps:(NSArray *)sectionTemps{
     self.temps = temps;
     self.sectionTemps = sectionTemps;
 //    _weakself;

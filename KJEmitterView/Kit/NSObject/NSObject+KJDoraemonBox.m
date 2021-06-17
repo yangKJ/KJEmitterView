@@ -59,14 +59,16 @@ static char kListKey;
 
 #pragma mark - kvo键值监听封装，自动释放
 /// kvo监听
-- (void)kj_observeKey:(NSString*)keyPath ResultBlock:(KJObserveResultBlock)block{
+- (void)kj_observeKey:(NSString *)keyPath ResultBlock:(KJObserveResultBlock)block{
     if (keyPath.length < 1 || [keyPath containsString:@"."]) return;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         kRuntimeMethodSwizzling([self class], NSSelectorFromString(@"dealloc"), @selector(kj_kvo_dealloc));
     });
     self.usekvo = YES;
-    [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:(__bridge_retained void *)(block)];
+    [self addObserver:self forKeyPath:keyPath
+              options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+              context:(__bridge_retained void *)(block)];
     [self.observeDictionary setValue:block forKey:keyPath];
 }
 - (void)kj_kvo_dealloc{
@@ -84,7 +86,7 @@ static char kListKey;
 }
 
 #pragma mark - kvo
-- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if (object == self) {
         KJObserveResultBlock handler = (__bridge KJObserveResultBlock)context;
         handler(change[@"new"],change[@"old"]);
@@ -109,7 +111,7 @@ static char kListKey;
 
 #pragma mark - 轻量级解耦工具（信号）
 /// 发送消息处理
-- (id)kj_sendSemaphoreWithKey:(NSString*)key Message:(id)message Parameter:(id _Nullable)parameter{
+- (id)kj_sendSemaphoreWithKey:(NSString *)key Message:(id)message Parameter:(id _Nullable)parameter{
 #ifdef DEBUG
     NSLog(@"🍒🍒 发送信号消息 🍒🍒\nSenderKey:%@\n目标:%@\n发送者:%@\n携带参数:%@",key,message,self,parameter);
 #endif
@@ -141,7 +143,7 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     return URL ? [NSString stringWithFormat:@"%@://%@%@",URL.scheme,URL.host,URL.path] : nil;
 }
 /// 注册路由URL
-+ (void)kj_routerRegisterWithURL:(NSURL*)URL Block:(UIViewController * (^)(NSURL *URL, UIViewController *))block{
++ (void)kj_routerRegisterWithURL:(NSURL *)URL Block:(UIViewController * (^)(NSURL *URL, UIViewController *))block{
     if (![self kj_reasonableURL:URL]) return;
     NSString *key = keyFromURL(URL) ?: @"kDefaultRouterKey";
     @synchronized (self) {
@@ -153,17 +155,17 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     }
 }
 /// 移除路由URL
-+ (void)kj_routerRemoveWithURL:(NSURL*)URL{
++ (void)kj_routerRemoveWithURL:(NSURL *)URL{
     if (![self kj_reasonableURL:URL]) return;
     NSString *key = keyFromURL(URL) ?: @"kDefaultRouterKey";
     if (self.routerDict[key]) [self.routerDict removeObjectForKey:key];
     self.routerDict = nil;
 }
 /// 执行跳转处理
-+ (void)kj_routerTransferWithURL:(NSURL*)URL source:(UIViewController*)vc{
++ (void)kj_routerTransferWithURL:(NSURL *)URL source:(UIViewController *)vc{
     [self kj_routerTransferWithURL:URL source:vc completion:nil];
 }
-+ (void)kj_routerTransferWithURL:(NSURL*)URL source:(UIViewController*)vc completion:(void(^_Nullable)(UIViewController*))completion{
++ (void)kj_routerTransferWithURL:(NSURL *)URL source:(UIViewController *)vc completion:(void(^_Nullable)(UIViewController *))completion{
     if (![self kj_reasonableURL:URL] || ![NSThread isMainThread]) return;
     NSMutableArray<NSArray*>* keys = [NSMutableArray array];
     NSString *currentKey = keyFromURL(URL);
@@ -179,7 +181,7 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     if (completion) completion(__vc);
 }
 
-+ (BOOL)kj_reasonableURL:(NSURL*)URL{
++ (BOOL)kj_reasonableURL:(NSURL *)URL{
     if (!URL) {
         NSAssert(URL, @"URL can not be nil");
         return NO;
@@ -198,7 +200,7 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     }
     return YES;
 }
-+ (NSArray*)kj_effectiveWithKeys:(NSArray*)keys{
++ (NSArray *)kj_effectiveWithKeys:(NSArray *)keys{
     if (!keys || ![keys count]) return nil;
     NSMutableArray *temps = [NSMutableArray array];
     for (NSString *key in keys) {
@@ -208,10 +210,10 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     }
     return temps.mutableCopy;
 }
-+ (UIViewController*)kj_getTargetViewControllerWith:(NSArray*)blocks URL:(NSURL*)URL source:(UIViewController*)vc{
++ (UIViewController *)kj_getTargetViewControllerWith:(NSArray *)blocks URL:(NSURL *)URL source:(UIViewController *)vc{
     if (!blocks || ![blocks count]) return nil;
     __block UIViewController *__vc = nil;
-    [blocks enumerateObjectsUsingBlock:^(UIViewController *(^obj)(NSURL *,UIViewController *), NSUInteger idx, BOOL * _Nonnull stop) {
+    [blocks enumerateObjectsUsingBlock:^(UIViewController *(^obj)(NSURL *,UIViewController *), NSUInteger idx, BOOL * stop) {
         if (obj) {
             __vc = obj(URL,vc);
             if (__vc == nil) *stop = YES;
@@ -219,7 +221,7 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     }];
     return __vc;
 }
-+ (UIViewController*)topViewController{
++ (UIViewController *)topViewController{
     UIWindow *window = ({
         UIWindow *window;
         if (@available(iOS 13.0, *)) {
@@ -231,7 +233,7 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
     });
     return [self topViewControllerForRootViewController:window.rootViewController];
 }
-+ (UIViewController*)topViewControllerForRootViewController:(UIViewController*)rootViewController{
++ (UIViewController *)topViewControllerForRootViewController:(UIViewController *)rootViewController{
     if ([rootViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationController = (UINavigationController*)rootViewController;
         return [self topViewControllerForRootViewController:navigationController.viewControllers.lastObject];
@@ -257,10 +259,10 @@ NS_INLINE NSString *keyFromURL(NSURL *URL){
 //  URL.path           // /xxxx/abc
 //  URL.absoluteString // https://www.test.com/xxxx/abc?className=KJVideoEncodeVC&title=title
 /// 解析获取参数
-+ (NSDictionary*)kj_analysisParameterGetQuery:(NSURL*)URL{
++ (NSDictionary *)kj_analysisParameterGetQuery:(NSURL *)URL{
     NSMutableDictionary *parm = [NSMutableDictionary dictionary];
     NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithString:URL.absoluteString];
-    [URLComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [URLComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * obj, NSUInteger idx, BOOL * stop) {
         [parm setObject:obj.value forKey:obj.name];
     }];
     return parm;

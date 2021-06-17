@@ -12,7 +12,7 @@
     return (self == nil || [self isKindOfClass:[NSNull class]] || self.count == 0);
 }
 /// 倒序排列
-- (NSArray*)kj_reverseArray{
+- (NSArray *)kj_reverseArray{
     return [[self reverseObjectEnumerator] allObjects];
 }
 //MARK: - 筛选数据
@@ -29,7 +29,7 @@
         for (id object in self) {
             BOOL stop = NO;
             if ([object isKindOfClass:[NSArray class]]) {
-                return [(NSArray*)object kj_detectManyDimensionArray:recurse];
+                return [(NSArray *)object kj_detectManyDimensionArray:recurse];
             }
             if (recurse(object, &stop) || stop) {
                 return object;
@@ -63,7 +63,7 @@
     }
 }
 //MARK: - 映射
-- (NSArray*)kj_mapArray:(id(^)(id object))map{
+- (NSArray *)kj_mapArray:(id(^)(id object))map{
     @autoreleasepool {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
         for (id object in self) {
@@ -73,7 +73,7 @@
     }
 }
 /// 映射，是否倒序
-- (NSArray*)kj_mapArray:(id(^)(id object))map reverse:(BOOL)reverse{
+- (NSArray *)kj_mapArray:(id(^)(id object))map reverse:(BOOL)reverse{
     @autoreleasepool {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
         NSEnumerationOptions options = reverse ? NSEnumerationReverse : NSEnumerationConcurrent;
@@ -107,7 +107,7 @@
     return NO;
 }
 /// 替换数组指定元素
-- (NSArray*)kj_replaceObject:(id)object operation:(BOOL(^)(id object, NSUInteger index, BOOL * stop))operation{
+- (NSArray *)kj_replaceObject:(id)object operation:(BOOL(^)(id object, NSUInteger index, BOOL * stop))operation{
     @autoreleasepool {
         NSMutableArray *temps = [NSMutableArray arrayWithArray:self];
         [temps enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -122,7 +122,7 @@
     }
 }
 /// 插入数据到目的位置
-- (NSArray*)kj_insertObject:(id)object aim:(BOOL(^)(id object, int index))aim{
+- (NSArray *)kj_insertObject:(id)object aim:(BOOL(^)(id object, int index))aim{
     @autoreleasepool {
         NSMutableArray *temps = [NSMutableArray array];
         BOOL stop = NO;
@@ -139,7 +139,7 @@
     }
 }
 /// 判断两个数组包含元素是否一致
-- (BOOL)kj_isEqualOtherArray:(NSArray*)otherArray{
+- (BOOL)kj_isEqualOtherArray:(NSArray *)otherArray{
     if (self.count != otherArray.count) {
         return NO;
     }
@@ -156,17 +156,17 @@
     return YES;
 }
 /// 随机打乱数组
-- (NSArray*)kj_disorganizeArray{
+- (NSArray *)kj_disorganizeArray{
     return [self sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
         return arc4random_uniform(2) ? [obj1 compare:obj2] : [obj2 compare:obj1];
     }];
 }
 // 删除数组当中的相同元素
-- (NSArray*)kj_deleteArrayEquelObject{
+- (NSArray *)kj_deleteArrayEquelObject{
     return [self valueForKeyPath:@"@distinctUnionOfObjects.self"];
 }
 /// 生成一组不重复的随机数
-- (NSArray*)kj_noRepeatRandomArrayWithMinNum:(NSInteger)min maxNum:(NSInteger)max count:(NSInteger)count{
+- (NSArray *)kj_noRepeatRandomArrayWithMinNum:(NSInteger)min maxNum:(NSInteger)max count:(NSInteger)count{
     NSMutableSet *set = [NSMutableSet setWithCapacity:count];
     while (set.count < count) {
         NSInteger value = arc4random() % (max-min+1) + min;
@@ -269,7 +269,7 @@
 }
 
 ///// 数组计算交集
-//- (NSArray*)kj_intersectionWithOtherArray:(NSArray*)otherArray{
+//- (NSArray *)kj_intersectionWithOtherArray:(NSArray *)otherArray{
 //    @autoreleasepool {
 //        if (self.count == 0 || otherArray.count == 0) return nil;
 //        NSMutableArray *temps = [NSMutableArray array];
@@ -281,7 +281,7 @@
 //    }
 //}
 ///// 数组计算差集
-//- (NSArray*)kj_subtractionWithOtherArray:(NSArray*)otherArray{
+//- (NSArray *)kj_subtractionWithOtherArray:(NSArray *)otherArray{
 //    @autoreleasepool {
 //        if (self == nil) return otherArray;
 //        if (otherArray == nil) return self;
@@ -294,7 +294,7 @@
 //    }
 //}
 ///// 数组计算交集
-//- (NSArray*)kj_intersectionWithOtherArray:(NSArray*)otherArray{
+//- (NSArray *)kj_intersectionWithOtherArray:(NSArray *)otherArray{
 //    if (self.count == 0 || otherArray == nil) return nil;
 //    NSMutableSet *set1 = [NSMutableSet setWithArray:self];
 //    NSMutableSet *set2 = [NSMutableSet setWithArray:otherArray];
@@ -302,7 +302,7 @@
 //    return set1.allObjects;
 //}
 ///// 数组计算差集
-//- (NSArray*)kj_subtractionWithOtherArray:(NSArray*)otherArray{
+//- (NSArray *)kj_subtractionWithOtherArray:(NSArray *)otherArray{
 //    if (self == nil) return otherArray;
 //    if (otherArray == nil) return self;
 //    NSMutableSet *set1 = [NSMutableSet setWithArray:self];
@@ -316,7 +316,7 @@
 
 #pragma mark - 谓词工具
 /// 数组计算交集
-- (NSArray*)kj_intersectionWithOtherArray:(NSArray*)otherArray{
+- (NSArray *)kj_intersectionWithOtherArray:(NSArray *)otherArray{
     @autoreleasepool {
         if (self.count == 0 || otherArray.count == 0) return nil;
         NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF IN %@",self];
@@ -325,7 +325,7 @@
     }
 }
 /// 数组计算差集
-- (NSArray*)kj_subtractionWithOtherArray:(NSArray*)otherArray{
+- (NSArray *)kj_subtractionWithOtherArray:(NSArray *)otherArray{
     @autoreleasepool {
         if (self == nil) return otherArray;
         if (otherArray == nil) return self;
@@ -339,7 +339,7 @@
     }
 }
 /// 删除数组相同部分然后追加不同部分
-- (NSArray*)kj_deleteEqualObjectAndMergeWithOtherArray:(NSArray*)otherArray{
+- (NSArray *)kj_deleteEqualObjectAndMergeWithOtherArray:(NSArray *)otherArray{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)",self];
     NSArray *filteredTemps = [otherArray filteredArrayUsingPredicate:predicate];
     NSMutableArray *newTemps = [NSMutableArray arrayWithArray:self];
@@ -347,33 +347,33 @@
     return newTemps;
 }
 //MARK: - NSPredicate 不影响原数组，返回数组即为过滤结果
-- (NSArray*)kj_filterArrayExclude:(BOOL(^)(id object))block{
-    BOOL (^xxblock)(id, NSDictionary<NSString*,id> *) = ^BOOL(id evaluatedObject, NSDictionary<NSString*,id> *bindings){
+- (NSArray *)kj_filterArrayExclude:(BOOL(^)(id object))block{
+    BOOL (^xxblock)(id, NSDictionary<NSString *,id> *) = ^BOOL(id evaluatedObject, NSDictionary<NSString *,id> *bindings){
         return !block(evaluatedObject);
     };
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:xxblock]];
 }
 /// 过滤数组，获取需要部分
-- (NSArray*)kj_filterArrayNeed:(BOOL(^)(id object))block{
-    BOOL (^xxblock)(id, NSDictionary<NSString*,id> *) = ^BOOL(id evaluatedObject, NSDictionary<NSString*,id> *bindings){
+- (NSArray *)kj_filterArrayNeed:(BOOL(^)(id object))block{
+    BOOL (^xxblock)(id, NSDictionary<NSString *,id> *) = ^BOOL(id evaluatedObject, NSDictionary<NSString *,id> *bindings){
         return block(evaluatedObject);
     };
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:xxblock]];
 }
 //MARK: - NSPredicate 除去数组temps中包含的数组targetTemps元素
-- (NSArray*)kj_deleteTargetArray:(NSArray*)temp{
+- (NSArray *)kj_deleteTargetArray:(NSArray *)temp{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)", temp];
     return [self filteredArrayUsingPredicate:predicate].mutableCopy;
 }
 //MARK: - 利用 NSSortDescriptor 对对象数组，按照某一属性的升序降序排列
-- (NSArray*)kj_sortDescriptorWithKey:(NSString*)key Ascending:(BOOL)ascending{
+- (NSArray *)kj_sortDescriptorWithKey:(NSString *)key Ascending:(BOOL)ascending{
     NSSortDescriptor *des = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self];
     [array sortUsingDescriptors:@[des]];
     return array;
 }
 //MARK: - 利用 NSSortDescriptor 对对象数组，按照某些属性的升序降序排列
-- (NSArray*)kj_sortDescriptorWithKeys:(NSArray*)keys Ascendings:(NSArray*)ascendings{
+- (NSArray *)kj_sortDescriptorWithKeys:(NSArray *)keys Ascendings:(NSArray *)ascendings{
     NSMutableArray *desTemp = [NSMutableArray array];
     for (int i=0; i<keys.count; i++) {
         NSString *key = keys[i];
@@ -387,13 +387,13 @@
     return array;
 }
 //MARK: - 利用 NSSortDescriptor 对对象数组，取出 key 中匹配 value 的元素
-- (NSArray*)kj_takeOutDatasWithKey:(NSString*)key Value:(NSString*)value{
+- (NSArray *)kj_takeOutDatasWithKey:(NSString *)key Value:(NSString *)value{
     NSString *string = [NSString stringWithFormat:@"%@ LIKE '%@'",key,value];
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:string]];
 }
 //MARK: - 字符串比较运算符 beginswith(以*开头)、endswith(以*结尾)、contains(包含)、like(匹配)、matches(正则)
 //  beginswith(以*开头)、endswith(以*结尾)、contains(包含)、like(匹配)、matches(正则)，[c]不区分大小写 [d]不区分发音符号即没有重音符号 [cd] 既又
-- (NSArray*)kj_takeOutDatasWithOperator:(NSString*)ope Key:(NSString*)key Value:(NSString*)value{
+- (NSArray *)kj_takeOutDatasWithOperator:(NSString *)ope Key:(NSString *)key Value:(NSString *)value{
     NSString *string = [NSString stringWithFormat:@"%@ %@ '%@'",key,ope,value];
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:string]];
 }

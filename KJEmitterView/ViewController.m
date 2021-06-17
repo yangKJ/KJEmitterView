@@ -49,7 +49,7 @@
     _weakself;
     [view kj_receivedSemaphoreBlock:^id _Nullable(NSString * _Nonnull key, id _Nonnull message, id _Nullable parameter) {
         if ([key isEqualToString:kHomeViewKey]) {
-            ((UIViewController*)message).title = ((NSDictionary*)parameter)[@"describeName"];
+            ((UIViewController *)message).title = ((NSDictionary *)parameter)[@"describeName"];
             weakself.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:message animated:true];
         }

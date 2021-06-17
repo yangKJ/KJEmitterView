@@ -16,7 +16,10 @@
  @param antialias  是否抗锯齿化
  @return           填充后的图片
  */
-- (UIImage*)kj_FloodFillImageFromStartPoint:(CGPoint)startPoint NewColor:(UIColor*)newColor Tolerance:(CGFloat)tolerance UseAntialias:(BOOL)antialias{
+- (UIImage *)kj_FloodFillImageFromStartPoint:(CGPoint)startPoint
+                                    NewColor:(UIColor *)newColor
+                                   Tolerance:(CGFloat)tolerance
+                                UseAntialias:(BOOL)antialias{
     if (!self.CGImage || !newColor) return self;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGImageRef imageRef = self.CGImage;

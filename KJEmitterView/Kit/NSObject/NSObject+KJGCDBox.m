@@ -115,7 +115,7 @@ static char kThreadKey;
     NSDictionary *dict = @{@"userinfo":[block copy]};
     [self performSelector:@selector(residentThreadAction:) onThread:self.residentThread withObject:dict waitUntilDone:YES];
 }
-- (void)residentThreadAction:(NSDictionary*)userinfo{
+- (void)residentThreadAction:(NSDictionary *)userinfo{
     void(^block)(void) = userinfo[@"userinfo"];
     block();
 }

@@ -22,7 +22,7 @@
     }
     return self;
 }
-- (UIColor*)randomColor{
+- (UIColor *)randomColor{
     srand48(arc4random());
     float red = 0.0;
     while (red < 0.1 || red > 0.84) {
@@ -43,11 +43,12 @@
 
 @implementation UIImageView (KJDoraemonBox)
 /// 显示文字图片
-- (void)kj_imageViewWithText:(NSString*)text LettersInfo:(void(^)(UIImageViewLettersInfo *info))block{
+- (void)kj_imageViewWithText:(NSString *)text LettersInfo:(void(^)(UIImageViewLettersInfo *info))block{
     UIImageViewLettersInfo *info = [[UIImageViewLettersInfo alloc]init];
     if (block) {
         block(info);
-        if (!info.attributes) info.attributes = @{NSFontAttributeName:[self fontForFontName:nil],NSForegroundColorAttributeName:[UIColor whiteColor]};
+        if (!info.attributes) info.attributes = @{NSFontAttributeName:[self fontForFontName:nil],
+                                                  NSForegroundColorAttributeName:[UIColor whiteColor]};
         if (info.pinyin) {
             text = [self pinYin:text];
             if (info.uppercase) text = text.uppercaseString;
@@ -87,13 +88,13 @@
         self.image = [self imageSnapshotFromText:text Color:info.color Circle:info.circle TextAttributes:info.attributes];
     }
 }
-- (NSString*)pinYin:(NSString*)text{
+- (NSString *)pinYin:(NSString *)text{
     NSMutableString *string = [text mutableCopy];
     CFStringTransform((CFMutableStringRef)string,NULL,kCFStringTransformMandarinLatin,NO);
     CFStringTransform((CFMutableStringRef)string,NULL,kCFStringTransformStripDiacritics,NO);
     return string;
 }
-- (UIFont*)fontForFontName:(NSString*)fontName {
+- (UIFont *)fontForFontName:(NSString *)fontName {
     CGFloat fontSize = CGRectGetWidth(self.bounds) * 0.42;
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];
@@ -101,10 +102,16 @@
         return [UIFont systemFontOfSize:fontSize];
     }
 }
-- (UIImage*)imageSnapshotFromText:(NSString*)text Color:(UIColor*)color Circle:(BOOL)circle TextAttributes:(NSDictionary*)attributes{
+- (UIImage *)imageSnapshotFromText:(NSString *)text
+                             Color:(UIColor *)color
+                            Circle:(BOOL)circle
+                    TextAttributes:(NSDictionary *)attributes{
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize size = self.bounds.size;
-    if (self.contentMode == UIViewContentModeScaleToFill || self.contentMode == UIViewContentModeScaleAspectFill || self.contentMode == UIViewContentModeScaleAspectFit || self.contentMode == UIViewContentModeRedraw){
+    if (self.contentMode == UIViewContentModeScaleToFill ||
+        self.contentMode == UIViewContentModeScaleAspectFill ||
+        self.contentMode == UIViewContentModeScaleAspectFit ||
+        self.contentMode == UIViewContentModeRedraw){
         size.width  = floorf(size.width  * scale) / scale;
         size.height = floorf(size.height * scale) / scale;
     }
@@ -120,7 +127,10 @@
     CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
     CGSize textSize = [text sizeWithAttributes:attributes];
     CGRect bounds = self.bounds;
-    [text drawInRect:CGRectMake(bounds.size.width/2 - textSize.width/2, bounds.size.height/2 - textSize.height/2, textSize.width, textSize.height) withAttributes:attributes];
+    [text drawInRect:CGRectMake(bounds.size.width/2 - textSize.width/2,
+                                bounds.size.height/2 - textSize.height/2,
+                                textSize.width,
+                                textSize.height) withAttributes:attributes];
     UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return snapshot;
@@ -130,7 +140,7 @@
 - (void)kj_headerImageShowScreen{
     [self kj_headerImageShowScreenWithBackground:UIColor.blackColor];
 }
-- (void)kj_headerImageShowScreenWithBackground:(UIColor*)color{
+- (void)kj_headerImageShowScreenWithBackground:(UIColor *)color{
     UIImage *image = self.image;
     CGFloat w = [UIScreen mainScreen].bounds.size.width;
     CGFloat h = [UIScreen mainScreen].bounds.size.height;
@@ -173,7 +183,7 @@
 }
 
 /// 模糊处理
-- (void)kj_blurImageViewWithBlurType:(KJImageBlurType)type BlurImage:(UIImage*)image BlurRadius:(CGFloat)radius{
+- (void)kj_blurImageViewWithBlurType:(KJImageBlurType)type BlurImage:(UIImage *)image BlurRadius:(CGFloat)radius{
     __weak __typeof(&*self) weakself = self;
     if (type == KJImageBlurTypeGaussian) {
         kGCD_async(^{

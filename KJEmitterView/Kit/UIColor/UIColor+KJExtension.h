@@ -27,46 +27,46 @@ typedef NS_ENUM(NSUInteger,KJGradietColorType) {
 /// 随机颜色
 FOUNDATION_EXPORT UIColor * kDoraemonBoxRandomColor(void);
 /// 获取颜色对应的RGBA
-- (void)kj_rgba:(CGFloat*)r :(CGFloat*)g :(CGFloat*)b :(CGFloat*)a;
+- (void)kj_rgba:(CGFloat *)r :(CGFloat *)g :(CGFloat *)b :(CGFloat *)a;
 /// 获取颜色对应的色相饱和度和透明度
-- (void)kj_HSL:(CGFloat*)hue :(CGFloat*)saturation :(CGFloat*)light;
+- (void)kj_HSL:(CGFloat *)hue :(CGFloat *)saturation :(CGFloat *)light;
 /// 获取颜色的均值
-+ (UIColor*)kj_averageColors:(NSArray<UIColor*>*)colors;
++ (UIColor *)kj_averageColors:(NSArray<UIColor*> *)colors;
 /// 图片生成颜色
-+ (UIColor*(^)(UIImage*))kj_imageColor;
++ (UIColor * (^)(UIImage *))kj_imageColor;
 /// 可变参数方式渐变色
-- (UIColor*(^)(CGSize))kj_gradientColor:(UIColor*)color,...;
+- (UIColor * (^)(CGSize))kj_gradientColor:(UIColor *)color,...;
 /// 兼容Swift版本，可变参数渐变色
-- (UIColor*)kj_gradientSize:(CGSize)size color:(UIColor*)color,...;
+- (UIColor *)kj_gradientSize:(CGSize)size color:(UIColor *)color,...;
 /// 渐变颜色
-+ (UIColor*)kj_gradientColorWithColors:(NSArray*)colors
-                          GradientType:(KJGradietColorType)type
-                                  Size:(CGSize)size;
++ (UIColor *)kj_gradientColorWithColors:(NSArray *)colors
+                           GradientType:(KJGradietColorType)type
+                                   Size:(CGSize)size;
 /// 竖直渐变颜色
-- (UIColor*)kj_gradientVerticalToColor:(UIColor*)color
-                                Height:(NSInteger)height;
+- (UIColor *)kj_gradientVerticalToColor:(UIColor *)color
+                                 Height:(NSInteger)height;
 /// 横向渐变颜色
-- (UIColor*)kj_gradientAcrossToColor:(UIColor*)color
-                               Width:(NSInteger)width;
+- (UIColor *)kj_gradientAcrossToColor:(UIColor *)color
+                                Width:(NSInteger)width;
 /// 生成附带边框的渐变色图片
-+ (UIImage*)kj_colorImageWithColors:(NSArray<UIColor*>*)colors
-                          locations:(NSArray<NSNumber*>*)locations
-                               size:(CGSize)size
-                        borderWidth:(CGFloat)borderWidth
-                        borderColor:(UIColor*)borderColor;
++ (UIImage *)kj_colorImageWithColors:(NSArray<UIColor*> *)colors
+                           locations:(NSArray<NSNumber*> *)locations
+                                size:(CGSize)size
+                         borderWidth:(CGFloat)borderWidth
+                         borderColor:(UIColor *)borderColor;
 
 /// UIColor转16进制字符串
-- (NSString*)kj_hexString;
-+ (NSString*)kj_hexStringFromColor:(UIColor*)color;
+- (NSString *)kj_hexString;
++ (NSString *)kj_hexStringFromColor:(UIColor *)color;
 FOUNDATION_EXPORT NSString * kDoraemonBoxHexStringFromColor(UIColor *color);
 /// 16进制字符串转UIColor
-+ (UIColor*)kj_colorWithHexString:(NSString*)hexString;
++ (UIColor *)kj_colorWithHexString:(NSString *)hexString;
 FOUNDATION_EXPORT UIColor * kDoraemonBoxColorHexString(NSString *hexString);
 
 /// 获取图片上指定点的颜色
-+ (UIColor*)kj_colorAtImage:(UIImage*)image Point:(CGPoint)point;
++ (UIColor *)kj_colorAtImage:(UIImage *)image Point:(CGPoint)point;
 /// 获取ImageView上指定点的图片颜色
-+ (UIColor*)kj_colorAtImageView:(UIImageView*)imageView Point:(CGPoint)point;
++ (UIColor *)kj_colorAtImageView:(UIImageView*)imageView Point:(CGPoint)point;
 
 @end
 

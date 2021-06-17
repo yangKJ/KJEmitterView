@@ -23,7 +23,7 @@
     _weakself;
     [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (500 <= obj.tag && obj.tag <= 509) {
-            UIButton *button = (UIButton*)obj;
+            UIButton *button = (UIButton *)obj;
             [button kj_addAction:^(UIButton * _Nonnull kButton) {
                 weakself.Image.contentMode = UIViewContentModeScaleAspectFill;
                 switch (kButton.tag) {

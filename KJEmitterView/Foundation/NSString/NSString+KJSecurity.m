@@ -26,47 +26,92 @@
 + (NSString *)kj_createToken{
     return [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
 }
+
 #pragma mark - rsa
-static NSString * base64_encode_data(NSData *data){
-    return [[NSString alloc] initWithData:[data base64EncodedDataWithOptions:0] encoding:NSUTF8StringEncoding];
-}
-- (NSString*(^)(NSString *))kj_rsaEncryptPublicKey{
-    return ^(NSString*key) {
-        NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] publicKey:key];
-        return base64_encode_data(data);
+- (NSString *(^)(NSString *))kj_rsaEncryptPublicKey{
+    return ^(NSString * publicKey) {
+        NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] publicKey:publicKey];
+        data = [data base64EncodedDataWithOptions:0];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     };
 }
-- (NSString*(^)(NSString *))kj_rsaDecryptPublicKey{
-    return ^(NSString*key) {
+- (NSString *(^)(NSString *))kj_rsaDecryptPublicKey{
+    return ^(NSString * publicKey) {
         NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        return [[NSString alloc] initWithData:[NSString kj_rsadecryptData:data publicKey:key] encoding:NSUTF8StringEncoding];
+        data = [NSString kj_rsadecryptData:data publicKey:publicKey];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     };
 }
-- (NSString*(^)(NSString *))kj_rsaEncryptPrivateKey{
-    return ^(NSString*key) {
-        NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] privateKey:key];
-        return base64_encode_data(data);
+- (NSString *(^)(NSString *))kj_rsaEncryptPrivateKey{
+    return ^(NSString * privateKey) {
+        NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] privateKey:privateKey];
+        data = [data base64EncodedDataWithOptions:0];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     };
 }
-- (NSString*(^)(NSString *))kj_rsaDecryptPrivateKey{
-    return ^(NSString*key) {
+- (NSString *(^)(NSString *))kj_rsaDecryptPrivateKey{
+    return ^(NSString * privateKey) {
         NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        return [[NSString alloc] initWithData:[NSString kj_rsadecryptData:data privateKey:key] encoding:NSUTF8StringEncoding];
+        data = [NSString kj_rsadecryptData:data privateKey:privateKey];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    };
+}
+
+#pragma mark - ecc
+- (NSString *(^)(NSString *))kj_ECDSAEncryptPrivateKey{
+    return ^(NSString * privateKey) {
+        
+        //根据keychain的属性查找ECC私钥，并获取私钥引用。
+//        NSDictionary *params = @{(id)kSecClass: (id)kSecClassKey,
+//                                 (id)kSecAttrKeyType: (id)kSecAttrKeyTypeECSECPrimeRandom,
+//                                 (id)kSecAttrKeySizeInBits: @256,
+//                                 (id)kSecAttrLabel: @"my-se-key",
+//                                 (id)kSecReturnRef: @YES,
+//                                 (id)kSecUseOperationPrompt: @"Authenticate to sign data"
+//        };
+//        id privateKey = CFBridgingRelease(SecKeyCreateRandomKey((__bridge CFDictionaryRef)parameters, (void *)&gen_error));
+//
+//        SecKeyRef privateKey;
+//        OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)params, (CFTypeRef *)&privateKey);
+//
+//        NSError *error;
+//        NSData *dataToSign = [self dataUsingEncoding:NSUTF8StringEncoding];
+//        NSData *signature = CFBridgingRelease(SecKeyCreateSignature(privateKey, kSecKeyAlgorithmECDSASignatureMessageX962SHA256, (CFDataRef)dataToSign, (void *)&error));
+        
+        NSData *data = [NSString kj_rsaencryptData:[self dataUsingEncoding:NSUTF8StringEncoding] privateKey:privateKey];
+        data = [data base64EncodedDataWithOptions:0];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    };
+}
+- (NSString *(^)(NSString *))kj_ECDSADecryptPublicKey{
+    return ^(NSString * privateKey) {
+        
+//        id publicKey = CFBridgingRelease(SecKeyCopyPublicKey((SecKeyRef)privateKey));
+//
+//        Boolean verified = SecKeyVerifySignature((SecKeyRef)publicKey,
+//                                                 kSecKeyAlgorithmECDSASignatureMessageX962SHA256,
+//                                                 (CFDataRef)dataToSign,
+//                                                 (CFDataRef)signature,
+//                                                 (void *)&error);
+        
+        NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        data = [NSString kj_rsadecryptData:data privateKey:privateKey];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     };
 }
 
 #pragma mark - aes
 /// 加密
-- (NSString*(^)(NSString *))kj_aesEncryptKey{
-    return ^(NSString*key) {
+- (NSString *(^)(NSString *))kj_aesEncryptKey{
+    return ^(NSString * key) {
         NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
         NSData *aesData = [NSString kj_aes128Data:data operation:kCCEncrypt key:key];
         return [aesData base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
     };
 }
 /// 解密
-- (NSString*(^)(NSString *))kj_aesDecryptKey{
-    return ^(NSString*key) {
+- (NSString *(^)(NSString *))kj_aesDecryptKey{
+    return ^(NSString * key) {
         NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
         return [[NSString alloc] initWithData:[NSString kj_aes128Data:data operation:kCCDecrypt key:key] encoding:NSUTF8StringEncoding];
     };
@@ -114,35 +159,35 @@ static NSString * base64_encode_data(NSData *data){
 
 #pragma mark -------- NSData
 #pragma mark - RSA板块
-static NSData * base64_decode(NSString *string){
+static NSData * base64_decode(NSString * string){
     return [[NSData alloc] initWithBase64EncodedString:string options:NSDataBase64DecodingIgnoreUnknownCharacters];
 }
-+ (NSData*)kj_rsadecryptData:(NSData*)data privateKey:(NSString *)key{
++ (NSData *)kj_rsadecryptData:(NSData *)data privateKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPrivateKey:key];
     if(!keyRef) return nil;
     return [self decryptData:data withKeyRef:keyRef];
 }
-+ (NSData*)kj_rsadecryptData:(NSData*)data publicKey:(NSString *)key{
++ (NSData *)kj_rsadecryptData:(NSData *)data publicKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPublicKey:key];
     if(!keyRef) return nil;
     return [self decryptData:data withKeyRef:keyRef];
 }
-+ (NSData*)kj_rsaencryptData:(NSData*)data publicKey:(NSString *)key{
++ (NSData *)kj_rsaencryptData:(NSData *)data publicKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPublicKey:key];
     if(!keyRef) return nil;
     return [self encryptData:data withKeyRef:keyRef isSign:NO];
 }
-+ (NSData*)kj_rsaencryptData:(NSData*)data privateKey:(NSString *)key{
++ (NSData *)kj_rsaencryptData:(NSData *)data privateKey:(NSString *)key{
     if(!data || !key) return nil;
     SecKeyRef keyRef = [self addPrivateKey:key];
     if(!keyRef) return nil;
     return [self encryptData:data withKeyRef:keyRef isSign:YES];
 }
 
-+ (NSData*)stripPublicKeyHeader:(NSData*)d_key{
++ (NSData *)stripPublicKeyHeader:(NSData *)d_key{
     if (d_key == nil) return(nil);
     unsigned long len = [d_key length];
     if (!len) return(nil);
@@ -167,7 +212,7 @@ static NSData * base64_decode(NSString *string){
     return ([NSData dataWithBytes:&c_key[idx] length:len - idx]);
 }
 
-+ (NSData*)stripPrivateKeyHeader:(NSData*)d_key{
++ (NSData *)stripPrivateKeyHeader:(NSData *)d_key{
     if (d_key == nil) return(nil);
     unsigned long len = [d_key length];
     if (!len) return(nil);
@@ -196,7 +241,7 @@ static NSData * base64_decode(NSString *string){
 + (SecKeyRef)addPublicKey:(NSString *)key{
     NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
     NSRange epos = [key rangeOfString:@"-----END PUBLIC KEY-----"];
-    if(spos.location != NSNotFound && epos.location != NSNotFound){
+    if (spos.location != NSNotFound && epos.location != NSNotFound) {
         NSUInteger s = spos.location + spos.length;
         NSUInteger e = epos.location;
         NSRange range = NSMakeRange(s, e-s);
@@ -209,8 +254,8 @@ static NSData * base64_decode(NSString *string){
     NSData *data = base64_decode(key);
     data = [self stripPublicKeyHeader:data];
     if(!data) return nil;
-    NSString*tag = @"RSAUtil_PubKey";
-    NSData*d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    NSString *tag = @"RSAUtil_PubKey";
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
     
     NSMutableDictionary*publicKey = [[NSMutableDictionary alloc] init];
     [publicKey setObject:(__bridge id)kSecClassKey forKey:(__bridge id)kSecClass];
@@ -264,8 +309,8 @@ static NSData * base64_decode(NSString *string){
     data = [self stripPrivateKeyHeader:data];
     if(!data) return nil;
     
-    NSString*tag = @"RSAUtil_PrivKey";
-    NSData*d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    NSString *tag = @"RSAUtil_PrivKey";
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
 
     NSMutableDictionary*privateKey = [[NSMutableDictionary alloc] init];
     [privateKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
@@ -294,14 +339,14 @@ static NSData * base64_decode(NSString *string){
     return keyRef;
 }
 
-+ (NSData*)encryptData:(NSData*)data withKeyRef:(SecKeyRef)keyRef isSign:(BOOL)isSign {
-    const uint8_t*srcbuf = (const uint8_t*)[data bytes];
++ (NSData *)encryptData:(NSData *)data withKeyRef:(SecKeyRef)keyRef isSign:(BOOL)isSign {
+    const uint8_t *srcbuf = (const uint8_t*)[data bytes];
     size_t srclen = (size_t)data.length;
     size_t block_size = SecKeyGetBlockSize(keyRef)* sizeof(uint8_t);
     void*outbuf = malloc(block_size);
     size_t src_block_size = block_size - 11;
     NSMutableData*ret = [[NSMutableData alloc] init];
-    for(int idx=0; idx<srclen; idx+=src_block_size){
+    for (int idx = 0; idx < srclen; idx += src_block_size) {
         size_t data_len = srclen - idx;
         if (data_len > src_block_size) data_len = src_block_size;
         size_t outlen = block_size;
@@ -323,7 +368,7 @@ static NSData * base64_decode(NSString *string){
     return ret;
 }
 
-+ (NSData*)decryptData:(NSData*)data withKeyRef:(SecKeyRef)keyRef{
++ (NSData *)decryptData:(NSData *)data withKeyRef:(SecKeyRef)keyRef{
     const uint8_t*srcbuf = (const uint8_t*)[data bytes];
     size_t srclen = (size_t)data.length;
     size_t block_size = SecKeyGetBlockSize(keyRef)* sizeof(uint8_t);
@@ -339,7 +384,7 @@ static NSData * base64_decode(NSString *string){
         if (status != 0) {
             ret = nil;
             break;
-        }else{
+        } else {
             int idxFirstZero = -1;
             int idxNextZero = (int)outlen;
             for (int i = 0; i < outlen; i++) {
@@ -361,7 +406,7 @@ static NSData * base64_decode(NSString *string){
 }
 
 #pragma mark - AES板块
-+ (NSData*)kj_aes128Data:(NSData*)data operation:(CCOperation)operation key:(NSString *)key{
++ (NSData *)kj_aes128Data:(NSData *)data operation:(CCOperation)operation key:(NSString *)key{
     char keyPtr[kCCKeySizeAES128 + 1];//kCCKeySizeAES128是加密位数 可以替换成256位的
     bzero(keyPtr, sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
@@ -388,7 +433,7 @@ static NSData * base64_decode(NSString *string){
 #pragma mark - Base64板块
 /// base64编码处理
 static const char base64EncodingTable[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-+ (NSString *)kj_base64EncodedStringWithData:(NSData*)data{
++ (NSString *)kj_base64EncodedStringWithData:(NSData *)data{
     NSUInteger length = data.length;
     if (length == 0) return @"";
     

@@ -33,6 +33,11 @@ typedef struct KJPointNode{
 @interface UIImage (KJFloodFill)
 
 /// 基于扫描线的泛洪算法，获取填充同颜色区域后的图片
+/// @param startPoint 开始坐标点
+/// @param newColor 填充图片颜色
+/// @param tolerance 判断相邻颜色相同的容差值
+/// @param antialias 是否抗锯齿化
+/// @return 返回填充后的图片
 - (UIImage *)kj_FloodFillImageFromStartPoint:(CGPoint)startPoint
                                     NewColor:(UIColor *)newColor
                                    Tolerance:(CGFloat)tolerance

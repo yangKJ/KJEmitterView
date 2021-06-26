@@ -21,11 +21,11 @@ static NSString * const _Nonnull KJGestureTypeStringMap[] = {
 };
 
 /// 单击手势
-- (UIGestureRecognizer*)kj_AddTapGestureRecognizerBlock:(KJGestureRecognizerBlock)block{
+- (UIGestureRecognizer *)kj_AddTapGestureRecognizerBlock:(KJGestureRecognizerBlock)block{
     return [self kj_AddGestureRecognizer:KJGestureTypeTap block:block];
 }
 
-- (UIGestureRecognizer*)kj_AddGestureRecognizer:(KJGestureType)type block:(KJGestureRecognizerBlock)block{
+- (UIGestureRecognizer *)kj_AddGestureRecognizer:(KJGestureType)type block:(KJGestureRecognizerBlock)block{
     self.userInteractionEnabled = YES;
     if (block) {
         NSString *string = KJGestureTypeStringMap[type];
@@ -57,7 +57,7 @@ static NSString * const _Nonnull KJGestureTypeStringMap[] = {
     return nil;
 }
 
-- (void)kGestureAction:(UIGestureRecognizer*)gesture{
+- (void)kGestureAction:(UIGestureRecognizer *)gesture{
     NSString *string = NSStringFromClass([gesture class]);
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
         if (((UITapGestureRecognizer*)gesture).numberOfTapsRequired == 1) {

@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-NS_ASSUME_NONNULL_BEGIN
 
+NS_ASSUME_NONNULL_BEGIN
+// 密码强度等级
+typedef NS_ENUM(NSUInteger, KJPasswordLevel) {
+    KJPasswordLevelEasy = 0,//简单
+    KJPasswordLevelMidium,//中等
+    KJPasswordLevelStrong,//强
+    KJPasswordLevelVeryStrong,//非常强
+    KJPasswordLevelExtremelyStrong,//超级强
+};
 @interface NSString (KJExtension)
 /// 是否为空
 @property(nonatomic,assign,readonly)BOOL isEmpty;
@@ -59,6 +67,14 @@ extern NSArray<NSString*> * kDoraemonBoxAlphabetSort(NSArray<NSString*>* array);
 - (BOOL)kj_validateIDCardNumber;
 /// 验证银行卡
 - (BOOL)kj_validateBankCardNumber;
+/// 判断字符串是 空格、空("")、null
+- (BOOL)kj_isNull;
+/// 判断字符串中的每个字符是否相等
+- (BOOL)kj_isCharEqual;
+/// 确定字符串是否为数字
+- (BOOL)kj_isNumeric;
+/// 密码强度等级
+- (KJPasswordLevel)kj_passwordLevel;
 
 #pragma mark - 文本相关
 /// 获取文本宽度

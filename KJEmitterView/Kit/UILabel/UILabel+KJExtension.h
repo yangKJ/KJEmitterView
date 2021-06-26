@@ -30,8 +30,16 @@ typedef NS_ENUM(NSUInteger, KJLabelTextAlignmentType) {
 /// 获取高度
 - (CGFloat)kj_calculateHeightWithWidth:(CGFloat)width;
 /// 获取高度，指定行高
+/// @param width 固定宽度
+/// @param height 一行文字高度
+/// @return 返回总高度
 - (CGFloat)kj_calculateHeightWithWidth:(CGFloat)width OneLineHeight:(CGFloat)height;
 /// 获取文字尺寸
+/// @param title 文字
+/// @param font 字体
+/// @param size 宽高尺寸
+/// @param lineBreakMode 行类型
+/// @return 返回文字尺寸
 + (CGSize)kj_calculateLabelSizeWithTitle:(NSString *)title
                                     font:(UIFont *)font
                        constrainedToSize:(CGSize)size

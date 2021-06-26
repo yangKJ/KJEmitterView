@@ -80,7 +80,7 @@
     CGSize size = self.imageView.size;
     [image kj_asyncJointImage:^(UIImage * _Nonnull image) {
         weakself.imageView.image = image;
-    } JointType:(KJJointImageType)index Size:size Maxw:size.width/7];
+    } jointType:(KJJointImageType)index size:size maxwidth:size.width/7];
     index++;
 }
 

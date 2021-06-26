@@ -55,9 +55,9 @@
     return newImage;
 }
 /// 调整图像的色调映射，同时保留空间细节（高光和阴影）
-- (UIImage *)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)HighlightAmount ShadowAmount:(CGFloat)ShadowAmount{
-    NSDictionary *dict = @{@"inputHighlightAmount":@(HighlightAmount),
-                           @"inputShadowAmount":@(ShadowAmount)};
+- (UIImage *)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)highlight shadowAmount:(CGFloat)shadow{
+    NSDictionary *dict = @{@"inputHighlightAmount":@(highlight),
+                           @"inputShadowAmount":@(shadow)};
     return [self kj_coreImageCustomWithName:@"CIHighlightShadowAdjust" Dicts:dict];
 }
 /// 将灰度图像转换为被alpha遮罩的白色图像，源图像中的白色值将生成蒙版的内部；黑色值变得完全透明

@@ -14,7 +14,8 @@
 #import <UIScrollView+EmptyDataSet.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@interface UIScrollView (KJEmptyDataSet)<DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+
+@interface UIScrollView (KJEmptyDataSet) <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 /// 是否正在加载，加载数据前必须设置为YES
 @property(nonatomic,assign)BOOL loading;
 
@@ -37,4 +38,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
 #endif

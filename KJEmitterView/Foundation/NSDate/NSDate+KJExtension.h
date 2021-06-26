@@ -29,15 +29,25 @@ NS_ASSUME_NONNULL_BEGIN
 /// 月末
 - (NSDate *)kj_monthLastDay;
 /// 偏移几天的日期
+/// @param day 前后天数
+/// @param format 时间格式
 - (NSString *)kj_skewingDay:(NSInteger)day format:(NSString *)format;
 /// 偏移几月的日期
+/// @param month 前后月数
+/// @param format 时间格式
 - (NSString *)kj_skewingMonth:(NSInteger)month format:(NSString *)format;
 
-/// 时间字符串转位NSDate
+/// 时间字符串转位NSDate，格式@"yyyy-MM-dd HH:mm:ss"
 + (NSDate *)kj_dateFromString:(NSString *)string;
+/// 时间字符串转NSDate
+/// @param string 时间字符串
+/// @param format 时间格式
++ (NSDate *)kj_dateFromString:(NSString *)string format:(NSString *)format;
 /// 获取当前时间戳，是否为毫秒
-+ (NSTimeInterval)kj_currentTimeTimestampWithFormat:(NSString *)format msec:(BOOL)msec;
++ (NSTimeInterval)kj_currentTimetampWithMsec:(BOOL)msec;
 /// 时间戳转时间，内部判断是毫秒还是秒
+/// @param timestamp 时间戳
+/// @param format 时间格式
 + (NSString *)kj_timeWithTimestamp:(NSTimeInterval)timestamp format:(NSString *)format;
 
 @end

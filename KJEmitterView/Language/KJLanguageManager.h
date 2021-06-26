@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 static NSString *kAppLanguageKey = @"KJ_CURRENT_LANGUAGE_KEY";
 @interface KJLanguageManager : NSBundle
 /// 自定义strings文件，默认Localizable.strings

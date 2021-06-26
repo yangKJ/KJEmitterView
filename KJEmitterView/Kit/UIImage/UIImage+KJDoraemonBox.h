@@ -11,20 +11,22 @@
 #import <objc/runtime.h>
 #import <ImageIO/ImageIO.h>
 #import <QuartzCore/QuartzCore.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, KJJointImageType) {
     KJJointImageTypeCustom = 0,/// 正常平铺
     KJJointImageTypePositively,/// 正斜对花
-    KJJointImageTypeBackslash,/// 反斜对花
-    KJJointImageTypeAcross,/// 横对花
-    KJJointImageTypeVertical,/// 竖对花
+    KJJointImageTypeBackslash, /// 反斜对花
+    KJJointImageTypeAcross,    /// 横对花
+    KJJointImageTypeVertical,  /// 竖对花
 };
 typedef NS_ENUM(NSInteger, KJImageWaterType) {
     KJImageWaterTypeTopLeft = 0, /// 左上
-    KJImageWaterTypeTopRight, /// 右上
-    KJImageWaterTypeBottomLeft, /// 左下
+    KJImageWaterTypeTopRight,    /// 右上
+    KJImageWaterTypeBottomLeft,  /// 左下
     KJImageWaterTypeBottomRight, /// 右下
-    KJImageWaterTypeCenter, /// 正中
+    KJImageWaterTypeCenter,      /// 正中
 };
 @interface UIImage (KJDoraemonBox)
 #pragma mark - 截图处理
@@ -32,13 +34,20 @@ typedef NS_ENUM(NSInteger, KJImageWaterType) {
 + (UIImage *)kj_captureScreen:(UIView *)view;
 /// 指定位置屏幕截图
 + (UIImage *)kj_captureScreen:(UIView *)view Rect:(CGRect)rect;
-/// 自定义质量的截图，quality质量倍数
+/// 自定义质量的截图
+/// @param view 被截取视图
+/// @param rect 截取尺寸
+/// @param quality 质量倍数
+/// @return 返回截图
 + (UIImage *)kj_captureScreen:(UIView *)view Rect:(CGRect)rect Quality:(NSInteger)quality;
 /// 截取当前屏幕（窗口截图）
 + (UIImage *)kj_captureScreenWindow;
 /// 截取当前屏幕（根据手机方向旋转）
 + (UIImage *)kj_captureScreenWindowForInterfaceOrientation;
 /// 截取滚动视图的长图
+/// @param scroll 截取视图
+/// @param contentOffset 开始截取位置
+/// @return 返回截图
 + (UIImage *)kj_captureScreenWithScrollView:(UIScrollView*)scroll contentOffset:(CGPoint)contentOffset;
 
 #pragma mark - 裁剪处理
@@ -53,9 +62,15 @@ typedef NS_ENUM(NSInteger, KJImageWaterType) {
 - (UIImage *)kj_quartzCutImageWithCropRect:(CGRect)cropRect;
 + (UIImage *)kj_quartzCutImageWithImage:(UIImage *)image Frame:(CGRect)cropRect;
 /// 图片路径裁剪，裁剪路径 "以外" 部分
+/// @param path 裁剪路径
+/// @param rect 画布尺寸
+/// @return 返回裁剪图
 - (UIImage *)kj_captureOuterImageBezierPath:(UIBezierPath *)path Rect:(CGRect)rect;
 + (UIImage *)kj_captureOuterImage:(UIImage *)image BezierPath:(UIBezierPath *)path Rect:(CGRect)rect;
 /// 图片路径裁剪，裁剪路径 "以内" 部分
+/// @param path 裁剪路径
+/// @param rect 画布尺寸
+/// @return 返回裁剪图
 - (UIImage *)kj_captureInnerImageBezierPath:(UIBezierPath *)path Rect:(CGRect)rect;
 + (UIImage *)kj_captureInnerImage:(UIImage *)image BezierPath:(UIBezierPath *)path Rect:(CGRect)rect;
 
@@ -101,7 +116,9 @@ typedef NS_ENUM(NSInteger, KJImageWaterType) {
 + (UIImage *)kj_gifImageWithURL:(NSURL *)URL;
 /// 图片播放，动态图
 + (UIImage *)kj_playImageWithData:(NSData*)data;
-/// 子线程处理动态图
+/// 子线程播放动态图
+/// @param xxblock 动态图生成回调
+/// @param data 图片数据
 void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data);
 
 #pragma mark - 获取网络图片尺寸
@@ -115,33 +132,61 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 - (UIImage *)kj_moreJointVerticalImage:(UIImage *)jointImage,...;
 /// 水平方向拼接随意张图片，固定主图的高度
 - (UIImage *)kj_moreJointLevelImage:(UIImage *)jointImage,...;
-/// 图片多次合成处理
-- (UIImage *)kj_imageCompoundWithLoopNums:(NSInteger)loopTimes Orientation:(UIImageOrientation)orientation;
-/// 框架水平方向拼接随意张图片，固定主图的高度
+/// 图片合成
+/// @param loopTimes 重复合成次数
+/// @param orientation 合成方向
+/// @return 返回拼接图
+- (UIImage *)kj_imageCompoundWithLoopNums:(NSInteger)loopTimes
+                              orientation:(UIImageOrientation)orientation;
+/// 水平拼接图片，固定主图高度
+/// @param jointImage 拼接图片，可追加多张以nil结尾
+/// @return 返回拼接图
 - (UIImage *)kj_moreCoreGraphicsJointLevelImage:(UIImage *)jointImage,...;
 /// 图片拼接艺术
+/// @param type 拼接类型
+/// @param size 拼接出来图片尺寸
+/// @param maxw 固定拼接图片的宽度
+/// @return 返回拼接图
 - (UIImage *)kj_jointImageWithJointType:(KJJointImageType)type
-                                   Size:(CGSize)size
-                                   Maxw:(CGFloat)maxw;
+                                   size:(CGSize)size
+                               maxwidth:(CGFloat)maxw;
 /// 异步图片拼接处理
+/// @param block 回调拼接之后的图片
+/// @param type 拼接类型
+/// @param size 拼接图片尺寸
+/// @param maxw 固定拼接图片的宽度
 - (void)kj_asyncJointImage:(void(^)(UIImage *image))block
-                 JointType:(KJJointImageType)type
-                      Size:(CGSize)size
-                      Maxw:(CGFloat)maxw;
+                 jointType:(KJJointImageType)type
+                      size:(CGSize)size
+                  maxwidth:(CGFloat)maxw;
 
 #pragma mark - 水印蒙版处理
 /// 文字水印
+/// @param text 文本内容
+/// @param direction 水印位置
+/// @param color 文本颜色
+/// @param font 文本字体
+/// @param margin 显示位置
+/// @return 返回添加水印的图片
 - (UIImage *)kj_waterText:(NSString *)text
                 direction:(KJImageWaterType)direction
                 textColor:(UIColor *)color
                      font:(UIFont *)font
                    margin:(CGPoint)margin;
 /// 图片水印
+/// @param image 水印图片
+/// @param direction 水印位置
+/// @param size 水印尺寸
+/// @param margin 水印位置
+/// @return 返回添加水印的图片
 - (UIImage *)kj_waterImage:(UIImage *)image
                  direction:(KJImageWaterType)direction
                  waterSize:(CGSize)size
                     margin:(CGPoint)margin;
 /// 图片添加水印
+/// @param mark 水印图片
+/// @param rect 水印位置
+/// @return 返回添加水印的图片
 - (UIImage *)kj_waterMark:(UIImage *)mark InRect:(CGRect)rect;
 /// 蒙版图片处理
 - (UIImage *)kj_maskImage:(UIImage *)maskImage;
@@ -170,12 +215,18 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 /// 圆形图片
 - (UIImage *)kj_circleImage;
 /// 边框圆形图片
+/// @param borderWidth 边框宽度
+/// @param borderColor 边框颜色
+/// @return 返回添加边框的图片
 - (UIImage *)kj_squareCircleImageWithBorderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
 /// 图片透明区域点击穿透处理
 - (bool)kj_transparentWithPoint:(CGPoint)point;
 /// 修改图片线条颜色
 - (UIImage *)kj_imageLinellaeColor:(UIColor *)color;
 /// 图层混合，https://blog.csdn.net/yignorant/article/details/77864887
+/// @param blendMode 混合类型
+/// @param tintColor 颜色
+/// @return 返回混合之后的图片
 - (UIImage *)kj_imageBlendMode:(CGBlendMode)blendMode TineColor:(UIColor *)tintColor;
 /// 改变图片透明度
 - (UIImage *)kj_changeImageAlpha:(CGFloat)alpha;

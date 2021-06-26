@@ -1,14 +1,8 @@
 # KJEmitterView
 - **机器猫工具库，就像机器猫的口袋一样有无穷无尽意想不到的的各种道具供我们使用**
 
-### **[API文档介绍](https://github.com/yangKJ/KJEmitterView/wiki/API文档)**
-### **[功能介绍](https://github.com/yangKJ/KJEmitterView/wiki/功能介绍)** 
-
 ---
 
-## 功能介绍
-
-### 本库主要包含几大板块：UIKit类、Foundation类、Language 多语言类、Classes 粒子效果相关、Control 自定义控件
 - UIButton：图文混排、点击事件封装、扩大点击域、时间间隔限制、倒计时、点击粒子效果等
 - UIView：手势封装、圆角渐变、Xib属性，基础动画封装等
 - UITextView：输入框扩展、限制字数、撤销处理、获取文本内部超链接

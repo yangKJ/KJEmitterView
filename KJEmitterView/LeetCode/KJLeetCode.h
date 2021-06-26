@@ -12,6 +12,10 @@
 @interface KJLeetCode : NSObject
 #pragma mark - 几何方程式
 /// 已知A、B两点和C点到B点的长度，求垂直AB的C点
+/// @param A 点A
+/// @param B 点B
+/// @param len 线段长度
+/// @param positive 是否向上点
 + (CGPoint)kj_perpendicularLineDotsWithA:(CGPoint)A
                                        B:(CGPoint)B
                                      Len:(CGFloat)len
@@ -23,6 +27,8 @@
 /// 已知A、B、C三个点，求AB线对应C的平行线上的点  y = kx + b
 + (CGPoint)kj_parallelLineDotsWithA:(CGPoint)A B:(CGPoint)B C:(CGPoint)C;
 /// 椭圆求点方程
+/// @param lpRect 椭圆所占尺寸
+/// @param angle 角度
 + (CGPoint)kj_ovalPointWithRect:(CGRect)lpRect Angle:(CGFloat)angle;
 /// 把弧度转换成角度
 float kDegreeFromRadian(float radian);

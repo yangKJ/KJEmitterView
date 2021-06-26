@@ -18,13 +18,19 @@ NS_ASSUME_NONNULL_BEGIN
 //- (void)kj_
 /// 链式生成
 - (instancetype)kj_makeNavigationItem:(void(^)(UINavigationItem *make))block;
-/// 快捷生成Item
+/// 快捷生成方式
+/// @param title 标题
+/// @param color 标题文字颜色
+/// @param image 图片
+/// @param tintColor 可修改图片颜色
+/// @param block 点击回调
+/// @param bblock 返回内部按钮
 - (UIBarButtonItem *)kj_barButtonItemWithTitle:(NSString *)title
-                                    TitleColor:(UIColor *)color
-                                         Image:(UIImage *)image
-                                     TintColor:(UIColor *)tintColor
-                                   ButtonBlock:(KJButtonBlock)block
-                                BarButtonBlock:(void(^)(UIButton *))bblock;
+                                    titleColor:(UIColor *)color
+                                         image:(UIImage *)image
+                                     tintColor:(UIColor *)tintColor
+                                   buttonBlock:(KJButtonBlock)block
+                                barButtonBlock:(void(^)(UIButton *))bblock;
 
 #pragma mark - ExtendParameterBlock 扩展参数
 @property(nonatomic,strong,readonly) UINavigationItem *(^kAddBarButtonItemInfo)(void(^)(KJNavigationItemInfo *info), KJButtonBlock);

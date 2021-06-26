@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger,KJGradietColorType) {
     KJGradietColorTypeTopToBottom = 0, /// 从上到下
     KJGradietColorTypeLeftToRight = 1, /// 从左到右
-    KJGradietColorTypeUpLeftToLowRight = 2, /// 从左上到右下
-    KJGradietColorTypeUpRightToLowLeft = 3, /// 从右上到左下
+    KJGradietColorTypeUpLeftToLowRight,/// 从左上到右下
+    KJGradietColorTypeUpRightToLowLeft,/// 从右上到左下
 };
 @interface UIColor (KJExtension)
 @property(nonatomic,assign,readonly)CGFloat red;
@@ -39,16 +39,30 @@ FOUNDATION_EXPORT UIColor * kDoraemonBoxRandomColor(void);
 /// 兼容Swift版本，可变参数渐变色
 - (UIColor *)kj_gradientSize:(CGSize)size color:(UIColor *)color,...;
 /// 渐变颜色
+/// @param colors 渐变色数组
+/// @param type 渐变类型
+/// @param size 渐变色尺寸
 + (UIColor *)kj_gradientColorWithColors:(NSArray *)colors
-                           GradientType:(KJGradietColorType)type
-                                   Size:(CGSize)size;
+                           gradientType:(KJGradietColorType)type
+                                   size:(CGSize)size;
 /// 竖直渐变颜色
+/// @param color 结束颜色
+/// @param height 渐变色高度
+/// @return 返回竖直渐变颜色
 - (UIColor *)kj_gradientVerticalToColor:(UIColor *)color
-                                 Height:(NSInteger)height;
+                                 height:(NSInteger)height;
 /// 横向渐变颜色
+/// @param color 结束颜色
+/// @param width 渐变色宽度
+/// @return 返回横向渐变颜色
 - (UIColor *)kj_gradientAcrossToColor:(UIColor *)color
-                                Width:(NSInteger)width;
+                                width:(NSInteger)width;
 /// 生成附带边框的渐变色图片
+/// @param colors 渐变色数组
+/// @param locations 渐变色每组所占比例
+/// @param size 尺寸
+/// @param borderWidth 边框宽度
+/// @param borderColor 边框颜色
 + (UIImage *)kj_colorImageWithColors:(NSArray<UIColor*> *)colors
                            locations:(NSArray<NSNumber*> *)locations
                                 size:(CGSize)size

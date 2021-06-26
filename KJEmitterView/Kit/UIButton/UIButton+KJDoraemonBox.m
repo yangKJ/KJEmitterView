@@ -18,7 +18,8 @@
 - (void)kj_buttonSetEmitterImage:(UIImage *)image OpenEmitter:(BOOL)open{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self.class, @selector(setSelected:)), class_getInstanceMethod(self.class, @selector(kj_setSelected:)));
+        method_exchangeImplementations(class_getInstanceMethod(self.class, @selector(setSelected:)),
+                                       class_getInstanceMethod(self.class, @selector(kj_setSelected:)));
     });
     self.emitterImage = image?:[UIImage imageNamed:@"KJKit.bundle/button_sparkle"];
     self.openEmitter = open;
@@ -189,7 +190,10 @@ static NSString *kIndicatorLastTitle = nil;
         self.indicatorLabel.textColor = self.titleLabel.textColor;
         [self addSubview:self.indicatorLabel];
         
-        CGSize size = [title boundingRectWithSize:CGSizeMake(MAXFLOAT,0.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.titleLabel.font} context:nil].size;
+        CGSize size = [title boundingRectWithSize:CGSizeMake(MAXFLOAT,0.0)
+                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                       attributes:@{NSFontAttributeName:self.titleLabel.font}
+                                          context:nil].size;
         sp = ((w-self.indicatorSpace-size.width)*.5)?:0.0;
         self.indicatorLabel.frame = CGRectMake(sp+self.indicatorSpace+self.indicatorView.frame.size.width/2, 0, size.width, h);
     }

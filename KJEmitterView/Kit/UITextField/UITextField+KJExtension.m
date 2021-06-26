@@ -7,7 +7,9 @@
 
 #import "UITextField+KJExtension.h"
 #import <objc/runtime.h>
+
 @implementation UITextField (KJExtension)
+
 static char placeholderColorKey,placeHolderFontSizeKey;
 - (UIColor *)placeholderColor{
     return objc_getAssociatedObject(self, &placeholderColorKey);
@@ -99,14 +101,19 @@ static char placeholderColorKey,placeHolderFontSizeKey;
         label.textColor = info.textColor?:self.textColor;
         [view addSubview:label];
         
-        CGFloat width = [self kj_calculateRectWithText:info.text Size:CGSizeMake(CGFLOAT_MAX, self.frame.size.height) font:label.font alignment:NSTextAlignmentLeft linebreakMode:NSLineBreakByWordWrapping lineSpace:0.0].width + 2.;
+        CGFloat width = [self kj_calculateRectWithText:info.text
+                                                  Size:CGSizeMake(CGFLOAT_MAX, self.frame.size.height)
+                                                  font:label.font
+                                             alignment:NSTextAlignmentLeft
+                                         linebreakMode:NSLineBreakByWordWrapping
+                                             lineSpace:0.0].width + 2.;
         CGFloat h = info.maxImageHeight?:self.frame.size.height/2;
         CGFloat w = image.size.width*h/image.size.height;
         if (info.minWidth > 0 && width < info.minWidth) width = info.minWidth;
         if (info.style == KJTextAndImageStyleNormal) {
             imageView.frame = CGRectMake(info.periphery, (self.frame.size.height-h)/2., w, h);
             label.frame = CGRectMake(info.periphery+w+info.padding, 0.0, width, self.frame.size.height);
-        }else{
+        } else {
             label.frame = CGRectMake(info.periphery, 0.0, width, self.frame.size.height);
             imageView.frame = CGRectMake(info.periphery+width+info.padding, (self.frame.size.height-h)/2., w, h);
         }
@@ -132,7 +139,12 @@ static char placeholderColorKey,placeHolderFontSizeKey;
         label.textColor = info.textColor?:self.textColor;
         [view addSubview:label];
         
-        CGFloat width = [self kj_calculateRectWithText:info.text Size:CGSizeMake(CGFLOAT_MAX, self.frame.size.height) font:label.font alignment:NSTextAlignmentLeft linebreakMode:NSLineBreakByWordWrapping lineSpace:0.0].width + 2.;
+        CGFloat width = [self kj_calculateRectWithText:info.text
+                                                  Size:CGSizeMake(CGFLOAT_MAX, self.frame.size.height)
+                                                  font:label.font
+                                             alignment:NSTextAlignmentLeft
+                                         linebreakMode:NSLineBreakByWordWrapping
+                                             lineSpace:0.0].width + 2.;
         if (info.minWidth > 0 && width < info.minWidth) width = info.minWidth;
         label.frame = CGRectMake(info.periphery, 0.0, width, self.frame.size.height);
         view.frame = CGRectMake(0, 0, width+info.periphery, self.frame.size.height);
@@ -145,7 +157,10 @@ static char placeholderColorKey,placeHolderFontSizeKey;
 }
 /// 设置右边视图，类似小圆叉
 static char tapActionKey;
-- (UIButton *)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block ImageName:(NSString *)imageName Width:(CGFloat)width Padding:(CGFloat)padding{
+- (UIButton *)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block
+                         imageName:(NSString *)imageName
+                             width:(CGFloat)width
+                           padding:(CGFloat)padding{
     UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
     button.frame = CGRectMake(0, 0, width, self.frame.size.height);
     [button setImage:[UIImage imageNamed:imageName] forState:(UIControlStateNormal)];
@@ -168,18 +183,26 @@ static char tapActionKey;
 
 #pragma mark - private Method
 /// 获取文本尺寸
-- (CGSize)kj_calculateRectWithText:(NSString *)string Size:(CGSize)size font:(UIFont *)font alignment:(NSTextAlignment)alignment linebreakMode:(NSLineBreakMode)linebreakMode lineSpace:(CGFloat)lineSpace{
+- (CGSize)kj_calculateRectWithText:(NSString *)string
+                              Size:(CGSize)size
+                              font:(UIFont *)font
+                         alignment:(NSTextAlignment)alignment
+                     linebreakMode:(NSLineBreakMode)linebreakMode
+                         lineSpace:(CGFloat)lineSpace{
     if (string.length == 0) return CGSizeZero;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = linebreakMode;
     paragraphStyle.alignment = alignment;
     if (lineSpace > 0) paragraphStyle.lineSpacing = lineSpace;
     NSDictionary *attributes = @{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle};
-    CGSize newSize = [string boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:NULL].size;
+    CGSize newSize = [string boundingRectWithSize:size
+                                          options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine
+                                       attributes:attributes
+                                          context:NULL].size;
     return CGSizeMake(ceil(newSize.width), ceil(newSize.height));
 }
 /// 最大输入限制
-- (void)kj_textFieldChanged:(UITextField*)textField{
+- (void)kj_textFieldChanged:(UITextField *)textField{
     if (self.kTextEditingChangedBolck) {
         self.kTextEditingChangedBolck(textField.text);
     }
@@ -194,11 +217,14 @@ static char tapActionKey;
 }
 
 @end
+
 @implementation KJTextFieldLeftInfo
+
 - (instancetype)init{
-    if (self=[super init]) {
+    if (self = [super init]) {
         self.padding = 5;
     }
     return self;
 }
+
 @end

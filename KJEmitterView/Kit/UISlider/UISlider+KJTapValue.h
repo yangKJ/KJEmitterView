@@ -12,8 +12,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UISlider (KJTapValue)
+
 /// 是否开启滑杆点击修改值
 @property(nonatomic,assign) bool kTapValue;
+
 @end
 
 NS_ASSUME_NONNULL_END

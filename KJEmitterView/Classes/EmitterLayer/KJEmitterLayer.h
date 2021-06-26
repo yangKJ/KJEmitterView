@@ -12,9 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^KJEmitterLayerDrawCompleteBlock)(void);
 @interface KJEmitterLayer : CALayer
-// 初始化
+
+/// 初始化
+/// @param waitTime 等待时间
+/// @param block 设置粒子数据
+/// @param complete 结束回调
 + (instancetype)createEmitterLayerWaitTime:(CGFloat)waitTime
-                                imageBlock:(UIImage*(^)(KJEmitterLayer *obj))block
+                                imageBlock:(UIImage * (^)(KJEmitterLayer *obj))block
                                   complete:(KJEmitterLayerDrawCompleteBlock)complete;
 /// 重置
 - (void)restart;

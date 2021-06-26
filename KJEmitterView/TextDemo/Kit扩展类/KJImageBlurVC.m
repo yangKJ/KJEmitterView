@@ -19,7 +19,7 @@
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
     [self.view addSubview:imageView];
     imageView.image = kGetImage(@"IMG_4931store_1024pt");
-    [imageView kj_blurImageViewWithBlurType:(KJImageBlurTypeBlurEffect) BlurImage:kGetImage(@"xxsf") BlurRadius:15.];
+    [imageView kj_blurImageViewWithBlurType:(KJImageBlurTypeBlurEffect) image:kGetImage(@"xxsf") radius:15.];
 }
 
 /*

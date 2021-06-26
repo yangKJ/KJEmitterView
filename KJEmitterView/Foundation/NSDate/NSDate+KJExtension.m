@@ -122,16 +122,16 @@
 
 /// 时间字符串转位NSDate
 + (NSDate *)kj_dateFromString:(NSString *)string{
+    return [self kj_dateFromString:string format:@"yyyy-MM-dd HH:mm:ss"];
+}
+/// 时间字符串转NSDate
++ (NSDate *)kj_dateFromString:(NSString *)string format:(NSString *)format{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:format];
     return [formatter dateFromString:string];
 }
 /// 获取当前时间戳，是否为毫秒
-+ (NSTimeInterval)kj_currentTimeTimestampWithFormat:(NSString *)format msec:(BOOL)msec{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:format];
++ (NSTimeInterval)kj_currentTimetampWithMsec:(BOOL)msec{
     return [[NSDate date] timeIntervalSince1970] * (msec ? 1000 : 1);
 }
 /// 时间戳转时间，内部判断是毫秒还是秒

@@ -183,7 +183,7 @@
 }
 
 /// 模糊处理
-- (void)kj_blurImageViewWithBlurType:(KJImageBlurType)type BlurImage:(UIImage *)image BlurRadius:(CGFloat)radius{
+- (void)kj_blurImageViewWithBlurType:(KJImageBlurType)type image:(UIImage *)image radius:(CGFloat)radius{
     __weak __typeof(&*self) weakself = self;
     if (type == KJImageBlurTypeGaussian) {
         kGCD_async(^{

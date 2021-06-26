@@ -21,7 +21,11 @@
 }
 
 /* 创建异步定时器 */
-- (dispatch_source_t)kj_createGCDAsyncTimer:(BOOL)async Task:(void(^)(void))task start:(NSTimeInterval)start interval:(NSTimeInterval)interval repeats:(BOOL)repeats{
+- (dispatch_source_t)kj_createGCDAsyncTimer:(BOOL)async
+                                       Task:(void(^)(void))task
+                                      start:(NSTimeInterval)start
+                                   interval:(NSTimeInterval)interval
+                                    repeats:(BOOL)repeats{
     if (!task || start < 0 || (interval <= 0 && repeats)) return nil;
     self.isHangUp = NO;
     dispatch_queue_t queue = async ? dispatch_get_global_queue(0, 0) : dispatch_get_main_queue();
@@ -216,6 +220,69 @@ void kGCD_apply_array(NSArray * temp, void(^block)(id obj, size_t index)) {
         block(temp[index], index);
     };
     dispatch_apply(temp.count, kGCD_queue(), xxblock);
+}
+
+#pragma mark - 安全数据处理
+/// 安全非空数据转换
+/// @return 处理之后的对象，NSNull转换为空字符串
+- (id)kj_safeObject{
+    id object = self;
+    if ([object isKindOfClass:[NSNull class]]) {
+        return @"";
+    } else if ([object isKindOfClass:[NSDictionary class]]) {
+        return kReplaceDictionaryNull(object);
+    } else if ([object isKindOfClass:[NSArray class]]) {
+        return kReplaceArrayNull(object);
+    } else if ([object isKindOfClass:[NSNumber class]]) {
+        return kReplaceNumberNull(object);
+    } else if ([object isKindOfClass:[NSString class]]) {
+        return kReplaceStringNull(object);
+    }
+    return object;
+}
+/// 处理字典
+NS_INLINE NSDictionary * kReplaceDictionaryNull(NSDictionary * dict){
+    if (dict == nil || dict.count == 0 || [dict isKindOfClass:[NSNull class]]) {
+        return @{};
+    }
+    @autoreleasepool {
+        NSMutableDictionary *temp = [NSMutableDictionary dictionary];
+        for (NSString *key in dict.allKeys) {
+            [temp setObject:[dict[key] kj_safeObject] forKey:key];
+        }
+        return temp.mutableCopy;
+    }
+}
+/// 处理数组
+NS_INLINE NSArray * kReplaceArrayNull(NSArray * array){
+    if (array == nil || array.count == 0 || [array isKindOfClass:[NSNull class]]) {
+        return @[];
+    }
+    @autoreleasepool {
+        __block NSMutableArray *temp = [NSMutableArray array];
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+            [temp addObject:[obj kj_safeObject]];
+        }];
+        return temp.mutableCopy;
+    }
+}
+/// 处理NSNumber
+NS_INLINE NSNumber * kReplaceNumberNull(NSNumber * number){
+    if ([number isKindOfClass:[NSNull class]] || number == nil) {
+        number = @(0);
+    }
+    return number;
+}
+/// 处理字符串
+NS_INLINE NSString * kReplaceStringNull(NSString * string){
+    string = [NSString stringWithFormat:@"%@",string];
+    if ([string isKindOfClass:[NSNull class]] ||
+        [string isEqualToString:@"(null)"] ||
+        [string isEqualToString:@"null"] ||
+        [string isEqualToString:@"<null>"]) {
+        string = @"";
+    }
+    return string;
 }
 
 @end

@@ -81,6 +81,7 @@
         }
     };
 }
+
 /// 归档封装
 - (void)kj_runtimeEncode:(NSCoder*)encoder{
     unsigned int count = 0;

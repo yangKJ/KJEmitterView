@@ -164,7 +164,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     };
 }
 /// 渐变颜色
-+ (UIColor *)kj_gradientColorWithColors:(NSArray *)colors GradientType:(KJGradietColorType)type Size:(CGSize)size{
++ (UIColor *)kj_gradientColorWithColors:(NSArray *)colors gradientType:(KJGradietColorType)type size:(CGSize)size{
     NSMutableArray *temps = [NSMutableArray array];
     for(UIColor *c in colors){
         [temps addObject:(id)c.CGColor];
@@ -204,7 +204,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     return [UIColor colorWithPatternImage:image];
 }
 /// 渐变色
-- (UIColor *)kj_gradientVerticalToColor:(UIColor *)color Height:(NSInteger)height{
+- (UIColor *)kj_gradientVerticalToColor:(UIColor *)color height:(NSInteger)height{
     CGSize size = CGSizeMake(1, height);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -218,7 +218,7 @@ UIColor * kDoraemonBoxRandomColor(void){
     UIGraphicsEndImageContext();
     return [UIColor colorWithPatternImage:image];
 }
-- (UIColor *)kj_gradientAcrossToColor:(UIColor *)color Width:(NSInteger)width{
+- (UIColor *)kj_gradientAcrossToColor:(UIColor *)color width:(NSInteger)width{
     CGSize size = CGSizeMake(width, 1);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();

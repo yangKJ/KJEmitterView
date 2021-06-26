@@ -36,7 +36,7 @@
     NSString *html = self;
     NSScanner * scanner = [NSScanner scannerWithString:html];
     NSString * text = nil;
-    while([scanner isAtEnd] == NO){
+    while ([scanner isAtEnd] == NO) {
         [scanner scanUpToString:@"<" intoString:nil];
         [scanner scanUpToString:@">" intoString:&text];
         html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
@@ -113,7 +113,11 @@ NSString * kRandomChinese(NSInteger count){
 }
 /// 查找数据，返回-1表示未查询到
 - (int)kj_searchArray:(NSArray<NSString*>*)temps{
-    unsigned index = (unsigned)CFArrayBSearchValues((CFArrayRef)temps, CFRangeMake(0, temps.count), (CFStringRef)self, (CFComparatorFunction)CFStringCompare, NULL);
+    unsigned index = (unsigned)CFArrayBSearchValues((CFArrayRef)temps,
+                                                    CFRangeMake(0, temps.count),
+                                                    (CFStringRef)self,
+                                                    (CFComparatorFunction)CFStringCompare,
+                                                    NULL);
     if (index < temps.count && [self isEqualToString:temps[index]]){
         return index;
     }else{
@@ -175,7 +179,10 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
     NSPredicate *regexcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", cm];
     NSPredicate *regexcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", cu];
     NSPredicate *regexct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", ct];
-    if ([regexmo evaluateWithObject:self] || [regexcm evaluateWithObject:self] || [regexct evaluateWithObject:self] || [regexcu evaluateWithObject:self]){
+    if ([regexmo evaluateWithObject:self] ||
+        [regexcm evaluateWithObject:self] ||
+        [regexct evaluateWithObject:self] ||
+        [regexcu evaluateWithObject:self]) {
         return YES;
     }else{
         return NO;
@@ -198,7 +205,9 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
         length = value.length;
         if (length != 15 && length != 18) return NO;
     }
-    NSArray *areasArray = @[@"11",@"12", @"13",@"14", @"15",@"21", @"22",@"23", @"31",@"32", @"33",@"34", @"35",@"36", @"37",@"41", @"42",@"43", @"44",@"45", @"46",@"50", @"51",@"52", @"53",@"54", @"61",@"62", @"63",@"64", @"65",@"71", @"81",@"82", @"91"];
+    NSArray *areasArray = @[@"11",@"12", @"13",@"14", @"15",@"21", @"22",@"23", @"31",@"32",
+                            @"33",@"34", @"35",@"36", @"37",@"41", @"42",@"43", @"44",@"45",
+                            @"46",@"50", @"51",@"52", @"53",@"54", @"61",@"62", @"63",@"64", @"65",@"71", @"81",@"82", @"91"];
     NSString *valueStart2 = [value substringToIndex:2];
     BOOL areaFlag = NO;
     for (NSString *areaCode in areasArray){
@@ -214,7 +223,7 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
     switch (length){
         case 15:
             year = [value substringWithRange:NSMakeRange(6,2)].intValue + 1900;
-            if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
+            if (year % 4 == 0 || (year % 100 == 0 && year % 4 == 0)) {
                 regularExpression = [[NSRegularExpression alloc] initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$" options:NSRegularExpressionCaseInsensitive error:nil];
             }else{
                 regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -229,7 +238,17 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
             }
             numberofMatch = [regularExpression numberOfMatchesInString:value options:NSMatchingReportProgress range:NSMakeRange(0, value.length)];
             if(numberofMatch > 0){
-                int S = ([value substringWithRange:NSMakeRange(0,1)].intValue + [value substringWithRange:NSMakeRange(10,1)].intValue)*7 + ([value substringWithRange:NSMakeRange(1,1)].intValue + [value substringWithRange:NSMakeRange(11,1)].intValue)*9 + ([value substringWithRange:NSMakeRange(2,1)].intValue + [value  substringWithRange:NSMakeRange(12,1)].intValue)*10 + ([value  substringWithRange:NSMakeRange(3,1)].intValue + [value  substringWithRange:NSMakeRange(13,1)].intValue)*5 + ([value  substringWithRange:NSMakeRange(4,1)].intValue + [value  substringWithRange:NSMakeRange(14,1)].intValue)*8 + ([value  substringWithRange:NSMakeRange(5,1)].intValue + [value  substringWithRange:NSMakeRange(15,1)].intValue)*4 + ([value  substringWithRange:NSMakeRange(6,1)].intValue + [value  substringWithRange:NSMakeRange(16,1)].intValue)*2 + [value  substringWithRange:NSMakeRange(7,1)].intValue *1 + [value  substringWithRange:NSMakeRange(8,1)].intValue *6 + [value  substringWithRange:NSMakeRange(9,1)].intValue *3;
+                int S =
+                ([value substringWithRange:NSMakeRange(0,1)].intValue + [value substringWithRange:NSMakeRange(10,1)].intValue)*7 +
+                ([value substringWithRange:NSMakeRange(1,1)].intValue + [value substringWithRange:NSMakeRange(11,1)].intValue)*9 +
+                ([value substringWithRange:NSMakeRange(2,1)].intValue + [value substringWithRange:NSMakeRange(12,1)].intValue)*10 +
+                ([value substringWithRange:NSMakeRange(3,1)].intValue + [value substringWithRange:NSMakeRange(13,1)].intValue)*5 +
+                ([value substringWithRange:NSMakeRange(4,1)].intValue + [value substringWithRange:NSMakeRange(14,1)].intValue)*8 +
+                ([value substringWithRange:NSMakeRange(5,1)].intValue + [value substringWithRange:NSMakeRange(15,1)].intValue)*4 +
+                ([value substringWithRange:NSMakeRange(6,1)].intValue + [value substringWithRange:NSMakeRange(16,1)].intValue)*2 +
+                [value  substringWithRange:NSMakeRange(7,1)].intValue * 1 +
+                [value  substringWithRange:NSMakeRange(8,1)].intValue * 6 +
+                [value  substringWithRange:NSMakeRange(9,1)].intValue * 3;
                 int Y = S % 11;
                 NSString *M = @"F";
                 NSString *JYM = @"10X98765432";
@@ -249,23 +268,278 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
     return [predicate evaluateWithObject:self];
 }
 
+- (BOOL)kj_isNull{
+    if (self == nil || self == NULL || self.length == 0 || [self isEqual:NSNull.null]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)kj_isCharEqual{
+    if (self.length == 0) return YES;
+    NSString *character = [self substringWithRange:NSMakeRange(0, 1)];
+    NSString *string = [self stringByReplacingOccurrencesOfString:character withString:@""];
+    return !string.length;
+}
+
+- (BOOL)kj_isNumeric{
+    if (self.length == 0) return NO;
+    NSPredicate *regex = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^[0-9]*$"];
+    return [regex evaluateWithObject:self];
+}
+
+#pragma mark - 密码强度判断
+/// 密码强度等级
+- (KJPasswordLevel)kj_passwordLevel{
+    NSInteger level = [self kj_checkPasswordStrength];
+    switch (level) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            return KJPasswordLevelEasy;
+        case 4:
+        case 5:
+        case 6:
+            return KJPasswordLevelMidium;
+        case 7:
+        case 8:
+        case 9:
+            return KJPasswordLevelStrong;
+        case 10:
+        case 11:
+        case 12:
+            return KJPasswordLevelVeryStrong;
+        default:
+            return KJPasswordLevelExtremelyStrong;
+    }
+}
+/// 检查密码强度
+- (NSInteger)kj_checkPasswordStrength{
+    if ([self kj_isNull] || [self kj_isCharEqual]) {
+        return 0;
+    }
+    // 数字类型
+    static int NUM = 1;
+    // 小写字母
+    static int SMALL_LETTER = 2;
+    // 大写字母
+    static int CAPITAL_LETTER = 3;
+    // 其他字符
+    static int OTHER_CHAR = 4;
+    //按不同类型计算密码
+    NSInteger(^kLetter)(NSString *, NSInteger) = ^NSInteger(NSString *password, NSInteger type){
+        //检查字符的类型，包括数字、大写字母、小写字母等字符
+        NSInteger(^checkCharacterType)(NSString *) = ^NSInteger(NSString *character){
+            int asciiCode = [character characterAtIndex:0];
+            if (asciiCode >= 48 && asciiCode <= 57) {
+                return NUM;
+            }
+            if (asciiCode >= 65 && asciiCode <= 90) {
+                return CAPITAL_LETTER;
+            }
+            if (asciiCode >= 97 && asciiCode <= 122) {
+                return SMALL_LETTER;
+            }
+            return OTHER_CHAR;
+        };
+        int count = 0;
+        if (password != nil && password.length) {
+            for (NSUInteger i = 0; i < password.length; i ++) {
+                NSString *character = [password substringWithRange:NSMakeRange(i, 1)];
+                if (checkCharacterType(character) == type) {
+                    count ++;
+                }
+            }
+        }
+        return count;
+    };
+    NSInteger len = self.length;
+    __block NSInteger level = 0;
+    if (kLetter(self, NUM) > 0) {
+        level++;
+    }
+    if (kLetter(self, SMALL_LETTER) > 0) {
+        level++;
+    }
+    if (len > 4 && kLetter(self, CAPITAL_LETTER) > 0) {
+        level++;
+    }
+    if (len > 6 && kLetter(self, OTHER_CHAR) > 0) {
+        level++;
+    }
+    if ((len > 4 && kLetter(self, NUM) > 0 && kLetter(self, SMALL_LETTER) > 0) ||
+        (kLetter(self, NUM) > 0 && kLetter(self, CAPITAL_LETTER) > 0) ||
+        (kLetter(self, NUM) > 0 && kLetter(self, OTHER_CHAR) > 0) ||
+        (kLetter(self, SMALL_LETTER) > 0 && kLetter(self, CAPITAL_LETTER) > 0) ||
+        (kLetter(self, SMALL_LETTER) > 0 && kLetter(self, OTHER_CHAR) > 0) ||
+        (kLetter(self, CAPITAL_LETTER) > 0 && kLetter(self, OTHER_CHAR) > 0)) {
+        level++;
+    }
+    
+    if ((len > 6 && kLetter(self, NUM) > 0 && kLetter(self, SMALL_LETTER) > 0 && kLetter(self, CAPITAL_LETTER) > 0) ||
+        (kLetter(self, NUM) > 0 && kLetter(self, SMALL_LETTER) > 0 && kLetter(self, OTHER_CHAR) > 0) ||
+        (kLetter(self, NUM) > 0 && kLetter(self, CAPITAL_LETTER) > 0 && kLetter(self, OTHER_CHAR) > 0) ||
+        (kLetter(self, SMALL_LETTER) > 0 && kLetter(self, CAPITAL_LETTER) > 0 && kLetter(self, OTHER_CHAR) > 0)) {
+        level++;
+    }
+    
+    if (len > 8 &&
+        kLetter(self, NUM) > 0 &&
+        kLetter(self, SMALL_LETTER) > 0 &&
+        kLetter(self, CAPITAL_LETTER) > 0 &&
+        kLetter(self, OTHER_CHAR) > 0) {
+        level++;
+    }
+    
+    if ((len > 6 && kLetter(self, NUM) >= 3 && kLetter(self, SMALL_LETTER) >= 3) ||
+        (kLetter(self, NUM) >= 3 && kLetter(self, CAPITAL_LETTER) >= 3) ||
+        (kLetter(self, NUM) >= 3 && kLetter(self, OTHER_CHAR) >= 2) ||
+        (kLetter(self, SMALL_LETTER) >= 3 && kLetter(self, CAPITAL_LETTER) >= 3) ||
+        (kLetter(self, SMALL_LETTER) >= 3 && kLetter(self, OTHER_CHAR) >= 2) ||
+        (kLetter(self, CAPITAL_LETTER) >= 3 && kLetter(self, OTHER_CHAR) >= 2)) {
+        level++;
+    }
+    
+    if ((len > 8 && kLetter(self, NUM) >= 2 && kLetter(self, SMALL_LETTER) >= 2 && kLetter(self, CAPITAL_LETTER) >= 2) ||
+        (kLetter(self, NUM) >= 2 && kLetter(self, SMALL_LETTER) >= 2 && kLetter(self, OTHER_CHAR) >= 2) ||
+        (kLetter(self, NUM) >= 2 && kLetter(self, CAPITAL_LETTER) >= 2 && kLetter(self, OTHER_CHAR) >= 2) ||
+        (kLetter(self, SMALL_LETTER) >= 2 && kLetter(self, CAPITAL_LETTER) >= 2 && kLetter(self, OTHER_CHAR) >= 2)) {
+        level++;
+    }
+    
+    if (len > 10 &&
+        kLetter(self, NUM) >= 2 &&
+        kLetter(self, SMALL_LETTER) >= 2 &&
+        kLetter(self, CAPITAL_LETTER) >= 2 &&
+        kLetter(self, OTHER_CHAR) >= 2) {
+        level++;
+    }
+    
+    if (kLetter(self, OTHER_CHAR) >= 3) {
+        level++;
+    }
+    if (kLetter(self, OTHER_CHAR) >= 6) {
+        level++;
+    }
+    
+    if (len > 12) {
+        level++;
+        if (len >= 16) level++;
+    }
+    
+    // decrease points
+    if ([@"abcdefghijklmnopqrstuvwxyz" containsString:self] ||
+        [@"ABCDEFGHIJKLMNOPQRSTUVWXYZ" containsString:self]) {
+        level--;
+    }
+    if ([@"qwertyuiop" containsString:self] ||
+        [@"asdfghjkl" containsString:self] ||
+        [@"zxcvbnm" containsString:self]) {
+        level--;
+    }
+    if (([self kj_isNumeric] && [@"01234567890" containsString:self]) ||
+        [@"09876543210" containsString:self]) {
+        level--;
+    }
+    if (kLetter(self, NUM) == len ||
+        kLetter(self, SMALL_LETTER) == len ||
+        kLetter(self, CAPITAL_LETTER) == len) {
+        level--;
+    }
+    
+    if (len % 2 == 0) { // aaabbb
+        NSString *part1 = [self substringWithRange:NSMakeRange(0, len / 2)];
+        NSString *part2 = [self substringFromIndex:len / 2];
+        if ([part1 isEqualToString:part2]) {
+            level--;
+        }
+        if ([part1 kj_isCharEqual] && [part2 kj_isCharEqual]) {
+            level--;
+        }
+    }
+    if (len % 3 == 0) { // ababab
+        NSString *part1 = [self substringWithRange:NSMakeRange(0, len / 3)];
+        NSString *part2 = [self substringWithRange:NSMakeRange(len / 3, len / 3)];
+        NSString *part3 = [self substringFromIndex:len / 3];
+        if ([part1 isEqualToString:part2] && [part2 isEqualToString:part3]) {
+            level--;
+        }
+    }
+    if ([self kj_isNumeric] && len >= 6) { // 19881010 or 881010
+        NSInteger year = 0;
+        if (len == 8 || len == 6) {
+            year = [self substringToIndex:self.length - 4].integerValue;
+        }
+        NSInteger size = len - 4;
+        NSInteger month = [self substringWithRange:NSMakeRange(size, 2)].integerValue;
+        NSInteger day = [self substringWithRange:NSMakeRange(size + 2, 2)].integerValue;
+        if ((year >= 1950 && year < 2050) && (month >= 1 && month <= 12) && (day >= 1 && day <= 31)) {
+            level--;
+        }
+    }
+    // 常用简易密码字典
+    NSArray<NSString *> *commonUsers = @[@"password", @"abc123", @"iloveyou", @"adobe123", @"123123",
+                                         @"sunshine", @"1314520", @"a1b2c3", @"123qwe", @"aaa111", @"qweasd", @"admin", @"passwd"];
+    [commonUsers enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqualToString:self] || [obj containsString:self]) {
+            level --;
+            *stop = YES;
+        }
+    }];
+    if (len <= 6) {
+        level--;
+        if (len <= 4) {
+            level--;
+            if (len <= 3) {
+                level = 0;
+            }
+        }
+    }
+    if (level < 0) {
+        level = 0;
+    }
+    return level;
+}
+
 #pragma mark - 文本相关
 /// 获取文本宽度
-- (CGFloat)kj_maxWidthWithFont:(UIFont *)font Height:(CGFloat)height Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
-    return [self kj_sizeWithFont:font Size:CGSizeMake(CGFLOAT_MAX, height) Alignment:alignment LinebreakMode:linebreakMode LineSpace:lineSpace].width;
+- (CGFloat)kj_maxWidthWithFont:(UIFont *)font
+                        Height:(CGFloat)height
+                     Alignment:(NSTextAlignment)alignment
+                 LinebreakMode:(NSLineBreakMode)linebreakMode
+                     LineSpace:(CGFloat)lineSpace{
+    return [self kj_sizeWithFont:font
+                            Size:CGSizeMake(CGFLOAT_MAX, height)
+                       Alignment:alignment
+                   LinebreakMode:linebreakMode
+                       LineSpace:lineSpace].width;
 }
 /// 获取文本高度
-- (CGFloat)kj_maxHeightWithFont:(UIFont *)font Width:(CGFloat)width Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
-    return [self kj_sizeWithFont:font Size:CGSizeMake(width, CGFLOAT_MAX) Alignment:alignment LinebreakMode:linebreakMode LineSpace:lineSpace].height;
+- (CGFloat)kj_maxHeightWithFont:(UIFont *)font
+                          Width:(CGFloat)width
+                      Alignment:(NSTextAlignment)alignment
+                  LinebreakMode:(NSLineBreakMode)linebreakMode
+                      LineSpace:(CGFloat)lineSpace{
+    return [self kj_sizeWithFont:font
+                            Size:CGSizeMake(width, CGFLOAT_MAX)
+                       Alignment:alignment
+                   LinebreakMode:linebreakMode
+                       LineSpace:lineSpace].height;
 }
-- (CGSize)kj_sizeWithFont:(UIFont *)font Size:(CGSize)size Alignment:(NSTextAlignment)alignment LinebreakMode:(NSLineBreakMode)linebreakMode LineSpace:(CGFloat)lineSpace{
+- (CGSize)kj_sizeWithFont:(UIFont *)font
+                     Size:(CGSize)size
+                Alignment:(NSTextAlignment)alignment
+            LinebreakMode:(NSLineBreakMode)linebreakMode
+                LineSpace:(CGFloat)lineSpace{
     if (self.length == 0) return CGSizeZero;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = linebreakMode;
     paragraphStyle.alignment = alignment;
     if (lineSpace > 0) paragraphStyle.lineSpacing = lineSpace;
     NSDictionary *attributes = @{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle};
-    CGSize newSize = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:NULL].size;
+    CGSize newSize = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine
+                                     attributes:attributes context:NULL].size;
     return CGSizeMake(ceil(newSize.width), ceil(newSize.height));
 }
 /// 计算字符串高度尺寸，spacing为行间距
@@ -298,7 +572,10 @@ NSArray<NSString*>* kDoraemonBoxAlphabetSort(NSArray<NSString*>* array){
     CGContextSetFillColorWithColor(context, color.CGColor);
     CGContextFillRect(context, bounds);
     CGSize textSize = [self sizeWithAttributes:attributes];
-    [self drawInRect:CGRectMake(bounds.size.width/2-textSize.width/2, bounds.size.height/2-textSize.height/2, textSize.width, textSize.height) withAttributes:attributes];
+    [self drawInRect:CGRectMake(bounds.size.width/2-textSize.width/2,
+                                bounds.size.height/2-textSize.height/2,
+                                textSize.width,
+                                textSize.height) withAttributes:attributes];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;

@@ -32,7 +32,7 @@
 }
 
 - (void)kj_hideRedBadgeOnItemIndex:(NSInteger)index{
-    UIView *view = [self viewWithTag:888+index];
+    UIView *view = [self viewWithTag:888 + index];
     [view removeFromSuperview];
 }
 

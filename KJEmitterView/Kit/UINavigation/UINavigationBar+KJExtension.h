@@ -26,7 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)kj_resetNavigationBarSystem;
 
 //************************  自定义导航栏相关  ************************
-/// 更改导航栏颜色和图片
+/// 更改导航栏
+/// @param image 导航栏图片
+/// @param color 导航栏背景色
 - (instancetype)kj_customNavgationBackImage:(UIImage *_Nullable)image
                                  background:(UIColor *_Nullable)color;
 /// 更改透明度

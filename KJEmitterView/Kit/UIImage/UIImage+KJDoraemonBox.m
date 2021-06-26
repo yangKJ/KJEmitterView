@@ -817,7 +817,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return resultImage;
 }
 /// 图片多次合成处理
-- (UIImage *)kj_imageCompoundWithLoopNums:(NSInteger)loopNums Orientation:(UIImageOrientation)orientation{
+- (UIImage *)kj_imageCompoundWithLoopNums:(NSInteger)loopNums orientation:(UIImageOrientation)orientation{
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
     CGFloat X = 0,Y = 0;
     switch (orientation) {
@@ -897,7 +897,7 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
     return newImage;
 }
 /// 图片拼接艺术
-- (UIImage *)kj_jointImageWithJointType:(KJJointImageType)type Size:(CGSize)size Maxw:(CGFloat)maxw{
+- (UIImage *)kj_jointImageWithJointType:(KJJointImageType)type size:(CGSize)size maxwidth:(CGFloat)maxw{
     CGFloat scale = [UIScreen mainScreen].scale;
     const size_t width = size.width * scale, height = size.height * scale;
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
@@ -963,9 +963,9 @@ void kPlayGifImageData(void(^xxblock)(bool isgif, UIImage * image), NSData *data
 }
 /// 异步图片拼接处理
 - (void)kj_asyncJointImage:(void(^)(UIImage *image))block
-                 JointType:(KJJointImageType)type
-                      Size:(CGSize)size
-                      Maxw:(CGFloat)maxw{
+                 jointType:(KJJointImageType)type
+                      size:(CGSize)size
+                      maxwidth:(CGFloat)maxw{
     UIImage *selfImage = self;
     CGFloat scale = [UIScreen mainScreen].scale;
     const size_t width = size.width * scale, height = size.height * scale;

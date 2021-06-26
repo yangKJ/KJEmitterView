@@ -22,9 +22,12 @@ typedef NS_ENUM(NSInteger, KJAdaptModelType) {
 //    KJAdaptTypeIPhone12ProMax,/// 6.7英寸，
 };
 @protocol KJResponderAdaptProtocol <NSObject>
+
 /// 设计图机型，只需要在最初的地方调用一次即可
 + (void)kj_adaptModelType:(KJAdaptModelType)type;
+
 @end
+
 @interface UIResponder (KJAdapt)<KJResponderAdaptProtocol>
 /// 水平比例适配
 CGFloat KJAdaptScaleLevel(CGFloat level);
@@ -52,7 +55,6 @@ UIEdgeInsets KJAdaptEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CG
 - (UIResponder*)kj_responderWithClass:(Class)clazz;
 ///
 - (BOOL)kj_responderSendAction:(SEL)action Sender:(id)sender;
-
 
 @end
 

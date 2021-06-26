@@ -42,7 +42,7 @@ KJButtonAction(KJ_X_UIControlEventTouchCancel);
 }
 /// 添加事件
 - (void)kj_addAction:(KJButtonBlock)block forControlEvents:(UIControlEvents)controlEvents{
-    if (block == nil || controlEvents>(1<<8)) return;
+    if (block == nil || controlEvents > (1<<8)) return;
     if (controlEvents != UIControlEventTouchDown && (controlEvents&1)) return;
     NSString *actionName = [@"kj_action" stringByAppendingFormat:@"%@",KJButtonControlEventsStringMap[controlEvents]];
     SEL selector = NSSelectorFromString(actionName);

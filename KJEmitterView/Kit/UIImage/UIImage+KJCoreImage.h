@@ -48,9 +48,11 @@ static NSString * const _Nonnull KJCoreImagePhotoshopTypeStringMap[] = {
 - (UIImage *)kj_coreImagePhotoshopWithType:(KJCoreImagePhotoshopType)type Value:(CGFloat)value;
 /// 通用方法 - 传入滤镜过滤器名称 和 需要的参数
 - (UIImage *)kj_coreImageCustomWithName:(NSString*_Nonnull)name Dicts:(NSDictionary*_Nullable)dicts;
-/// 调整图像的色调映射，同时保留空间细节（高光和阴影）
-- (UIImage *)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)HighlightAmount
-                                               ShadowAmount:(CGFloat)ShadowAmount;
+/// 调整图像的色调映射
+/// @param highlight 高光
+/// @param shadow 阴影
+- (UIImage *)kj_coreImageHighlightShadowWithHighlightAmount:(CGFloat)highlight
+                                               shadowAmount:(CGFloat)shadow;
 /// 将图片里面的黑色变透明
 - (UIImage *)kj_coreImageBlackMaskToAlpha;
 /// 马赛克
@@ -88,18 +90,34 @@ static NSString * const _Nonnull KJCoreImagePhotoshopTypeStringMap[] = {
 
 #pragma mark - 二维码/条形码生成器
 /// 将字符串转成条形码
+/// @param content 二维码内容
+/// @return 返回二维码图片
 + (UIImage *)kj_barCodeImageWithContent:(NSString *)content;
 /// 生成二维码
+/// @param content 二维码内容
+/// @param size 二维码尺寸
+/// @return 返回二维码图片
 + (UIImage *)kj_QRCodeImageWithContent:(NSString *)content
                          codeImageSize:(CGFloat)size;
 /// 生成指定颜色二维码
+/// @param content 二维码内容
+/// @param size 二维码尺寸
+/// @param color 二维码颜色
+/// @return 返回二维码图片
 + (UIImage *)kj_QRCodeImageWithContent:(NSString *)content
                          codeImageSize:(CGFloat)size
                                  color:(UIColor *)color;
 /// 生成条形码
+/// @param content 条形码内容
+/// @param size 条形码尺寸
+/// @return 返回条形码图片
 + (UIImage *)kj_barcodeImageWithContent:(NSString *)content
                           codeImageSize:(CGFloat)size;
 /// 生成指定颜色条形码
+/// @param content 条形码内容
+/// @param size 条形码尺寸
+/// @param color 条形码颜色
+/// @return 返回条形码图片
 + (UIImage *)kj_barcodeImageWithContent:(NSString *)content
                           codeImageSize:(CGFloat)size
                                   color:(UIColor *)color;
@@ -108,8 +126,15 @@ static NSString * const _Nonnull KJCoreImagePhotoshopTypeStringMap[] = {
 /// 改变图片内部像素颜色
 - (UIImage *)kj_changeImagePixelColor:(UIColor *)color;
 /// 异步生成二维码
+/// @param codeImage 生成二维码回调
+/// @param content 二维码内容
+/// @param size 二维码尺寸
 void kQRCodeImage(void(^codeImage)(UIImage * image), NSString *content, CGFloat size);
 /// 异步生成指定颜色二维码
+/// @param codeImage 生成二维码回调
+/// @param content 二维码内容
+/// @param size 二维码尺寸
+/// @param color 二维码颜色
 void kQRCodeImageFromColor(void(^codeImage)(UIImage * image), NSString *content, CGFloat size, UIColor *color);
 
 @end

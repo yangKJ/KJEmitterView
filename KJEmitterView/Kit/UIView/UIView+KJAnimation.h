@@ -19,13 +19,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 动画组
 - (CAAnimationGroup*)kj_animationMoreAnimations:(NSArray<CABasicAnimation*>*)animations;
 /// 旋转动画效果
-- (CABasicAnimation*)kj_animationRotateClockwise:(BOOL)clockwise makeParameter:(void(^)(KJAnimationManager *make))parameter;
+- (CABasicAnimation*)kj_animationRotateClockwise:(BOOL)clockwise
+                                   makeParameter:(void(^)(KJAnimationManager *make))parameter;
 /// 移动动画效果
-- (CABasicAnimation*)kj_animationMovePoint:(CGPoint)point makeParameter:(void(^)(KJAnimationManager *make))parameter;
+- (CABasicAnimation*)kj_animationMovePoint:(CGPoint)point
+                             makeParameter:(void(^)(KJAnimationManager *make))parameter;
 /// 缩放动画效果
-- (CABasicAnimation*)kj_animationZoomMultiple:(CGFloat)multiple makeParameter:(void(^)(KJAnimationManager *make))parameter;
+- (CABasicAnimation*)kj_animationZoomMultiple:(CGFloat)multiple
+                                makeParameter:(void(^)(KJAnimationManager *make))parameter;
 /// 渐隐动画效果
-- (CABasicAnimation*)kj_animationOpacity:(CGFloat)opacity makeParameter:(void(^)(KJAnimationManager *make))parameter;
+- (CABasicAnimation*)kj_animationOpacity:(CGFloat)opacity
+                           makeParameter:(void(^)(KJAnimationManager *make))parameter;
 
 @end
 @interface KJAnimationManager : NSObject

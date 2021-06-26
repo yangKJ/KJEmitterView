@@ -16,12 +16,18 @@ typedef NS_ENUM (NSInteger, KJAlertViewType){
 typedef void(^KJAlertBlock)(NSInteger index);
 @interface KJAlertView : UIView
 /// 初始化
+/// @param type 显示位置
+/// @param title 标题
+/// @param content 内容
+/// @param array 数据源
+/// @param alertBlock 配置其他信息回调
+/// @param block 点击回调
 + (instancetype)createAlertViewWithType:(KJAlertViewType)type
-                                  Title:(NSString *)title
-                                Content:(NSString *)content
-                              DataArray:(NSArray *)array
-                                  Block:(void(^)(KJAlertView *obj))objblock
-                             AlertBlock:(KJAlertBlock)block;
+                                  title:(NSString *)title
+                                content:(NSString *)content
+                              dataArray:(NSArray *)array
+                             alertBlock:(void(^)(KJAlertView *obj))alertBlock
+                              withBlock:(KJAlertBlock)block;
 
 /// 移出
 - (void)kj_Dissmiss;

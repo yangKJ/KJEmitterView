@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface UIDevice (KJSystem)
 /// App版本号
 @property(nonatomic,strong,class)NSString *appCurrentVersion;
@@ -26,10 +27,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong,class)NSString *launchImageCachePath;
 /// 启动图备份文件路径
 @property(nonatomic,strong,class)NSString *launchImageBackupPath;
-/// 生成启动图
+/// 生成启动图，默认LaunchScreen中获取
+/// @param portrait 是否竖屏
+/// @param dark 是否暗黑
+/// @return 返回启动图
 + (UIImage *)kj_launchImageWithPortrait:(BOOL)portrait
                                    Dark:(BOOL)dark;
-/// 生成启动图，根据LaunchScreen名称、是否竖屏、是否暗黑
+/// 生成启动图
+/// @param name LaunchScreen名称
+/// @param portrait 是否竖屏
+/// @param dark 是否暗黑
+/// @return 返回启动图
 + (UIImage *)kj_launchImageWithStoryboard:(NSString *)name
                                  Portrait:(BOOL)portrait
                                      Dark:(BOOL)dark;
@@ -39,7 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 对比版本号
 + (BOOL)kj_comparisonVersion:(NSString *)version;
+
 /// 获取AppStore版本号和详情信息
+/// @param appid App商店版账号
+/// @param block 数据信息
+/// @return 返回AppStore版本号
 + (NSString *)kj_getAppStoreVersionWithAppid:(NSString *)appid
                                      Details:(void(^)(NSDictionary *userInfo))block;
 

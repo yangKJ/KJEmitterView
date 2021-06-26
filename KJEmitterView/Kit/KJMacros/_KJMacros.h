@@ -13,7 +13,7 @@
 
 #pragma mark ********** 1.缩写 ************
 #define kApplication        [UIApplication sharedApplication]
-#define kAppDelegate        [UIApplication sharedApplication].delegate  // AppDelegate
+#define kAppDelegate        [UIApplication sharedApplication].delegate // AppDelegate
 #define kNotificationCenter [NSNotificationCenter defaultCenter] // 通知中心
 #define kPostNotification(name,obj,info) [kNotificationCenter postNotificationName:name object:obj userInfo:info] // 发送通知
 #define kMethodDeprecated(instead) DEPRECATED_MSG_ATTRIBUTE("Please use " # instead " instead") // 方法失效
@@ -41,7 +41,7 @@ window;})
 // 字符串拼接
 #define kStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 // block相关宏
-#define kBlockSafeRun(block, ...) block ? block(__VA_ARGS__) : nil
+#define kBlockSafeRun(block,...) block ? block(__VA_ARGS__) : nil
 // 版本判定 大于等于某个版本
 #define kCurrentSystemVersion(version) ([[[UIDevice currentDevice] systemVersion] compare:@#version options:NSNumericSearch]!=NSOrderedAscending)
 // 获取时间间隔宏
@@ -93,7 +93,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }\
 (isPhoneX);})
 // tabBar height
-#define kTABBAR_HEIGHT (iPhoneX ? (49.f+34.f):49.f)
+#define kTABBAR_HEIGHT (iPhoneX ? (49.f + 34.f) : 49.f)
 // statusBar height
 #define kSTATUSBAR_HEIGHT (iPhoneX ? 44.0f : 20.f)
 // navigationBar height
@@ -111,7 +111,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 #define kAutoW(x)   (x * kScreenW / 375.0)
 #define kAutoH(x)   (x * kScreenH / 667.0)
 // 一个像素
-#define kOnePixel   (1/[UIScreen mainScreen].scale)
+#define kOnePixel   (1 / [UIScreen mainScreen].scale)
 
 #pragma mark ********** 6.颜色和图片相关  *********
 #define UIColorFromHEXA(hex,a)    [UIColor colorWithRed:((hex&0xFF0000)>>16)/255.0f green:((hex&0xFF00)>>8)/255.0f blue:(hex&0xFF)/255.0f alpha:a]
@@ -127,8 +127,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 #pragma mark ********** 7.系统默认字体设置和自选字体设置    *********
 #define kSystemFontSize(fontsize)       [UIFont systemFontOfSize:(fontsize)]
-#define kSystemBlodFontSize(fontsize)   [UIFont boldSystemFontOfSize:(fontsize)]
-#define kSystemItalicFontSize(fontsize) [UIFont italicSystemFontOfSize:(fontsize)]
 #define kFont(A)                        [UIFont systemFontOfSize:A]
 #define kFont_Blod(A)                   [UIFont boldSystemFontOfSize:A]
 #define kFont_Medium(A)                 [UIFont systemFontOfSize:A weight:UIFontWeightMedium]

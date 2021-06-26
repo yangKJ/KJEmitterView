@@ -9,13 +9,7 @@
 #import "UIImage+KJFloodFill.h"
 
 @implementation UIImage (KJFloodFill)
-/* 基于扫描线的泛洪算法，获取填充同颜色区域后的图片
- @param startPoint 相对于图片的起点
- @param newColor   填充的颜色
- @param tolerance  判断相邻颜色相同的容差值
- @param antialias  是否抗锯齿化
- @return           填充后的图片
- */
+/// 基于扫描线的泛洪算法，获取填充同颜色区域后的图片
 - (UIImage *)kj_FloodFillImageFromStartPoint:(CGPoint)startPoint
                                     NewColor:(UIColor *)newColor
                                    Tolerance:(CGFloat)tolerance
@@ -30,7 +24,7 @@
     NSUInteger bytesPerRow = CGImageGetBytesPerRow(imageRef);
     unsigned char *imageData = malloc(height * bytesPerRow);
     CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
-    if (kCGImageAlphaLast == (uint32_t)bitmapInfo || kCGImageAlphaFirst == (uint32_t)bitmapInfo){
+    if (kCGImageAlphaLast == (uint32_t)bitmapInfo || kCGImageAlphaFirst == (uint32_t)bitmapInfo) {
         bitmapInfo = (uint32_t)kCGImageAlphaPremultipliedLast;
     }
     CGContextRef context = CGBitmapContextCreate(imageData,

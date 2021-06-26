@@ -80,7 +80,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 /// 初始化
-+ (instancetype)createAlertViewWithType:(KJAlertViewType)type Title:(NSString *)title Content:(NSString *)content DataArray:(NSArray *)array Block:(void(^)(KJAlertView *obj))objblock AlertBlock:(KJAlertBlock)block{
++ (instancetype)createAlertViewWithType:(KJAlertViewType)type
+                                  title:(NSString *)title
+                                content:(NSString *)content
+                              dataArray:(NSArray *)array
+                             alertBlock:(void(^)(KJAlertView *obj))alertBlock
+                              withBlock:(KJAlertBlock)block{
     KJAlertView *obj = [[KJAlertView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     obj.title = title;
@@ -90,8 +95,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     [obj _config];
     
-    if (objblock) {
-        objblock(obj);
+    if (alertBlock) {
+        alertBlock(obj);
     }
     
     [obj setUI];

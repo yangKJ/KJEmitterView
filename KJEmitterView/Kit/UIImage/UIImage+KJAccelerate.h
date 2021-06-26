@@ -27,10 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage *)kj_blurImageWithTintColor:(UIColor *)color;
 /// 线性模糊（保留透明区域）范围 0 ~ 1
 - (UIImage *)kj_linearBlurryImageBlur:(CGFloat)blur;
-/// 模糊处理（可设置模糊半径，模糊颜色，模糊蒙板）
+/// 模糊处理
+/// @param radius 模糊半径
+/// @param color 模糊颜色
+/// @param maskImage 模糊蒙板
+/// @return 返回模糊处理之后的图片
 - (UIImage *)kj_blurImageWithRadius:(CGFloat)radius
-                              Color:(UIColor *)color
-                          MaskImage:(UIImage* _Nullable)maskImage;
+                              color:(UIColor *)color
+                          maskImage:(UIImage* _Nullable)maskImage;
 
 #pragma mark - 形态学图像渲染
 /// 均衡运算
@@ -52,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 卷积处理
 /// 卷积处理
-- (UIImage *)kj_convolutionImageWithKernel:(int16_t*)kernel;
+- (UIImage *)kj_convolutionImageWithKernel:(int16_t *)kernel;
 /// 锐化
 - (UIImage *)kj_sharpenImage;
 /// 锐化

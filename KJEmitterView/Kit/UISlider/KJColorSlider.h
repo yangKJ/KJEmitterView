@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface KJColorSlider : UISlider
+
 /// 颜色数组，默认白色
 @property(nonatomic,strong) NSArray<UIColor*>*colors;
 /// 每个颜色对应的位置信息

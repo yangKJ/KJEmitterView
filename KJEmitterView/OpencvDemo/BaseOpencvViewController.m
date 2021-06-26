@@ -39,7 +39,7 @@
             info.isLeft = NO;
             info.barButton = ^(UIButton * _Nonnull barButton) {
                 [barButton setTitle:@"分享" forState:(UIControlStateNormal)];
-                barButton.titleLabel.font = kSystemBlodFontSize(16);
+                barButton.titleLabel.font = kFont_Blod(16);
             };
         }, ^(UIButton * _Nonnull kButton) {
             UIImage *image = [UIImage kj_captureScreen:weakself.view Rect:CGRectMake(0, kSTATUSBAR_NAVIGATION_HEIGHT, kScreenW, kScreenH-kSTATUSBAR_NAVIGATION_HEIGHT) Quality:3];

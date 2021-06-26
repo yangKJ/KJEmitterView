@@ -10,9 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface KJLoadLanguageViewController : UIViewController
+
 @property(nonatomic,strong)UIActivityIndicatorView *indicatorView;
 @property(nonatomic,assign)CGFloat time;
 @property(nonatomic,readwrite,copy)void(^loadEnd)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,6 +31,8 @@ IB_DESIGNABLE
 @property(nonatomic,assign)IBInspectable CGFloat periphery;
 
 #pragma mark - 扩大点击域
+/// 扩大统一点击域，支持Xib快捷设置
+@property(nonatomic,assign)IBInspectable CGFloat enlargeClick;
 /// 设置按钮额外热区
 @property(nonatomic,assign)UIEdgeInsets touchAreaInsets;
 /// 扩大点击域

@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^KJGestureRecognizerBlock)(UIView *view, UIGestureRecognizer *gesture);
 typedef NS_ENUM(NSUInteger, KJGestureType) {
     KJGestureTypeTap,       // 点击
@@ -22,9 +23,14 @@ typedef NS_ENUM(NSUInteger, KJGestureType) {
 };
 @interface UIView (KJGestureBlock)
 /// 单击手势
-- (UIGestureRecognizer*)kj_AddTapGestureRecognizerBlock:(KJGestureRecognizerBlock)block;
+/// @param block 手势响应回调
+/// @return 返回对应手势
+- (UIGestureRecognizer *)kj_AddTapGestureRecognizerBlock:(KJGestureRecognizerBlock)block;
 /// 手势处理
-- (UIGestureRecognizer*)kj_AddGestureRecognizer:(KJGestureType)type block:(KJGestureRecognizerBlock)block;
+/// @param type 手势类型
+/// @param block 手势响应回调
+/// @return 返回对应手势
+- (UIGestureRecognizer *)kj_AddGestureRecognizer:(KJGestureType)type block:(KJGestureRecognizerBlock)block;
 
 @end
 

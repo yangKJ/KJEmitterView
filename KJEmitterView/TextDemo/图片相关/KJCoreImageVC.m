@@ -31,7 +31,7 @@
                         weakself.Image.image = [weakself.Image.image kj_coreImageBlackMaskToAlpha];
                         break;
                     case 501:/// 高光阴影
-                        weakself.Image.image = [weakself.Image.image kj_coreImageHighlightShadowWithHighlightAmount:10 ShadowAmount:20];
+                        weakself.Image.image = [weakself.Image.image kj_coreImageHighlightShadowWithHighlightAmount:10 shadowAmount:20];
                         break;
                     case 502:
 //                        weakself.Image.image = [weakself.Image.image kj_drawingWithEdgeDetection];

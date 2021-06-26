@@ -48,9 +48,9 @@
     return result;
 }
 /// 是否开启侧滑返回手势
-- (void)kj_openPopGesture:(BOOL)open viewController:(UIViewController *)vc{
-    if ([vc.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        for (UIGestureRecognizer * popGesture in vc.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers) {
+- (void)kj_openPopGesture:(BOOL)open{
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        for (UIGestureRecognizer * popGesture in self.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers) {
             popGesture.enabled = open;
         }
     }

@@ -63,7 +63,7 @@
             effectColor = [UIColor colorWithRed:r green:g blue:b alpha:alpha];
         }
     }
-    return [self kj_blurImageWithRadius:20 Color:effectColor MaskImage:nil];
+    return [self kj_blurImageWithRadius:20 color:effectColor maskImage:nil];
 }
 /// 模糊处理保留透明区域，范围0 ~ 1
 - (UIImage *)kj_linearBlurryImageBlur:(CGFloat)blur{
@@ -130,7 +130,7 @@
     return returnImage;
 }
 /// 模糊处理
-- (UIImage *)kj_blurImageWithRadius:(CGFloat)radius Color:(UIColor *)color MaskImage:(UIImage* _Nullable)maskImage{
+- (UIImage *)kj_blurImageWithRadius:(CGFloat)radius color:(UIColor *)color maskImage:(UIImage* _Nullable)maskImage{
     CGRect imageRect = {CGPointZero, self.size};
     UIImage *effectImage = self;
     BOOL hasBlur = radius > __FLT_EPSILON__;

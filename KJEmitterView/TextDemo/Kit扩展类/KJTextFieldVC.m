@@ -31,7 +31,7 @@
     }];
     [tf kj_rightViewTapBlock:^(bool state) {
         tf.securePasswords = state;
-    } ImageName:@"button_like_norm" Width:20 Padding:10];
+    } imageName:@"button_like_norm" width:20 padding:10];
     
     UITextField *tf3 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(tf.frame)+10, kScreenW-40, 40)];
     tf3.backgroundColor = [UIColor.greenColor colorWithAlphaComponent:.4];
@@ -48,7 +48,7 @@
     [tf3 kj_rightViewTapBlock:^(bool state) {
         NSLog(@"%d",state);
         tf3.text = @"";
-    } ImageName:@"xxx" Width:15 Padding:10];
+    } imageName:@"xxx" width:15 padding:10];
     
     UITextField *tf2 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(tf3.frame)+10, kScreenW-40, 40)];
     tf2.font = kSystemFontSize(14);

@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, KJImageBlurType) {
 @class UIImageViewLettersInfo;
 @interface UIImageView (KJDoraemonBox)
 /// 显示文字图片
+/// @param text 文本
+/// @param block 设置缩略头像配置参数
 - (void)kj_imageViewWithText:(NSString *)text LettersInfo:(void(^)(UIImageViewLettersInfo *info))block;
 
 /// 浏览头像，点击全屏展示
@@ -26,9 +28,12 @@ typedef NS_ENUM(NSInteger, KJImageBlurType) {
 - (void)kj_headerImageShowScreenWithBackground:(UIColor *)color;
 
 /// 模糊处理
+/// @param type 模糊类型
+/// @param image 模糊图片
+/// @param radius 模糊半径
 - (void)kj_blurImageViewWithBlurType:(KJImageBlurType)type
-                           BlurImage:(UIImage *)image
-                          BlurRadius:(CGFloat)radius;
+                               image:(UIImage *)image
+                              radius:(CGFloat)radius;
 
 @end
 

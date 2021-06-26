@@ -34,18 +34,25 @@ IB_DESIGNABLE
 @property(nonatomic,copy,readwrite)void(^kTextEditingChangedBolck)(NSString *text);
 
 /// 设置左边视图，类似账号密码标题
-- (UIView *)kj_leftView:(void(^)(KJTextFieldLeftInfo *info))block;
+- (UIView *)kj_leftView:(void(^)(KJTextFieldLeftInfo * info))block;
 /// 设置右边视图，类似小圆叉
+/// @param block 点击事件响应
+/// @param imageName 图标名
+/// @param width 宽度
+/// @param padding 距离右边间距
 - (UIButton *)kj_rightViewTapBlock:(void(^_Nullable)(BOOL state))block
-                         ImageName:(NSString *)imageName
-                             Width:(CGFloat)width
-                           Padding:(CGFloat)padding;
+                         imageName:(NSString *)imageName
+                             width:(CGFloat)width
+                           padding:(CGFloat)padding;
 
 @end
 
+
 /// 左边视图的相关参数设置
 @interface KJTextFieldLeftInfo : NSObject
+/// 文本
 @property(nonatomic,strong)NSString *text;
+/// 图片名
 @property(nonatomic,strong)NSString *imageName;
 /// 文本颜色，默认控件字体颜色
 @property(nonatomic,strong)UIColor *textColor;
@@ -61,5 +68,7 @@ IB_DESIGNABLE
 @property(nonatomic,assign)KJTextAndImageStyle style;
 /// 图文间距，默认5px
 @property(nonatomic,assign)CGFloat padding;
+
 @end
+
 NS_ASSUME_NONNULL_END

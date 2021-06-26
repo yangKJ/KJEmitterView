@@ -87,7 +87,9 @@
 /// 设置圆角
 - (void)kj_setRoundWithRadius:(CGFloat)radius RectCorner:(UIRectCorner)corner{
     if (radius == 0) radius = 5;
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                   byRoundingCorners:corner
+                                                         cornerRadii:CGSizeMake(radius, radius)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = self.bounds;
     maskLayer.path = maskPath.CGPath;
@@ -117,7 +119,9 @@
     [self kj_setBorderWithWidth:self.kj_borderWidth BorderColor:self.kj_borderColor BorderOrientation:kj_borderOrientation];
 }
 /// 设置边框
-- (void)kj_setBorderWithWidth:(CGFloat)width BorderColor:(UIColor *)color BorderOrientation:(KJBorderOrientationType)orientation{
+- (void)kj_setBorderWithWidth:(CGFloat)width
+                  BorderColor:(UIColor *)color
+            BorderOrientation:(KJBorderOrientationType)orientation{
     if (orientation == UIRectEdgeNone) return;
     if (width == 0) width = 1.;
     if (color == nil) color = UIColor.blackColor;
@@ -154,13 +158,12 @@ static char kCALayerTagKey;
     }
 }
 #pragma mark - 渐变相关
-/* 返回渐变layer
- @param colors     渐变的颜色
- @param locations  渐变颜色的分割点
- @param startPoint 渐变颜色的方向起点,范围在（0,0）与（1,1）之间,如(0,0)(1,0)代表水平方向渐变,(0,0)(0,1)代表竖直方向渐变
- @param endPoint   渐变颜色的方向终点
- */
-- (CAGradientLayer *)kj_GradientLayerWithColors:(NSArray *)colors Frame:(CGRect)frm Locations:(NSArray *)locations StartPoint:(CGPoint)startPoint EndPoint:(CGPoint)endPoint{
+
+- (CAGradientLayer *)kj_gradientLayerWithColors:(NSArray *)colors
+                                          frame:(CGRect)frm
+                                      locations:(NSArray *)locations
+                                     startPoint:(CGPoint)startPoint
+                                       endPoint:(CGPoint)endPoint{
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     if (colors == nil || [colors isKindOfClass:[NSNull class]] || colors.count == 0){
         return nil;
@@ -181,22 +184,22 @@ static char kCALayerTagKey;
     gradientLayer.frame =  frm;
     return gradientLayer;
 }
-/* 生成渐变背景色
- @param colors     渐变的颜色
- @param locations  渐变颜色的分割点
- @param startPoint 渐变颜色的方向起点,范围在（0，0）与（1,1）之间,如(0,0)(1,0)代表水平方向渐变,(0,0)(0,1)代表竖直方向渐变
- @param endPoint   渐变颜色的方向终点
- */
-- (void)kj_GradientBgColorWithColors:(NSArray *)colors Locations:(NSArray *)locations StartPoint:(CGPoint)startPoint EndPoint:(CGPoint)endPoint{
-    CAGradientLayer *gradientLayer = [self kj_GradientLayerWithColors:colors Frame:self.bounds Locations:locations StartPoint:startPoint EndPoint:endPoint];
-    [self.layer insertSublayer:gradientLayer atIndex:0];
+
+- (void)kj_gradientBgColorWithColors:(NSArray *)colors
+                           locations:(NSArray *)locations
+                          startPoint:(CGPoint)startPoint
+                            endPoint:(CGPoint)endPoint{
+    CAGradientLayer *layer = [self kj_gradientLayerWithColors:colors
+                                                        frame:self.bounds
+                                                    locations:locations
+                                                   startPoint:startPoint
+                                                     endPoint:endPoint];
+    [self.layer insertSublayer:layer atIndex:0];
 }
-/* 虚线边框
- @param lineColor 线条颜色
- @param lineWidth 线宽
- @param spaceAry  线条之间间隔数组
- */
-- (void)kj_DashedLineColor:(UIColor *)lineColor lineWidth:(CGFloat)lineWidth spaceAry:(NSArray<NSNumber*>*)spaceAry {
+
+- (void)kj_dashedLineColor:(UIColor *)lineColor
+                 lineWidth:(CGFloat)lineWidth
+                spaceArray:(NSArray<NSNumber*>*)spaceAry {
     CAShapeLayer *borderLayer = [CAShapeLayer layer];
     borderLayer.bounds = CGRectMake(0, 0, self.frame.size.width , self.frame.size.height);
     borderLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
@@ -222,8 +225,11 @@ static char kCALayerTagKey;
 
 #pragma mark - 指定图形
 // 画直线
-- (void)kj_DrawLineWithPoint:(CGPoint)fPoint toPoint:(CGPoint)tPoint lineColor:(UIColor *)color lineWidth:(CGFloat)width{
-    CAShapeLayer* shapeLayer = [CAShapeLayer layer];
+- (void)kj_DrawLineWithPoint:(CGPoint)fPoint
+                     toPoint:(CGPoint)tPoint
+                   lineColor:(UIColor *)color
+                   lineWidth:(CGFloat)width{
+    CAShapeLayer * shapeLayer = [CAShapeLayer layer];
     shapeLayer.strokeColor = [UIColor lightGrayColor].CGColor;
     if (color) shapeLayer.strokeColor = color.CGColor;
     shapeLayer.fillColor = [UIColor clearColor].CGColor;
@@ -238,8 +244,13 @@ static char kCALayerTagKey;
 }
 
 // 画虚线
-- (void)kj_DrawDashLineWithPoint:(CGPoint)fPoint toPoint:(CGPoint)tPoint lineColor:(UIColor *)color lineWidth:(CGFloat)width lineSpace:(CGFloat)space lineType:(NSInteger)type{
-    CAShapeLayer* shapeLayer = [CAShapeLayer layer];
+- (void)kj_DrawDashLineWithPoint:(CGPoint)fPoint
+                         toPoint:(CGPoint)tPoint
+                       lineColor:(UIColor *)color
+                       lineWidth:(CGFloat)width
+                       lineSpace:(CGFloat)space
+                        lineType:(NSInteger)type{
+    CAShapeLayer * shapeLayer = [CAShapeLayer layer];
     shapeLayer.strokeColor = [UIColor lightGrayColor].CGColor;
     if (color) shapeLayer.strokeColor = color.CGColor;
     shapeLayer.fillColor = [UIColor clearColor].CGColor;
@@ -261,8 +272,11 @@ static char kCALayerTagKey;
     [self.layer addSublayer:shapeLayer];
 }
 
-- (void)kj_DrawPentagramWithCenter:(CGPoint)center radius:(CGFloat)radius color:(UIColor *)color rate:(CGFloat)rate{
-    CAShapeLayer* shapeLayer = [CAShapeLayer layer];
+- (void)kj_DrawPentagramWithCenter:(CGPoint)center
+                            radius:(CGFloat)radius
+                             color:(UIColor *)color
+                              rate:(CGFloat)rate{
+    CAShapeLayer * shapeLayer = [CAShapeLayer layer];
     shapeLayer.strokeColor = [UIColor clearColor].CGColor;
     shapeLayer.fillColor = [UIColor orangeColor].CGColor;
     if (color) {
@@ -291,7 +305,10 @@ static char kCALayerTagKey;
 }
 
 // 画正六边形
-- (void)kj_DrawSexangleWithWidth:(CGFloat)width LineWidth:(CGFloat)lineWidth StrokeColor:(UIColor *)color FillColor:(UIColor *)fcolor{
+- (void)kj_DrawSexangleWithWidth:(CGFloat)width
+                       LineWidth:(CGFloat)lineWidth
+                     StrokeColor:(UIColor *)color
+                       FillColor:(UIColor *)fcolor{
     //在绘制layer之前先把之前添加的layer移除掉，如果不这么做，你就会发现设置多次image 之后，本view的layer上就会有多个子layer，
     [self.layer.sublayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperlayer];
@@ -305,7 +322,13 @@ static char kCALayerTagKey;
 }
 
 // 根据宽高画八边形   px:放大px点个坐标  py:放大py点个坐标
-- (void)kj_DrawOctagonWithWidth:(CGFloat)width Height:(CGFloat)height LineWidth:(CGFloat)lineWidth StrokeColor:(UIColor *)color FillColor:(UIColor *)fcolor Px:(CGFloat)px Py:(CGFloat)py{
+- (void)kj_DrawOctagonWithWidth:(CGFloat)width
+                         Height:(CGFloat)height
+                      LineWidth:(CGFloat)lineWidth
+                    StrokeColor:(UIColor *)color
+                      FillColor:(UIColor *)fcolor
+                             Px:(CGFloat)px
+                             Py:(CGFloat)py{
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     shapeLayer.path = [self getOctagonCGPath:width Height:height Px:px Py:py];
     shapeLayer.strokeColor = color == nil ? [UIColor lightGrayColor].CGColor : color.CGColor;

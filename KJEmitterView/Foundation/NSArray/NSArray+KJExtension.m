@@ -83,6 +83,23 @@
         return array.mutableCopy;
     }
 }
+/// 映射和过滤数据
+- (NSArray *)kj_mapArray:(id _Nullable(^)(id object))map repetition:(BOOL)repetition{
+    @autoreleasepool {
+        NSMutableArray *array = [NSMutableArray array];
+        for (id object in self) {
+            id xx = map(object);
+            if (xx) [array addObject:xx];
+        }
+        if (repetition) {
+            NSSet * set = [NSSet setWithArray:array.mutableCopy];
+            return set.allObjects;
+        } else {
+            return array.mutableCopy;
+        }
+    }
+}
+
 //MARK: - 包含数据
 - (BOOL)kj_containsObject:(BOOL(^)(id object, NSUInteger index))contains{
     @autoreleasepool {

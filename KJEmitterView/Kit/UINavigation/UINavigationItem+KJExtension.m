@@ -25,11 +25,11 @@
 }
 
 - (UIBarButtonItem *)kj_barButtonItemWithTitle:(NSString *)title
-                                    TitleColor:(UIColor *)color
-                                         Image:(UIImage *)image
-                                     TintColor:(UIColor *)tintColor
-                                   ButtonBlock:(KJButtonBlock)block
-                                BarButtonBlock:(void(^)(UIButton *))bblock{
+                                    titleColor:(UIColor *)color
+                                         image:(UIImage *)image
+                                     tintColor:(UIColor *)tintColor
+                                   buttonBlock:(KJButtonBlock)block
+                                barButtonBlock:(void(^)(UIButton *))bblock{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     if (image) {
         if (tintColor) {
@@ -56,11 +56,11 @@
         KJNavigationItemInfo *info = [KJNavigationItemInfo new];
         if (xblock) xblock(info);
         UIBarButtonItem * barButtonItem = [self kj_barButtonItemWithTitle:info.title
-                                                               TitleColor:info.color
-                                                                    Image:[UIImage imageNamed:info.imageName]
-                                                                TintColor:info.tintColor
-                                                              ButtonBlock:block
-                                                           BarButtonBlock:info.barButton];
+                                                               titleColor:info.color
+                                                                    image:[UIImage imageNamed:info.imageName]
+                                                                tintColor:info.tintColor
+                                                              buttonBlock:block
+                                                           barButtonBlock:info.barButton];
         if (info.isLeft) {
             return self.kAddLeftBarButtonItem(barButtonItem);
         }else {
